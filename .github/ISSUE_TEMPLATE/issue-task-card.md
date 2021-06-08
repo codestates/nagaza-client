@@ -10,7 +10,7 @@ assignees: ''
 ### ISSUE
 - Group : 'client', 'server', 'sr'
 - Type : 'bug', 'feature', 'delete'
-- Deteail : fix actions from client redux
+- Detail : 
 
 ### TODO
 1. [ ] Job1
