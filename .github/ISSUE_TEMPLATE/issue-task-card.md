@@ -8,8 +8,8 @@ assignees: ''
 ---
 
 ### ISSUE
-- Group : 'client', 'server', 'sr'
-- Type : 'bug', 'feature', 'delete'
+- Group : `client`
+- Type : `bug`, `feature`, `delete`
 - Detail : 
 
 ### TODO
@@ -19,15 +19,15 @@ assignees: ''
 
 ### Estimated time
 > Pick one
-### '0.5h'
-### '1h'
-### '1.5h'
-### '2h'
-### '2.5h'
-### '3h'
+### `0.5h`
+### `1h`
+### `1.5h`
+### `2h`
+### `2.5h`
+### `3h`
 
 ### Labels
-- Estimated time : 'E:1h'
-- Group : 'client', 'server'
-- Spirnt : 'Sprint __NUMBER__'
-- Urgencty : 'High, 'Middle', 'Low'
+- Estimated time : `E:1h`
+- Group : `client`, `server`
+- Spirnt : `Sprint __NUMBER__`
+- Urgencty : `High`, `Middle`, `Low`
