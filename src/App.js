@@ -1,6 +1,6 @@
 import React from 'react';
 import GroupPage from './pages/GroupPage';
-import LandingPage from './pages/LandigPage';
+import LandingPage from './pages/LandingPage';
 import MyPage from './pages/MyPage';
 import logo from './logo.svg'
 import './App.css';
