@@ -1,0 +1,35 @@
+---
+name: Dev log Card
+about: 개발 일지 양식
+title: ''
+labels: ''
+assignees: ''
+
+---
+
+### DevLog
+- Name : `김형주`, `조양권`, `김혜현`, `조정현`
+- Group : `client`, `server`
+- Type : `devLog`
+- Detail : 
+
+### What I Did Today
+
+- Task Card Name
+1. [ ] 
+2. [ ] 
+3. [ ] 
+4. [ ]
+
+### 오늘 느낀점
+
+
+### 내일 해야할 일
+
+
+### 마일스톤 꼭 등록해주세요. ###
+
+### Labels
+- Group : `client`, `server`
+- Spirnt : `Sprint __NUMBER__`
+- Urgencty : `High`, `Middle`, `Low`
