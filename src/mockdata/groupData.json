@@ -1,0 +1,70 @@
+{
+  "data": [
+    {
+      "groupid": 1,
+      "groupInfo": {
+        "name": "z",
+        "category": "soccer",
+        "description": "축구하러 가자~~~",
+        "location": " ",
+        "start_date": "2021/05/06/19시",
+        "end_date": "2021/05/06/21시"
+      }
+    },
+    {
+      "groupid": 2,
+      "groupInfo": {
+        "name": "name",
+        "category": "baseball",
+        "description": "야구하러 가자~~~",
+        "location": " ",
+        "start_date": "2021/05/04/19시",
+        "end_date": "2021/05/04/20시"
+      }
+    },
+    {
+      "groupid": 3,
+      "groupInfo": {
+        "name": "name",
+        "category": "catchball",
+        "description": "캐치볼하러 가자~~~",
+        "location": " ",
+        "start_date": "2021/05/03/09시",
+        "end_date": "2021/05/03/12시"
+      }
+    },
+    {
+      "groupid": 4,
+      "groupInfo": {
+        "name": "name",
+        "category": "balling",
+        "description": "볼링하러 가자~~~",
+        "location": " ",
+        "start_date": "2021/05/06/19시",
+        "end_date": "2021/05/06/21시"
+      }
+    },
+    {
+      "groupid": 5,
+      "groupInfo": {
+        "name": "name",
+        "category": "soccer",
+        "description": "축구하러 가자~~~",
+        "location": " ",
+        "start_date": "2021/05/06/19시",
+        "end_date": "2021/05/06/21시"
+      }
+    },
+    {
+      "groupid": 6,
+      "groupInfo": {
+        "name": "name",
+        "category": "soccer",
+        "description": "축구하러 가자~~~",
+        "location": " ",
+        "start_date": "2021/05/06/19시",
+        "end_date": "2021/05/06/21시"
+      }
+    }
+  ]
+}
