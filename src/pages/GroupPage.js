@@ -13,7 +13,8 @@ class GroupPage extends Component {
       groupInfo: [],
       createGroupState: false,
       createGroupLocation: null,
-      isSerachModalOpen: false
+      isSerachModalOpen: false,
+      isCreateModalOpen: false
       //검색할 카테고리(ex. 활동, 위치, 시간)
       //카테고리의 키워드(ex. 활동-축구, 시간 -몇월, 몇일, 몇시)
     }
@@ -23,6 +24,9 @@ class GroupPage extends Component {
     this.createGroupHandle = this.createGroupHandle.bind(this)
     this.openSearchModal = this.openSearchModal.bind(this)
     this.closeSearchModal = this.closeSearchModal.bind(this)
+    this.openCreateModel = this.openCreateModel.bind(this)
+    this.closeCreateModel = this.closeCreateModel.bind(this)
+    this.getGroupLocation = this.getGroupLocation.bind(this)
   }
 
   openSearchModal = () => {
@@ -37,18 +41,37 @@ class GroupPage extends Component {
     })
   }
 
-  changeGroupState = (Lat) => {
+  openCreateModel = () => {
+    this.setState({
+      isCreateModalOpen: true
+    })
+  }
+
+  closeCreateModel = () => {
+    this.setState({
+      isCreateModalOpen: false
+    })
+  }
+
+  changeGroupState = () => {
     // console.log('경도 : ',Lat.La)
     // console.log("위도:", Lat.Ma)
     this.setState({
       createGroupState: true,
-      createGroupLocation: `${Lat.La},${Lat.Ma}`
+    })
+  }
+
+  getGroupLocation = (location) => {
+    this.setState({
+      createGroupLocation: location
     })
   }
 
   createGroupHandle = (createInfo) => {
     //post요청으로 그룹 생성
-    console.log(createInfo)
+    // console.log(createInfo)
+    const groupInfo = [this.state.createGroupLocation, ...[createInfo]]
+    console.log(groupInfo)
     //요청후
     this.setState({
       createGroupState: false
@@ -66,15 +89,15 @@ class GroupPage extends Component {
   render() {
     return (
       <div className={'group-page'}>
-        <SearchGroup getGroupInfo={this.getGroupInfo} close={this.closeSearchModal} isOpen={this.state.isSerachModalOpen}></SearchGroup>
         <div className={'upper-nav'}>
           <div className={'logo-in-group'}>Logo자리</div>
           <div className={'nav-in-group'} onClick={this.openSearchModal}>nav자리</div>
+          <SearchGroup getGroupInfo={this.getGroupInfo} close={this.closeSearchModal} isOpen={this.state.isSerachModalOpen}></SearchGroup>
           <div className={'profile-in-group'}>profile자리</div>
         </div>
         <div className={'middle-info-and-map'}>
           <GroupList groupInfo={this.state.groupInfo}>그룹 정보</GroupList>
-          <Map createGroupHandle={this.createGroupHandle} createGroupLocation={this.state.createGroupLocation} changeGroupState={this.changeGroupState} createGroupState={this.state.createGroupState}></Map>{/* 지도 창  */}
+          <Map getGroupLocation={this.getGroupLocation} close={this.closeCreateModel} open={this.openCreateModel} isOpen={this.state.isCreateModalOpen} createGroupHandle={this.createGroupHandle} createGroupLocation={this.state.createGroupLocation} changeGroupState={this.changeGroupState} createGroupState={this.state.createGroupState}></Map>{/* 지도 창  */}
         </div>
       </div>
     )

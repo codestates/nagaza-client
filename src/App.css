@@ -195,7 +195,17 @@
   background: rgba(0, 0, 0, 0.6);
   z-index: 1050;
 }
-.loginModal {
+.searchModal {
+  width: 40rem;
+  height: 48rem;
+  background-color: white;
+  position: relative;
+  box-sizing: border-box;
+  margin: 4rem auto;
+  padding: 1.5rem;
+  background: #fff;
+}
+.createModal {
   width: 40rem;
   height: 48rem;
   background-color: white;
@@ -219,6 +229,16 @@
   justify-content: center;
   flex-direction: column;
 }
-.map-info > *{
-  position: relative;
+.middle-info-and-map{
+  display: flex;
+  flex-direction: row;
+  margin : auto;
+  height: 80%;
+  width: 90%;
+}
+.group-info{
+  width: 60%;
+}
+.map-info{
+  width: 40%;
 }
