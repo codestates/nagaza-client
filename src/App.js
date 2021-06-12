@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import GroupPage from "./pages/GroupPage";
 import LandingPage from "./pages/LandingPage";
 import MyPage from "./pages/MyPage";
-import logo from "./logo.svg";
+// import logo from "./logo.svg";
+import axios from 'axios';
 import "./App.css";
 import {
   Switch,
@@ -40,8 +41,8 @@ class App extends Component {
     return (
       <div>
         <div>
-          {isConnected ? <div>서버에 연결되었습니다</div> : <div></div>}
-          {data ? <div>{data}</div> : <div>데이터를 받아오지 못했습니다</div>}
+          {/* {isConnected ? <div>서버에 연결되었습니다</div> : <div></div>}
+          {data ? <div>{data}</div> : <div>데이터를 받아오지 못했습니다</div>} */}
         </div>
         <BrowserRouter>
           <Switch>

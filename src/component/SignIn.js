@@ -17,19 +17,19 @@ export default function SignIn() {
         </div>
         <form className="signInForm">
           <span>이메일</span>
-          <input type="text" onChange={/*입력상태 갱신메서드*/}></input>
+          <input type="text" ></input>
           <span>패스워드</span>
-          <input type="text" onChange={/*입력상태 갱신메서드*/}></input>
+          <input type="text" ></input>
           <div className="nextBtn">로그인</div>
           <SigninErrorBox email={email} password={password}></SigninErrorBox>
         </form>
         <div className="socialSignInWrapper">
           <span>소셜 로그인</span>
-          <div className="socialSignInBtn" onClick={/*소셜 로그인 요청 메서드*/}>
+          <div className="socialSignInBtn" >
             <i>{/* 소셜로그인 로고 */}</i>
             <span>OOO로 로그인하기</span>
           </div>
-          <div className="signUpBtn" onClick={/*회원가입 모달창으로 변화 - 상태값 필요*/}>
+          <div className="signUpBtn" >
             <span>혹시 아직 가입하지 않으셨나요?</span>
           </div>
         </div>
