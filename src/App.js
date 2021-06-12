@@ -41,37 +41,37 @@ class App extends Component {
             .catch((err) => console.log(err));
     }
 
-<<<<<<< HEAD
-    render() {
-        const { isConnected, data } = this.state;
-        return (
-            <div>
-                <div>
-                    {isConnected ? (
-                        <div>서버에 연결되었습니다</div>
-                    ) : (
-                        <div></div>
-                    )}
-                    {data ? (
-                        <div>{data}</div>
-                    ) : (
-                        <div>데이터를 받아오지 못했습니다</div>
-                    )}
-                </div>
-                <BrowserRouter>
-                    <Switch>
-                        <Route
-                            path="/Landingpage"
-                            render={() => <LandingPage />}
-                        />
-                        <Route path="/Grouppage" render={() => <GroupPage />} />
-                        <Route path="/Mypage" render={() => <MyPage />} />
-                    </Switch>
-                </BrowserRouter>
-            </div>
-        );
-    }
-=======
+// <<<<<<< HEAD
+//     render() {
+//         const { isConnected, data } = this.state;
+//         return (
+//             <div>
+//                 <div>
+//                     {isConnected ? (
+//                         <div>서버에 연결되었습니다</div>
+//                     ) : (
+//                         <div></div>
+//                     )}
+//                     {data ? (
+//                         <div>{data}</div>
+//                     ) : (
+//                         <div>데이터를 받아오지 못했습니다</div>
+//                     )}
+//                 </div>
+//                 <BrowserRouter>
+//                     <Switch>
+//                         <Route
+//                             path="/Landingpage"
+//                             render={() => <LandingPage />}
+//                         />
+//                         <Route path="/Grouppage" render={() => <GroupPage />} />
+//                         <Route path="/Mypage" render={() => <MyPage />} />
+//                     </Switch>
+//                 </BrowserRouter>
+//             </div>
+//         );
+//     }
+// =======
   render() {
     const { isConnected, data } = this.state;
     return (
@@ -90,7 +90,7 @@ class App extends Component {
       </div>
     );
   }
->>>>>>> a6d4a2262e908e705350a6eae0b70c2509e58581
+// >>>>>>> a6d4a2262e908e705350a6eae0b70c2509e58581
 }
 
 export default App;
