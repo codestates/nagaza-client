@@ -10,6 +10,10 @@ export default function GroupListEntry(props) {
       <div>시작 시간 : {props.groupInfo.start_date}</div>
       <div>예상 종료 시간 : {props.groupInfo.end_date}</div>
       <div>--------------------</div>
+      <div>--------------------</div>
+      <div>--------------------</div>
+      <div>--------------------</div>
+      <div>--------------------</div>
     </div>
   );
 }

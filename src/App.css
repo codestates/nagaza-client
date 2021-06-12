@@ -238,7 +238,10 @@
 }
 .group-info{
   width: 60%;
+  overflow: auto;
+  margin :1rem
 }
 .map-info{
   width: 40%;
+  margin: 1rem;
 }
