@@ -151,3 +151,96 @@
     height: 60%;
     margin: auto;
 }
+.group-page{
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  background-color: grey;
+}
+.upper-nav{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 5rem;
+}
+.logo-in-group{
+  width: 3rem;
+  margin: auto;
+  margin-left: 1rem;
+  background-color: honeydew;
+  border-radius: 50%;
+}
+.nav-in-group{
+  width: 40rem;
+  height: 4rem;
+  margin: auto;
+  background-color: hotpink;
+  border-radius: 10%;
+}
+.profile-in-group{
+  width: 3rem;
+  margin: auto;
+  margin-right: 1rem;
+  background-color:indianred;
+  border-radius: 50%;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1050;
+}
+.searchModal {
+  width: 40rem;
+  height: 48rem;
+  background-color: white;
+  position: relative;
+  box-sizing: border-box;
+  margin: 4rem auto;
+  padding: 1.5rem;
+  background: #fff;
+}
+.createModal {
+  width: 40rem;
+  height: 48rem;
+  background-color: white;
+  position: relative;
+  box-sizing: border-box;
+  margin: 4rem auto;
+  padding: 1.5rem;
+  background: #fff;
+}
+.close {
+  float: right;
+  font-size: 25px;
+}
+.modalContents {
+  margin: 0 auto;
+  width: 100%;
+  position: relative;
+  padding: 0 20px 32px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.middle-info-and-map{
+  display: flex;
+  flex-direction: row;
+  margin : auto;
+  height: 80%;
+  width: 90%;
+}
+.group-info{
+  width: 60%;
+  overflow: auto;
+  margin :1rem
+}
+.map-info{
+  width: 40%;
+  margin: 1rem;
+}
