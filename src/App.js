@@ -17,6 +17,7 @@ class App extends Component {
   state = {
     isConnected: false,
     data: "",
+    admin :"김코딩"
   };
   constructor(props) {
     super(props);
@@ -48,7 +49,7 @@ class App extends Component {
           <Switch>
             <Route path="/Landingpage" render={() => <LandingPage />} />
             <Route path="/Grouppage" render={() => <GroupPage />} />
-            <Route path="/Mypage" render={() => <MyPage />} />
+            <Route path="/Mypage" render={() => <MyPage admin={this.state.admin}/>} />
           </Switch>
         </BrowserRouter>
       </div>
