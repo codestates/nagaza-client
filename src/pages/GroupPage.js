@@ -5,6 +5,7 @@ import data from "../mockdata/groupData.json"
 import Nav from "../component/Nav";
 import Map from "../component/Map";
 import SearchGroup from "../component/SearchGroup.js"
+import Header from "../component/Header";
 
 class GroupPage extends Component {
   constructor(props) {
@@ -89,12 +90,13 @@ class GroupPage extends Component {
   render() {
     return (
       <div className={'group-page'}>
-        <div className={'upper-nav'}>
+        {/* <div className={'upper-nav'}>
           <div className={'logo-in-group'}>Logo자리</div>
           <div className={'nav-in-group'} onClick={this.openSearchModal}>nav자리</div>
           <SearchGroup getGroupInfo={this.getGroupInfo} close={this.closeSearchModal} isOpen={this.state.isSerachModalOpen}></SearchGroup>
           <div className={'profile-in-group'}>profile자리</div>
-        </div>
+        </div> */}
+        <Header></Header>
         <div className={'middle-info-and-map'}>
           <GroupList groupInfo={this.state.groupInfo}>그룹 정보</GroupList>
           <Map getGroupLocation={this.getGroupLocation} close={this.closeCreateModel} open={this.openCreateModel} isOpen={this.state.isCreateModalOpen} createGroupHandle={this.createGroupHandle} createGroupLocation={this.state.createGroupLocation} changeGroupState={this.changeGroupState} createGroupState={this.state.createGroupState}></Map>{/* 지도 창  */}

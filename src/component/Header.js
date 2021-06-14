@@ -3,16 +3,17 @@ import Navigation from "../component/NavigationBar.js";
 import Logo from "../component/Logo.js";
 import Profile from "../component/Profile.js";
 import ProfileMenu from "../component/ProfileMenu.js";
-function Header() {
+function Header(props) {
+    // console.log(props)
     return (
         <>
             <div className="header">
                 <div>
                     <Logo></Logo>
                 </div>
-                <Navigation></Navigation>
+                <Navigation searchGroup ={props.searchGroup}></Navigation>
                 <div>
-                    <ProfileMenu></ProfileMenu>
+                    <ProfileMenu isSignIn={props.isSignIn} signIn={props.signIn} signOut = {props.signOut}></ProfileMenu>
                 </div>
             </div>
         </>

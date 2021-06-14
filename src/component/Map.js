@@ -45,10 +45,10 @@ const Map = (props) => {
       props.changeGroupState();
       props.getGroupLocation([latlng.getLat(), latlng.getLng()])
       props.open()
-      // console.log([latlng.getLat(), latlng.getLng()])
+      // console.log(props.isOpen)
     });
   }, []);
-
+console.log(props.isOpen)
   return (
     <div className={'map-info'} >
       {props.createGroupState ? (

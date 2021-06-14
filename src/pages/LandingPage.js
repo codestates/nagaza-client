@@ -17,7 +17,7 @@ class landingPage extends Component {
     render() {
         return (
             <>
-                <Header></Header>
+                <Header signIn = {this.props.signIn} signOut = {this.props.signOut} searchGroup = {this.props.searchGroup} isSignIn={this.props.isSignIn}></Header>
                 <div>
                     <div>
                         <span>반가워요</span>

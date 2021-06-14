@@ -3,6 +3,7 @@ import GroupPage from "./pages/GroupPage";
 import LandingPage from "./pages/LandingPage";
 import MyPage from "./pages/MyPage";
 // import logo from "./logo.svg";
+import data from "./mockdata/groupData.json"
 
 import axios from "axios";
 
@@ -18,12 +19,19 @@ import {
 class App extends Component {
 
   state = {
-    isConnected: false,
-    data: "",
-    admin: "김코딩"
+    isSignIn: false,
+    userInfo: [],
+    groupInfo: [],
+    searchGroupData: [],
+    isAdmin: false,
+    userAttendGroup: [],
+    userAdminGroup: []
   };
   constructor(props) {
     super(props);
+    this.searchGroup = this.searchGroup.bind(this)
+    this.signIn = this.signIn.bind(this)
+    this.signOut = this.signOut.bind(this)
   }
   componentDidMount() {
     axios
@@ -40,19 +48,36 @@ class App extends Component {
       .catch((err) => console.log(err));
   }
 
+  signIn = () => {
+    this.setState({
+      isSignIn: true,
+      userInfo: [],
+      groupInfo: []
+    })
+  }
+  signOut = () => {
+    this.setState({
+      isSignIn: false,
+      userInfo: [],
+      groupInfo: []
+    })
+  }
+
+  searchGroup = (searchInfo) => {
+    //그룹 검색
+    this.setState({
+      searchGroupData: data.data
+    }) // 서버에서 searchInfo토대로 그룹 검색
+  }
+
   render() {
-    const { isConnected, data } = this.state;
     return (
       <div>
-        <div>
-          {/* {isConnected ? <div>서버에 연결되었습니다</div> : <div></div>}
-          {data ? <div>{data}</div> : <div>데이터를 받아오지 못했습니다</div>} */}
-        </div>
         <BrowserRouter>
           <Switch>
-            <Route path="/Landingpage" render={() => <LandingPage />} />
-            <Route path="/Grouppage" render={() => <GroupPage />} />
-            <Route path="/Mypage" render={() => <MyPage admin={this.state.admin} />} />
+            <Route path="/Landingpage" render={() => <LandingPage signIn={this.signIn} signOut={this.signOut} searchGroup={this.searchGroup} isSignIn={this.state.isSignIn} />} />
+            <Route path="/Grouppage" render={() => <GroupPage searchGroup={this.searchGroup} />} />
+            <Route path="/Mypage" render={() => <MyPage userInfo={this.state.userInfo} groupInfo={this.state.groupInfo} isAdmin={this.state.isAdmin} />} />
           </Switch>
         </BrowserRouter>
       </div>
