@@ -3,22 +3,65 @@ import GroupPage from "./pages/GroupPage";
 import LandingPage from "./pages/LandingPage";
 import MyPage from "./pages/MyPage";
 // import logo from "./logo.svg";
-import data from "./mockdata/groupData.json"
+import data from "./mockdata/groupData.json";
 
 import axios from "axios";
 
 import "./App.css";
 import {
+<<<<<<< HEAD
+    Switch,
+    BrowserRouter,
+    Route,
+    Redirect,
+    withRouter,
+=======
   Switch,
   BrowserRouter,
   Route,
   Redirect,
   withRouter,
   useHistory
+>>>>>>> ffc5a39268ea479b55dcd3e514bbcbde76976cbb
 } from "react-router-dom";
 
 class App extends Component {
+    state = {
+        isSignIn: false,
+        userInfo: [],
+        groupInfo: [],
+        searchGroupData: [],
+        isAdmin: false,
+        userAttendGroup: [],
+        userAdminGroup: [],
+    };
+    constructor(props) {
+        super(props);
+        this.searchGroup = this.searchGroup.bind(this);
+        this.signIn = this.signIn.bind(this);
+        this.signOut = this.signOut.bind(this);
+    }
+    componentDidMount() {
+        axios
+            .get(
+                "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
+                {
+                    withCredentials: true,
+                }
+            )
+            .then((res) => {
+                console.log(res);
+                this.setState({
+                    isConnected: true,
+                    data: res.data,
+                });
+            })
+            .catch((err) => console.log(err));
+    }
 
+<<<<<<< HEAD
+    signIn = () => {
+=======
   state = {
     isSignIn: true,
     userInfo: [],
@@ -42,28 +85,20 @@ class App extends Component {
       })
       .then((res) => {
         // console.log(res);
-        this.setState({
-          isConnected: true,
-          data: res.data,
-        });
-      })
-      .catch((err) => console.log(err));
-  }
 
-  signIn = () => {
-    this.setState({
-      isSignIn: true,
-      userInfo: [],
-      groupInfo: []
-    })
-  }
-  signOut = () => {
-    this.setState({
-      isSignIn: false,
-      userInfo: [],
-      groupInfo: []
-    })
-  }
+        this.setState({
+            isSignIn: true,
+            userInfo: [],
+            groupInfo: [],
+        });
+    };
+    signOut = () => {
+        this.setState({
+            isSignIn: false,
+            userInfo: [],
+            groupInfo: [],
+        });
+    };
 
   searchGroup = (searchInfo) => {
     //그룹 검색

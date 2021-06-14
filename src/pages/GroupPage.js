@@ -1,7 +1,7 @@
 // import logo from './logo.svg';
 import React, { Component } from "react";
 import GroupList from "../component/GroupList";
-import data from "../mockdata/groupData.json"
+import data from "../mockdata/groupData.json";
 import Nav from "../component/Nav";
 import Map from "../component/Map";
 // import SearchGroup from "../component/SearchGroup.js"
@@ -30,44 +30,61 @@ class GroupPage extends Component {
     this.getGroupLocation = this.getGroupLocation.bind(this)
   }
 
-  openSearchModal = () => {
-    this.setState({
-      isSerachModalOpen: true
-    })
-  }
+    openSearchModal = () => {
+        this.setState({
+            isSerachModalOpen: true,
+        });
+    };
 
-  closeSearchModal = () => {
-    this.setState({
-      isSerachModalOpen: false
-    })
-  }
+    closeSearchModal = () => {
+        this.setState({
+            isSerachModalOpen: false,
+        });
+    };
 
-  openCreateModel = () => {
-    this.setState({
-      isCreateModalOpen: true
-    })
-  }
+    openCreateModel = () => {
+        this.setState({
+            isCreateModalOpen: true,
+        });
+    };
 
-  closeCreateModel = () => {
-    this.setState({
-      isCreateModalOpen: false
-    })
-  }
+    closeCreateModel = () => {
+        this.setState({
+            isCreateModalOpen: false,
+        });
+    };
 
-  changeGroupState = () => {
-    // console.log('경도 : ',Lat.La)
-    // console.log("위도:", Lat.Ma)
-    this.setState({
-      createGroupState: true,
-    })
-  }
+    changeGroupState = () => {
+        // console.log('경도 : ',Lat.La)
+        // console.log("위도:", Lat.Ma)
+        this.setState({
+            createGroupState: true,
+        });
+    };
 
-  getGroupLocation = (location) => {
-    this.setState({
-      createGroupLocation: location
-    })
-  }
+    getGroupLocation = (location) => {
+        this.setState({
+            createGroupLocation: location,
+        });
+    };
 
+<<<<<<< HEAD
+    createGroupHandle = (createInfo) => {
+        //post요청으로 그룹 생성
+        // console.log(createInfo)
+        const groupInfo = [this.state.createGroupLocation, ...[createInfo]];
+        console.log(groupInfo);
+        //요청후
+        this.setState({
+            createGroupState: false,
+        });
+    };
+    getGroupInfo = () => {
+        this.setState({
+            groupInfo: data.data,
+        });
+    }; //state의 카테고리와 키워드를 nav에서 받아서 setstate
+=======
   createGroupHandle = (createInfo) => {
     //post요청으로 그룹 생성
     // console.log(createInfo)
@@ -83,19 +100,39 @@ class GroupPage extends Component {
   //     groupInfo: data.data
   //   })
   // }  //state의 카테고리와 키워드를 nav에서 받아서 setstate
+>>>>>>> ffc5a39268ea479b55dcd3e514bbcbde76976cbb
 
-
-
-
-  render() {
-    return (
-      <div className={'group-page'}>
-        {/* <div className={'upper-nav'}>
+    render() {
+        return (
+            <div className={"group-page"}>
+                {/* <div className={'upper-nav'}>
           <div className={'logo-in-group'}>Logo자리</div>
           <div className={'nav-in-group'} onClick={this.openSearchModal}>nav자리</div>
           <SearchGroup getGroupInfo={this.getGroupInfo} close={this.closeSearchModal} isOpen={this.state.isSerachModalOpen}></SearchGroup>
           <div className={'profile-in-group'}>profile자리</div>
         </div> */}
+<<<<<<< HEAD
+                <Header></Header>
+                <div className={"middle-info-and-map"}>
+                    <GroupList groupInfo={this.state.groupInfo}>
+                        그룹 정보
+                    </GroupList>
+                    <Map
+                        getGroupLocation={this.getGroupLocation}
+                        close={this.closeCreateModel}
+                        open={this.openCreateModel}
+                        isOpen={this.state.isCreateModalOpen}
+                        createGroupHandle={this.createGroupHandle}
+                        createGroupLocation={this.state.createGroupLocation}
+                        changeGroupState={this.changeGroupState}
+                        createGroupState={this.state.createGroupState}
+                    ></Map>
+                    {/* 지도 창  */}
+                </div>
+            </div>
+        );
+    }
+=======
         <Header signIn={this.props.signIn} signOut={this.props.signOut} searchGroup={this.props.searchGroup} isSignIn={this.props.isSignIn}></Header>
         <div className={'middle-info-and-map'}>
           <GroupList searchGroupData={this.props.searchGroupData}>그룹 정보</GroupList>
@@ -104,6 +141,7 @@ class GroupPage extends Component {
       </div>
     )
   }
+>>>>>>> ffc5a39268ea479b55dcd3e514bbcbde76976cbb
 }
 
 export default GroupPage;

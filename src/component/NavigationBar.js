@@ -11,7 +11,7 @@ export default function NavigationBar(props) {
     let [personNum, setPersonNum] = useState("");
     let [isOpenBox, setOpenBox] = useState([false, false, false]);
 
-    const history = useHistory()
+    const history = useHistory();
     //검색 기능시 서버에 요청하는 onClickEvent 메서드 필요
     //전체 Input이 ComboBox로 구성될지, 혹은 Input으로 구성될지 결정
 
@@ -23,11 +23,11 @@ export default function NavigationBar(props) {
     const searchGroup = () => {
         // 그룹 검색과 동시에 grouppage로 이동
         // console.log(location.pathname)
-        if(location.pathname === '/LandingPage'){
+        if (location.pathname === "/LandingPage") {
             // console.dir(history)
-            history.push('/grouppage')
+            history.push("/grouppage");
         }
-        props.searchGroup([locationCord, dateStart, dateEnd, personNum])
+        props.searchGroup([locationCord, dateStart, dateEnd, personNum]);
     };
     return (
         <>
@@ -96,13 +96,15 @@ export default function NavigationBar(props) {
                                 <option value="spanish">8</option>
                             </select>
                         </div>
-                        <div
-                            className="searchBtn"
-                            onClick={() => {
-                                searchGroup();
-                            }}
-                        >
-                            <i>검색아이콘</i>
+                        <div className="searchBtn-wrapper">
+                            <div
+                                className="searchBtn"
+                                onClick={() => {
+                                    searchGroup();
+                                }}
+                            >
+                                <i>검색</i>
+                            </div>
                         </div>
                     </div>
                 </div>
