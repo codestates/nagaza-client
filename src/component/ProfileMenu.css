@@ -1,7 +1,7 @@
 .menu {
     position: relative;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
@@ -15,8 +15,8 @@
     border-radius: 1rem;
 }
 .menu.expanded {
-    width: 4rem;
-    height: 4rem;
+    width: 10rem;
+    height: 1rem;
 }
 .menu span {
     /*white-space: nowrap;*/
@@ -70,7 +70,7 @@
     transition-delay: 0s;
 }
 .icon-menu {
-    order: -1;
+    order: 3;
     position: relative;
     display: flex;
     /*flex-direction: row;*/
@@ -79,7 +79,7 @@
     justify-items: center;
     width: 10px;
     height: 15px;
-    padding: 0.5rem;
+    padding: 1rem 0;
     cursor: pointer;
 }
 /* .icon, ::before, ::after 햄버거 메뉴 스타일 */

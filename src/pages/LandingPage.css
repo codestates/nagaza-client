@@ -1,0 +1,28 @@
+.lp-landingPage {
+    height: 300vh;
+}
+.lp-header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.lp-main-content {
+    margin-top: 5rem;
+    display: flex;
+    justify-content: space-evenly;
+}
+.lp-main-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.lp-main-content > div {
+    margin-left: 2rem;
+}
+.lp-main-content > div > div {
+    font-size: 3.2rem;
+    font-weight: bold;
+}
+.lp-main-content > div > img {
+    width: 50vw;
+}
