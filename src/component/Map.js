@@ -36,6 +36,8 @@ const Map = (props) => {
 
         infowindow.open(map, marker);
 
+        infowindow.open(map, marker);
+
         kakao.maps.event.addListener(map, "click", function (mouseEvent) {
             // 클릭한 위도, 경도 정보를 가져옵니다
             let latlng = mouseEvent.latLng;
@@ -48,7 +50,7 @@ const Map = (props) => {
             // console.log(props.isOpen)
         });
     }, []);
-    console.log(props.isOpen);
+    // console.log(props.isOpen)
     return (
         <div className={"map-info"}>
             {props.createGroupState ? (

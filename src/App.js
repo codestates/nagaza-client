@@ -9,11 +9,20 @@ import axios from "axios";
 
 import "./App.css";
 import {
+<<<<<<< HEAD
     Switch,
     BrowserRouter,
     Route,
     Redirect,
     withRouter,
+=======
+  Switch,
+  BrowserRouter,
+  Route,
+  Redirect,
+  withRouter,
+  useHistory
+>>>>>>> ffc5a39268ea479b55dcd3e514bbcbde76976cbb
 } from "react-router-dom";
 
 class App extends Component {
@@ -50,7 +59,33 @@ class App extends Component {
             .catch((err) => console.log(err));
     }
 
+<<<<<<< HEAD
     signIn = () => {
+=======
+  state = {
+    isSignIn: true,
+    userInfo: [],
+    groupInfo: [],
+    searchGroupData: [],
+    isAdmin: true,
+  };
+  constructor(props) {
+    super(props);
+    this.searchGroup = this.searchGroup.bind(this)
+    this.signIn = this.signIn.bind(this)
+    this.signOut = this.signOut.bind(this)
+    this.changeUserInfo = this.changeUserInfo.bind(this)
+    this.deleteGroup = this.deleteGroup.bind(this)
+    this.exitGroup = this.exitGroup.bind(this)
+  }
+  componentDidMount() {
+    axios
+      .get("http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        // console.log(res);
+
         this.setState({
             isSignIn: true,
             userInfo: [],
@@ -65,50 +100,46 @@ class App extends Component {
         });
     };
 
-    searchGroup = (searchInfo) => {
-        //그룹 검색
-        this.setState({
-            searchGroupData: data.data,
-        }); // 서버에서 searchInfo토대로 그룹 검색
-    };
+  searchGroup = (searchInfo) => {
+    //그룹 검색
+    this.setState({
+      searchGroupData: data.data
+    }) // 서버에서 searchInfo토대로 그룹 검색
+    // console.log(this.state.searchGroupData)
+  }
 
-    render() {
-        return (
-            <div>
-                <BrowserRouter>
-                    <Switch>
-                        <Route
-                            path="/Landingpage"
-                            render={() => (
-                                <LandingPage
-                                    signIn={this.signIn}
-                                    signOut={this.signOut}
-                                    searchGroup={this.searchGroup}
-                                    isSignIn={this.state.isSignIn}
-                                />
-                            )}
-                        />
-                        <Route
-                            path="/Grouppage"
-                            render={() => (
-                                <GroupPage searchGroup={this.searchGroup} />
-                            )}
-                        />
-                        <Route
-                            path="/Mypage"
-                            render={() => (
-                                <MyPage
-                                    userInfo={this.state.userInfo}
-                                    groupInfo={this.state.groupInfo}
-                                    isAdmin={this.state.isAdmin}
-                                />
-                            )}
-                        />
-                    </Switch>
-                </BrowserRouter>
-            </div>
-        );
-    }
+  changeUserInfo = (changeUserInfo) => {
+    this.setState({
+      userInfo: changeUserInfo
+    })
+  }
+
+  deleteGroup = () => {
+    this.setState({
+      isAdmin: false,
+      groupInfo: []
+    })
+  }
+
+  exitGroup = () => {
+    this.setState({
+      groupInfo : []
+    })
+  }
+
+  render() {
+    return (
+      <div>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/Landingpage" render={() => <LandingPage signIn={this.signIn} signOut={this.signOut} searchGroup={this.searchGroup} isSignIn={this.state.isSignIn} />} />
+            <Route path="/Grouppage" render={() => <GroupPage searchGroup={this.searchGroup} searchGroupData={this.state.searchGroupData} />} />
+            <Route path="/Mypage" render={() => <MyPage changeUserInfo = {this.changeUserInfo} deleteGroup = {this.deleteGroup} exitGroup = {this.exitGroup} isSignIn={this.state.isSignIn} userInfo={this.state.userInfo} groupInfo={this.state.groupInfo} isAdmin={this.state.isAdmin} />} />
+          </Switch>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
 export default App;

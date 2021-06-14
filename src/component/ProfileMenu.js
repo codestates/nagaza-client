@@ -1,4 +1,5 @@
 import React, { Component, useEffect, useState } from "react"; // 프로필 클릭시 옵션 모달창
+import { useHistory } from "react-router-dom";
 import "./ProfileMenu.css";
 import ProfileModal from "./ProfileModal.js";
 export default function ProfileMenu(props) {
@@ -9,6 +10,7 @@ export default function ProfileMenu(props) {
     const [isLogin, setLogin] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalHeader, setModalHeader] = useState("");
+    const history = useHistory()
 
     const openModal = () => {
         setModalOpen(true);

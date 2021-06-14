@@ -4,31 +4,31 @@ import GroupList from "../component/GroupList";
 import data from "../mockdata/groupData.json";
 import Nav from "../component/Nav";
 import Map from "../component/Map";
-import SearchGroup from "../component/SearchGroup.js";
+// import SearchGroup from "../component/SearchGroup.js"
 import Header from "../component/Header";
 
 class GroupPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            groupInfo: [],
-            createGroupState: false,
-            createGroupLocation: null,
-            isSerachModalOpen: false,
-            isCreateModalOpen: false,
-            //검색할 카테고리(ex. 활동, 위치, 시간)
-            //카테고리의 키워드(ex. 활동-축구, 시간 -몇월, 몇일, 몇시)
-        };
-        this.getGroupInfo = this.getGroupInfo.bind(this);
-        // this.serachGroup = this.serachGroup.bind(this)
-        this.changeGroupState = this.changeGroupState.bind(this);
-        this.createGroupHandle = this.createGroupHandle.bind(this);
-        this.openSearchModal = this.openSearchModal.bind(this);
-        this.closeSearchModal = this.closeSearchModal.bind(this);
-        this.openCreateModel = this.openCreateModel.bind(this);
-        this.closeCreateModel = this.closeCreateModel.bind(this);
-        this.getGroupLocation = this.getGroupLocation.bind(this);
+  constructor(props) {
+    super(props)
+    this.state = {
+      searchGroupData: props.searchGroupData,
+      createGroupState: false,
+      createGroupLocation: null,
+      isSerachModalOpen: false,
+      isCreateModalOpen: false
+      //검색할 카테고리(ex. 활동, 위치, 시간)
+      //카테고리의 키워드(ex. 활동-축구, 시간 -몇월, 몇일, 몇시)
     }
+    // this.getGroupInfo = this.getGroupInfo.bind(this)
+    // this.serachGroup = this.serachGroup.bind(this)
+    this.changeGroupState = this.changeGroupState.bind(this)
+    this.createGroupHandle = this.createGroupHandle.bind(this)
+    this.openSearchModal = this.openSearchModal.bind(this)
+    this.closeSearchModal = this.closeSearchModal.bind(this)
+    this.openCreateModel = this.openCreateModel.bind(this)
+    this.closeCreateModel = this.closeCreateModel.bind(this)
+    this.getGroupLocation = this.getGroupLocation.bind(this)
+  }
 
     openSearchModal = () => {
         this.setState({
@@ -68,6 +68,7 @@ class GroupPage extends Component {
         });
     };
 
+<<<<<<< HEAD
     createGroupHandle = (createInfo) => {
         //post요청으로 그룹 생성
         // console.log(createInfo)
@@ -83,6 +84,23 @@ class GroupPage extends Component {
             groupInfo: data.data,
         });
     }; //state의 카테고리와 키워드를 nav에서 받아서 setstate
+=======
+  createGroupHandle = (createInfo) => {
+    //post요청으로 그룹 생성
+    // console.log(createInfo)
+    const groupInfo = [this.state.createGroupLocation, ...[createInfo]]
+    console.log(groupInfo)
+    //요청후
+    this.setState({
+      createGroupState: false
+    })
+  }
+  // getGroupInfo = () => {
+  //   this.setState({
+  //     groupInfo: data.data
+  //   })
+  // }  //state의 카테고리와 키워드를 nav에서 받아서 setstate
+>>>>>>> ffc5a39268ea479b55dcd3e514bbcbde76976cbb
 
     render() {
         return (
@@ -93,6 +111,7 @@ class GroupPage extends Component {
           <SearchGroup getGroupInfo={this.getGroupInfo} close={this.closeSearchModal} isOpen={this.state.isSerachModalOpen}></SearchGroup>
           <div className={'profile-in-group'}>profile자리</div>
         </div> */}
+<<<<<<< HEAD
                 <Header></Header>
                 <div className={"middle-info-and-map"}>
                     <GroupList groupInfo={this.state.groupInfo}>
@@ -113,6 +132,16 @@ class GroupPage extends Component {
             </div>
         );
     }
+=======
+        <Header signIn={this.props.signIn} signOut={this.props.signOut} searchGroup={this.props.searchGroup} isSignIn={this.props.isSignIn}></Header>
+        <div className={'middle-info-and-map'}>
+          <GroupList searchGroupData={this.props.searchGroupData}>그룹 정보</GroupList>
+          <Map getGroupLocation={this.getGroupLocation} close={this.closeCreateModel} open={this.openCreateModel} isOpen={this.state.isCreateModalOpen} createGroupHandle={this.createGroupHandle} createGroupLocation={this.state.createGroupLocation} changeGroupState={this.changeGroupState} createGroupState={this.state.createGroupState}></Map>{/* 지도 창  */}
+        </div>
+      </div>
+    )
+  }
+>>>>>>> ffc5a39268ea479b55dcd3e514bbcbde76976cbb
 }
 
 export default GroupPage;
