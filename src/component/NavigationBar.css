@@ -1,0 +1,28 @@
+.navigationWrapper {
+    display: flex;
+    height: 5rem;
+    width: 55rem;
+    background-color: blue;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+}
+.navigationSearch {
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: red;
+    width: 50rem;
+    height: 4rem;
+}
+.Search {
+    display: flex;
+    height: 3rem;
+    background-color: green;
+    flex-direction: row;
+}
+select {
+    width: 3rem;
+}

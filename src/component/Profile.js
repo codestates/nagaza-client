@@ -1,58 +1,35 @@
-import React from "react";
+import React, { Component, useEffect, useState } from "react";
+import ProfileModal from "./ProfileModal"; // 프로필 클릭시 옵션 모달창
+import "./Profile.css";
 
-export default class Profile extends Component {
-  constructor(props) {
-    super(props);
-  }
-  state = {
-    isLogin: false, //로그인 정보 필요
-    isClose: false, //모달창 오픈 이벤트 상태필요
-    userName: null, //유저정보 : OOO님 (필요한지 안필요한지?)
-  };
-  //onclick 이벤트 함수
-  render() {
-    
-    const { userName } = this.props;
-    const { isLogin } = this.state;
-    const { isOpen } = this.state;
+export default function Profile(props) {
+    // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const openModal = () => {
+        setModalOpen(true);
+    };
+    const closeModal = () => {
+        setModalOpen(false);
+    };
 
     return (
-      <>
-        <div className="profileBtn">
-          <div className="profileState">
-            {isLogin ? (
-              <div>
-                <i className="">세줄이미지</i>
-                <img className="loginProfile" src="#"></img>
-              </div>
-            ) : (
-              <div>
-                <i className="">세줄이미지</i>
-                <img className="notLoginProfile" src="#"></img>
-              </div>
-            )}
-          </div>
-          {isOpen ? (
-            <div>
-              <div className="signInBtn" onClick={/*로그인 요청 메서드*/}>
-                <span>로그인</span>
-              </div>
-              <div className="signUpBtn" onClick={/*회원가입 요청 메서드*/}>
-                <span>회원가입</span>
-              </div>
-            </div>
-          ) : (
-            <div>
-              <div className="myPageBtn" onClick={/*마이페이지 리디렉션 메서드*/}>
-                <span>마이페이지</span>
-              </div>
-              <div className="signOutBtn" onClick={/*로그아웃 요청 메서드*/}>
-                <span>로그아웃</span>
-              </div>
-            </div>
-          )}
-        </div>
-      </>
+        <>
+            <button
+                onClick={() => {
+                    openModal();
+                }}
+            >
+                모달팝업
+            </button>
+            내용을 입력하세요.
+            <ProfileModal
+                isOpen={modalOpen}
+                closeModal={closeModal}
+                header="모달창"
+            >
+                <main> 내용이 입력됩니다. </main>
+            </ProfileModal>
+        </>
     );
-  }
 }

@@ -3,7 +3,9 @@ import GroupPage from "./pages/GroupPage";
 import LandingPage from "./pages/LandingPage";
 import MyPage from "./pages/MyPage";
 // import logo from "./logo.svg";
-import axios from 'axios';
+
+import axios from "axios";
+
 import "./App.css";
 import {
   Switch,
@@ -14,10 +16,11 @@ import {
 } from "react-router-dom";
 
 class App extends Component {
+
   state = {
     isConnected: false,
     data: "",
-    admin :"김코딩"
+    admin: "김코딩"
   };
   constructor(props) {
     super(props);
@@ -49,7 +52,7 @@ class App extends Component {
           <Switch>
             <Route path="/Landingpage" render={() => <LandingPage />} />
             <Route path="/Grouppage" render={() => <GroupPage />} />
-            <Route path="/Mypage" render={() => <MyPage admin={this.state.admin}/>} />
+            <Route path="/Mypage" render={() => <MyPage admin={this.state.admin} />} />
           </Switch>
         </BrowserRouter>
       </div>
