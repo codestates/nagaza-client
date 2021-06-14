@@ -37,7 +37,7 @@ export default function ProfileMenu(props) {
             <span
                 className={isCloseMenu ? "menu1 hidden" : "menu1"}
                 onClick={() => {
-                    if (isLogin) {
+                    if (props.isSignIn) {
                         //로그인 상태일때 : 로그아웃
                         setModalHeader("로그아웃");
                         openModal();
@@ -48,12 +48,12 @@ export default function ProfileMenu(props) {
                     }
                 }}
             >
-                <a href="#">{isLogin ? "Sign Out" : "Sign In"}</a>
+                <a href="#">{props.isSignIn ? "Sign Out" : "Sign In"}</a>
             </span>
             <span
                 className={isCloseMenu ? "menu1 hidden" : "menu1"}
                 onClick={() => {
-                    if (isLogin) {
+                    if (props.isSignIn) {
                         //로그인 상태일때 : 마이페이지
                         setModalHeader("마이페이지");
                         openModal();
@@ -64,7 +64,7 @@ export default function ProfileMenu(props) {
                     }
                 }}
             >
-                <a href="#">{isLogin ? "My Page" : "Sign Up"}</a>
+                <a href="#">{props.isSignIn ? "My Page" : "Sign Up"}</a>
             </span>
             <ProfileModal
                 isOpen={modalOpen}
