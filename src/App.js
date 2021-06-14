@@ -8,38 +8,37 @@ import axios from "axios";
 
 import "./App.css";
 import {
-    Switch,
-    BrowserRouter,
-    Route,
-    Redirect,
-    withRouter,
+  Switch,
+  BrowserRouter,
+  Route,
+  Redirect,
+  withRouter,
 } from "react-router-dom";
 
 class App extends Component {
-    state = {
-        isConnected: false,
-        data: "",
-    };
-    constructor(props) {
-        super(props);
-    }
-    componentDidMount() {
-        axios
-            .get(
-                "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
-                {
-                    withCredentials: true,
-                }
-            )
-            .then((res) => {
-                console.log(res);
-                this.setState({
-                    isConnected: true,
-                    data: res.data,
-                });
-            })
-            .catch((err) => console.log(err));
-    }
+
+  state = {
+    isConnected: false,
+    data: "",
+    admin: "김코딩"
+  };
+  constructor(props) {
+    super(props);
+  }
+  componentDidMount() {
+    axios
+      .get("http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          isConnected: true,
+          data: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
 
   render() {
     const { isConnected, data } = this.state;
@@ -53,7 +52,7 @@ class App extends Component {
           <Switch>
             <Route path="/Landingpage" render={() => <LandingPage />} />
             <Route path="/Grouppage" render={() => <GroupPage />} />
-            <Route path="/Mypage" render={() => <MyPage />} />
+            <Route path="/Mypage" render={() => <MyPage admin={this.state.admin} />} />
           </Switch>
         </BrowserRouter>
       </div>
