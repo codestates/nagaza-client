@@ -1,5 +1,11 @@
-.lp-landingPage {
-    height: 300vh;
+.lp-landingPage > section:nth-child(1) {
+    height: 100vh;
+}
+.lp-landingPage > section:nth-child(2) {
+    height: 100vh;
+}
+.lp-landingPage > section:nth-child(3) {
+    height: 100vh;
 }
 .lp-header {
     position: -webkit-sticky;
@@ -7,7 +13,7 @@
     top: 0;
 }
 .lp-main-content {
-    margin-top: 5rem;
+    margin-top: 8rem;
     display: flex;
     justify-content: space-evenly;
 }

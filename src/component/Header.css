@@ -3,11 +3,17 @@
     flex-direction: column;
     justify-content: space-evenly;
 }
+.headermenu > .lp-navigation {
+    display: flex;
+    justify-content: center;
+}
 
 .mainmenu {
     display: flex;
     justify-content: space-between;
     padding: 0 2rem;
+    height: 3.5rem;
+    background-color: rgb(195, 225, 235);
 }
 .mainmenu-logo,
 .mainmenu-profile {

@@ -17,10 +17,10 @@ export default function CreateGroup(props) {
       [name]: value,
     });
   };
-
+console.log(props.isOpen)
   if (props.isOpen) {
     return (
-      <div className='modal'>
+      <div className='c-modal'>
         <div >
           <div className="createModal">
             <span className="close" onClick={props.close}>

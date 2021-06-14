@@ -11,57 +11,93 @@ export default function SignUp() {
     let [email, setEmail] = useState("");
 
     return (
-        <div className="signUpModalContainer">
-            <div className="signUpModalWrapper">
-                <div className="modalHeader">
-                    <i>뒤로가기</i>
-                    <span>회원가입 하기</span>
-                    <div className="spacingRight"></div>
+        <>
+            <div className="modalContents">
+                <img
+                    className="signinIcon"
+                    src="/Images/SignIn/signinIcon.png"
+                />
+                <input
+                    name="email"
+                    className="loginId"
+                    type="text"
+                    placeholder="이메일"
+                />
+                <input
+                    name="password"
+                    className="loginPw"
+                    type="password"
+                    placeholder="비밀번호"
+                />
+                <div className="loginMid">
+                    <input
+                        name="나이"
+                        className="loginPw"
+                        type="text"
+                        placeholder="나이"
+                    />
+                    <select
+                        name="성별"
+                        className="loginPw"
+                        type="text"
+                        placeholder="성별"
+                    >
+                        <option value="none">선택</option>
+                        <option value="male">남자</option>
+                        <option value="female">여자</option>
+                    </select>
                 </div>
-                <form
-                    className="signUpForm"
-                    onSubmit={(e) => e.preventDefault()}
-                >
-                    <div>
-                        <span>유저 닉네임</span>
-                        <input className="userName" onChange={()=>setUsername()}></input>
-                    </div>
-                    <div>
-                        <span>성별</span>
-                        <input className="gender"></input>
-                    </div>
-                    <div>
-                        <span>비밀번호</span>
-                        <input className="password"></input>
-                    </div>
-                    <span>나이</span>
-                    <input className="age"></input>
-                    <div>
-                        <span>선호 운동</span>
-                        <input className="preference"></input>
-                    </div>
-                    <div>
-                        <span>이메일</span>
-                        <input className="email"></input>
-                    </div>
-                    <div className="signUpBtnWrapper">
-                        <div className="signUpBtn">
-                            <span>가입하기</span>
+                <div className="loginMid">
+                    <input
+                        name="나이"
+                        className="loginPw"
+                        type="text"
+                        placeholder="나이"
+                    />
+                    <select
+                        name="선호하는 운동"
+                        className="loginPw"
+                        type="text"
+                        placeholder="선호하는 운동"
+                    >
+                        <option value="none">선택</option>
+                        <option value="male">구기운동</option>
+                        <option value="female">아쿠아 스포츠</option>
+                        <option value="female">웨이트</option>
+                        <option value="female">웨이트</option>
+                        <option value="female">웨이트</option>
+                        <option value="female">웨이트</option>
+                        <option value="female">웨이트</option>
+
+                    </select>
+                </div>
+
+                <button className="loginBtn"> 로그인 </button>
+                <div className="socialBox">
+                    <div className="kakao">
+                        <img
+                            className="kakaoLogo"
+                            src="/Images/SignIn/kakao.png"
+                        />
+                        <div className="kakaoText">
+                            카카오 계정으로 신규가입
                         </div>
                     </div>
-                </form>
-
-                <div className="socialSignInWrapper">
-                    <span>소셜 로그인</span>
-                    <div className="socialSignInBtn">
-                        <i>{/* 소셜로그인 로고 */}</i>
-                        <span>OOO로 로그인하기</span>
-                    </div>
-                    <div className="signUpBtn">
-                        <span>혹시 아직 가입하지 않으셨나요?</span>
+                    <div className="facebook">
+                        <img
+                            className="facebookLogo"
+                            src="/Images/SignIn/facebook.png"
+                        />
+                        <div className="facebookText">
+                            페이스북 계정으로 신규가입
+                        </div>
                     </div>
                 </div>
+                <div className="loginEnd">
+                    <div className="loginLine">회원이 아니신가요? </div>
+                    <div className="noUser">비회원 주문 조회</div>
+                </div>
             </div>
-        </div>
+        </>
     );
 }

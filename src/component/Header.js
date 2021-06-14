@@ -4,7 +4,8 @@ import Logo from "../component/Logo.js";
 import Profile from "../component/Profile.js";
 import ProfileMenu from "../component/ProfileMenu.js";
 import "./Header.css";
-function Header() {
+function Header({ signIn, signOut, searchGroup, isSignIn }) {
+    // console.log(props)
     return (
         <>
             <div className="headermenu">
@@ -12,17 +13,19 @@ function Header() {
                     <div className="mainmenu-logo">
                         <Logo></Logo>
                     </div>
-
                     <div className="mainmenu-profile">
-                        <ProfileMenu></ProfileMenu>
+                        <ProfileMenu
+                            isSignIn={isSignIn}
+                            signIn={signIn}
+                            signOut={signOut}
+                        ></ProfileMenu>
                     </div>
                 </div>
-            </div>
-            <div className="search-bar">
-                <Navigation></Navigation>
+                <div className="lp-navigation">
+                    <Navigation searchGroup={searchGroup}></Navigation>
+                </div>
             </div>
         </>
     );
 }
-
 export default Header;

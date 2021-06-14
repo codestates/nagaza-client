@@ -19,7 +19,8 @@ export default function NavigationBar(props) {
         console.log(e.target);
     };
     const searchGroup = () => {
-        return;
+        // 그룹 검색과 동시에 grouppage로 이동
+        props.searchGroup([locationCord, dateStart, dateEnd, personNum]);
     };
     return (
         <>
@@ -88,13 +89,15 @@ export default function NavigationBar(props) {
                                 <option value="spanish">8</option>
                             </select>
                         </div>
-                        <div
-                            className="searchBtn"
-                            onClick={() => {
-                                searchGroup();
-                            }}
-                        >
-                            <i>검색아이콘</i>
+                        <div className="searchBtn-wrapper">
+                            <div
+                                className="searchBtn"
+                                onClick={() => {
+                                    searchGroup();
+                                }}
+                            >
+                                <i>검색</i>
+                            </div>
                         </div>
                     </div>
                 </div>
