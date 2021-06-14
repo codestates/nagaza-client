@@ -20,19 +20,20 @@ import {
 class App extends Component {
 
   state = {
-    isSignIn: false,
+    isSignIn: true,
     userInfo: [],
     groupInfo: [],
     searchGroupData: [],
-    isAdmin: false,
-    userAttendGroup: [],
-    userAdminGroup: []
+    isAdmin: true,
   };
   constructor(props) {
     super(props);
     this.searchGroup = this.searchGroup.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
+    this.changeUserInfo = this.changeUserInfo.bind(this)
+    this.deleteGroup = this.deleteGroup.bind(this)
+    this.exitGroup = this.exitGroup.bind(this)
   }
   componentDidMount() {
     axios
@@ -72,6 +73,25 @@ class App extends Component {
     // console.log(this.state.searchGroupData)
   }
 
+  changeUserInfo = (changeUserInfo) => {
+    this.setState({
+      userInfo: changeUserInfo
+    })
+  }
+
+  deleteGroup = () => {
+    this.setState({
+      isAdmin: false,
+      groupInfo: []
+    })
+  }
+
+  exitGroup = () => {
+    this.setState({
+      groupInfo : []
+    })
+  }
+
   render() {
     return (
       <div>
@@ -79,7 +99,7 @@ class App extends Component {
           <Switch>
             <Route path="/Landingpage" render={() => <LandingPage signIn={this.signIn} signOut={this.signOut} searchGroup={this.searchGroup} isSignIn={this.state.isSignIn} />} />
             <Route path="/Grouppage" render={() => <GroupPage searchGroup={this.searchGroup} searchGroupData={this.state.searchGroupData} />} />
-            <Route path="/Mypage" render={() => <MyPage userInfo={this.state.userInfo} groupInfo={this.state.groupInfo} isAdmin={this.state.isAdmin} />} />
+            <Route path="/Mypage" render={() => <MyPage changeUserInfo = {this.changeUserInfo} deleteGroup = {this.deleteGroup} exitGroup = {this.exitGroup} isSignIn={this.state.isSignIn} userInfo={this.state.userInfo} groupInfo={this.state.groupInfo} isAdmin={this.state.isAdmin} />} />
           </Switch>
         </BrowserRouter>
       </div>
