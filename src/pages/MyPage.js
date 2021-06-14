@@ -1,16 +1,38 @@
 // import logo from './logo.svg';
-import React from 'react';
-import GetGroupInfo from '../component/GetGroupInfo.js';
-import UpdateGroup from '../component/UpdateGroup.js';
-import GetUserInfo from '../component/GetUserInfo.js';
+import React, { Component } from "react";
+import Logo from "../component/Logo.js";
+import ProfileMenu from "../component/ProfileMenu.js";
+import DisplayGroupInfo from "../component/DisplayGroupInfo.js";
+import DisplayUserInfo from "../component/DisplayUserInfo.js";
+class MyPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isAdmin: props.isAdmin,
+      userInfo: props.userInfo,
+      groupInfo: props.groupInfo
+    }
+  }
 
-
-function myPage() {
-  return (
-    <div>
-      mypage
-    </div>
-  );
+  render() {
+    return (
+      <div className={'my-page'}>
+        <div className="header">
+          <div>
+            <Logo></Logo>
+          </div>
+          <div>어서오세요 this.props.userInfo.username 님</div>
+          <div>
+            <ProfileMenu isSignIn={this.props.isSignIn} ></ProfileMenu>
+          </div>
+        </div>
+        <div className={'middle-myInfo'}>
+          <DisplayUserInfo userInfo={this.state.userInfo} changeUserInfo={this.props.changeUserInfo} ></DisplayUserInfo>
+          <DisplayGroupInfo isAdmin ={this.state.isAdmin} groupInfo={this.state.groupInfo} deleteGroup={this.props.deleteGroup} exitGroup={this.props.exitGroup}></DisplayGroupInfo>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default myPage;
+export default MyPage;

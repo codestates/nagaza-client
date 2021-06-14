@@ -1,89 +1,35 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import ProfileModal from "./ProfileModal"; // 프로필 클릭시 옵션 모달창
+import "./Profile.css";
 
-export default class Profile extends Component {
-    //global state
-    constructor(props) {
-        super(props);
-        this.state = {
-            isLogin: false, // global
-            isProfileModalOpen: false, //local
-        };
-        this.setSignOut = this.setSignOut.bind(this);
-        this.setSignIn = this.setSignIn.bind(this);
-        this.closeProfileModal = this.closeProfileModal.bind(this);
-        this.openProfileModal = this.openProfileModal.bind(this);
-    }
-    //임시로 만든 로그인 로그아웃 메서드
-    setSignOut() {
-        this.setState({
-            isLogin: false,
-        });
-    }
-    setSignIn() {
-        this.setState({
-            isLogin: true,
-        });
-    }
+export default function Profile(props) {
+    // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
+    const [modalOpen, setModalOpen] = useState(false);
 
-    //모달창 닫기
-    closeProfileModal() {
-        this.setState({
-            isProfileModalOpen: false,
-        });
-    }
-    //모달창 열기
-    openProfileModal() {
-        this.setState({
-            isProfileModalOpen: true,
-        });
-    }
+    const openModal = () => {
+        setModalOpen(true);
+    };
+    const closeModal = () => {
+        setModalOpen(false);
+    };
 
-    render() {
-        return (
-            <>
-                <div
-                    className="profileBtn"
-                    onClick={() => this.openProfileModal()}
-                >
-                    <div className="profileState">
-                        <div>
-                            <i className="">세줄이미지</i>
-                            {this.state.isLogin ? (
-                                <>
-                                    <img
-                                        className="loginProfile"
-                                        src="#"
-                                        alt="로그인"
-                                    ></img>
-                                </>
-                            ) : (
-                                <>
-                                    <img
-                                        className="notLoginProfile"
-                                        src="#"
-                                        alt="비로그인"
-                                    ></img>
-                                </>
-                            )}
-                        </div>
-                    </div>
-
-                    {
-                        //프로필 모달창이 열렸는지 확인
-                        this.state.isProfileModalOpen ? (
-                            <ProfileModal
-                                isLogin={this.state.isLogin}
-                                closeProfileModal={this.closeProfileModal}
-                                openProfileModal={this.openProfileModal}
-                                setSignIn={this.setSignIn}
-                            ></ProfileModal>
-                        ) : (
-                            <></>
-                        )
-                    }
-                </div>
-            </>
-        );
-    }
+    return (
+        <>
+            <button
+                onClick={() => {
+                    openModal();
+                }}
+            >
+                모달팝업
+            </button>
+            내용을 입력하세요.
+            <ProfileModal
+                isOpen={modalOpen}
+                closeModal={closeModal}
+                header="모달창"
+            >
+                <main> 내용이 입력됩니다. </main>
+            </ProfileModal>
+        </>
+    );
 }

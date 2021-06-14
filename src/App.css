@@ -151,96 +151,249 @@
     height: 60%;
     margin: auto;
 }
-.group-page{
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-  background-color: grey;
+.group-page {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: #fff;
+    position: relative;
 }
-.upper-nav{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  height: 5rem;
+.upper-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 5rem;
 }
-.logo-in-group{
-  width: 3rem;
-  margin: auto;
-  margin-left: 1rem;
-  background-color: honeydew;
-  border-radius: 50%;
+.logo-in-group {
+    width: 3rem;
+    margin: auto;
+    margin-left: 1rem;
+    background-color: honeydew;
+    border-radius: 50%;
 }
-.nav-in-group{
-  width: 40rem;
-  height: 4rem;
-  margin: auto;
-  background-color: hotpink;
-  border-radius: 10%;
+.nav-in-group {
+    width: 40rem;
+    height: 4rem;
+    margin: auto;
+    background-color: hotpink;
+    border-radius: 10%;
 }
-.profile-in-group{
-  width: 3rem;
-  margin: auto;
-  margin-right: 1rem;
-  background-color:indianred;
-  border-radius: 50%;
+.profile-in-group {
+    width: 3rem;
+    margin: auto;
+    margin-right: 1rem;
+    background-color: indianred;
+    border-radius: 50%;
 }
-.modal {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1050;
+.c-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* width: 50vw; */
+    /* height: 60vh;     */
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1050;
+}
+.c-modal button{
+    outline : none;
+    cursor: pointer;
+    border: 0;
+}
+.c-modal > section{
+    width: 20rem;
+    height: 30rem;
+    margin : 0 auto;
+    border-radius: 0.3rem;
+    background-color: #fff;
+    animation: modal-show 0.3s;
+    overflow: hidden;
+    position: absolute;
+    left: 65%;
+    top: 30%;
 }
 .searchModal {
-  width: 40rem;
-  height: 48rem;
-  background-color: white;
-  position: relative;
-  box-sizing: border-box;
-  margin: 4rem auto;
-  padding: 1.5rem;
-  background: #fff;
+    width: 40rem;
+    height: 48rem;
+    background-color: white;
+    position: relative;
+    box-sizing: border-box;
+    margin: 4rem auto;
+    padding: 1.5rem;
+    background: #fff;
 }
 .createModal {
-  width: 40rem;
-  height: 48rem;
-  background-color: white;
-  position: relative;
-  box-sizing: border-box;
-  margin: 4rem auto;
-  padding: 1.5rem;
-  background: #fff;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    margin-top: 10rem;
+    /* position: absolute; */
+    /* left: 50%; */
+    /* top: 50%; */
+    /* margin-left: -80px; */
+    /* margin-top: -80px;  */
+    /* position: absolute; */
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 1.5rem;
+    background: #fff;
 }
 .close {
-  float: right;
-  font-size: 25px;
+    float: right;
+    font-size: 25px;
 }
-.modalContents {
-  margin: 0 auto;
-  width: 100%;
-  position: relative;
-  padding: 0 20px 32px;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
+.gitContents {
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    padding: 0 20px 32px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
-.middle-info-and-map{
-  display: flex;
-  flex-direction: row;
-  margin : auto;
-  height: 80%;
-  width: 90%;
+.middle-info-and-map {
+    display: flex;
+    flex-direction: row;
+    /* justify-content: space-between; */
+    margin: auto;
+    height: 80%;
+    width: 90%;
 }
-.group-info{
-  width: 60%;
-  overflow: auto;
-  margin :1rem
+.group-info {
+    width: 60%;
+    overflow: auto;
+    margin: 1rem;
+    /* text-align: center; */
+    margin: 5rem auto;
+    font-size: 3rem;
+    font-weight: bold;
 }
-.map-info{
-  width: 40%;
-  margin: 1rem;
+.group-list{
+    background-color: #C4D5F7; 
+    margin: 2rem;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    padding: 1.5rem;
+    font-size: 1rem;
+    display: flex;
+    flex: row;
+    justify-content: space-between;
+    border-radius: 0.4rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 80%;
+}
+.group-info::-webkit-scrollbar {
+    width: 10px;
+}
+.group-info::-webkit-scrollbar-thumb {
+    background-color: #6B97EC; ;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.group-info::-webkit-scrollbar-track {
+    background-color: #C4D5F7;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+.group-list-item-info{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.group-list-item-title{
+    font-size: 3rem;
+}
+.group-list-item-time-and-category{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 0.2rem auto;
+}
+.group-list-item-category{
+    width: 30%;
+    padding: 0;
+    margin: 0;
+}
+.group-list-item-join{
+    width: 20%;
+    height: 10rem;
+}
+.group-join-button{
+    background-color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 100%;
+    border: 0;
+    border-radius: 0.3rem;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+
+}
+.map-info {
+    width: 40%;
+    margin: 1rem;
+}
+.my-page {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background-color: grey;
+}
+.logo-in-my {
+    width: 3rem;
+    margin: auto;
+    margin-left: 1rem;
+    background-color: honeydew;
+    border-radius: 50%;
+}
+.welcome-in-my {
+    width: 40rem;
+    height: 4rem;
+    margin: auto;
+    background-color: hotpink;
+    border-radius: 10%;
+    text-align: center;
+    line-height: 4rem;
+}
+.signout-in-my {
+    width: 3rem;
+    margin: auto;
+    margin-right: 1rem;
+    background-color: indianred;
+    border-radius: 50%;
+}
+.middle-myInfo {
+    height: 90%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: indigo;
+    margin: auto;
+}
+.user-info {
+    margin: auto;
+    width: 40%;
+    height: 80%;
+    background-color: khaki;
+}
+.group-state {
+    margin: auto;
+    width: 40%;
+    height: 80%;
+    background-color: lawngreen;
+}
+.make-group-message{
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 1rem;
+}
+#map{
+    border-radius: 0.5rem;
+    border:0;
+    box-shadow: 0 10px 64px rgba(0, 0, 0, 0.2);
 }
