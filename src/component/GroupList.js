@@ -4,12 +4,13 @@ import axios from "axios";
 import GroupListEntry from "./GroupListEntry";
 
 export default function GroupList(props) {
+  console.log(props)
   return (
     <div  className={'group-info'}  >
-      {props.groupInfo.length === 0 ? (
+      {props.searchGroupData.length === 0 ? (
         <div  className={'group-info'} >검색된 그룹이 없습니다</div>
       ) : (
-        props.groupInfo.map((el) => (
+        props.searchGroupData.map((el) => (
           <GroupListEntry key={el.groupid} groupInfo={el.groupInfo} />
         ))
       )}

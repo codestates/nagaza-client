@@ -48,7 +48,7 @@ const Map = (props) => {
       // console.log(props.isOpen)
     });
   }, []);
-console.log(props.isOpen)
+// console.log(props.isOpen)
   return (
     <div className={'map-info'} >
       {props.createGroupState ? (
