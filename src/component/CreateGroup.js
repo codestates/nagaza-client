@@ -17,16 +17,16 @@ export default function CreateGroup(props) {
       [name]: value,
     });
   };
-console.log(props.isOpen)
+  console.log(props.isOpen)
   if (props.isOpen) {
     return (
       <div className='c-modal'>
-        <div >
+        <section >
           <div className="createModal">
-            <span className="close" onClick={props.close}>
-              &times;
-            </span>
-            <div className='modalContents'>
+            <header className='close'>
+              <button onClick={props.close}>&times;</button>
+            </header>
+            <main className='modalContents'>
               <div>그룹 이름을 입력하세요</div>
               <input type="text" name="groupName" onChange={onChange}></input>
               <select name="groupCategory" onChange={onChange}>
@@ -49,9 +49,9 @@ console.log(props.isOpen)
               >
                 그룹 생성하기
               </button>
-            </div>
+            </main>
           </div>
-        </div>
+        </section>
       </div>
     );
   }

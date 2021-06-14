@@ -3,67 +3,24 @@ import GroupPage from "./pages/GroupPage";
 import LandingPage from "./pages/LandingPage";
 import MyPage from "./pages/MyPage";
 // import logo from "./logo.svg";
-import data from "./mockdata/groupData.json";
+import data from "./mockdata/groupData.json"
 
 import axios from "axios";
 
 import "./App.css";
 import {
-<<<<<<< HEAD
-    Switch,
-    BrowserRouter,
-    Route,
-    Redirect,
-    withRouter,
-=======
   Switch,
   BrowserRouter,
   Route,
   Redirect,
   withRouter,
   useHistory
->>>>>>> ffc5a39268ea479b55dcd3e514bbcbde76976cbb
 } from "react-router-dom";
 
 class App extends Component {
-    state = {
-        isSignIn: false,
-        userInfo: [],
-        groupInfo: [],
-        searchGroupData: [],
-        isAdmin: false,
-        userAttendGroup: [],
-        userAdminGroup: [],
-    };
-    constructor(props) {
-        super(props);
-        this.searchGroup = this.searchGroup.bind(this);
-        this.signIn = this.signIn.bind(this);
-        this.signOut = this.signOut.bind(this);
-    }
-    componentDidMount() {
-        axios
-            .get(
-                "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
-                {
-                    withCredentials: true,
-                }
-            )
-            .then((res) => {
-                console.log(res);
-                this.setState({
-                    isConnected: true,
-                    data: res.data,
-                });
-            })
-            .catch((err) => console.log(err));
-    }
 
-<<<<<<< HEAD
-    signIn = () => {
-=======
   state = {
-    isSignIn: true,
+    isSignIn: false,
     userInfo: [],
     groupInfo: [],
     searchGroupData: [],
@@ -71,6 +28,7 @@ class App extends Component {
   };
   constructor(props) {
     super(props);
+    this.joinGroup = this.joinGroup.bind(this)
     this.searchGroup = this.searchGroup.bind(this)
     this.signIn = this.signIn.bind(this)
     this.signOut = this.signOut.bind(this)
@@ -85,20 +43,28 @@ class App extends Component {
       })
       .then((res) => {
         // console.log(res);
+        this.setState({
+          isConnected: true,
+          data: res.data,
+        });
+      })
+      .catch((err) => console.log(err));
+  }
 
-        this.setState({
-            isSignIn: true,
-            userInfo: [],
-            groupInfo: [],
-        });
-    };
-    signOut = () => {
-        this.setState({
-            isSignIn: false,
-            userInfo: [],
-            groupInfo: [],
-        });
-    };
+  signIn = () => {
+    this.setState({
+      isSignIn: true,
+      userInfo: [],
+      groupInfo: []
+    })
+  }
+  signOut = () => {
+    this.setState({
+      isSignIn: false,
+      userInfo: [],
+      groupInfo: []
+    })
+  }
 
   searchGroup = (searchInfo) => {
     //그룹 검색
@@ -127,13 +93,19 @@ class App extends Component {
     })
   }
 
+  joinGroup = (groupInfo) => {
+    this.setState({
+      groupInfo : [groupInfo]
+    })
+  }
+
   render() {
     return (
       <div>
         <BrowserRouter>
           <Switch>
             <Route path="/Landingpage" render={() => <LandingPage signIn={this.signIn} signOut={this.signOut} searchGroup={this.searchGroup} isSignIn={this.state.isSignIn} />} />
-            <Route path="/Grouppage" render={() => <GroupPage searchGroup={this.searchGroup} searchGroupData={this.state.searchGroupData} />} />
+            <Route path="/Grouppage" render={() => <GroupPage groupInfo={this.state.groupInfo} joinGroup={this.joinGroup} searchGroup={this.searchGroup} searchGroupData={this.state.searchGroupData} />} />
             <Route path="/Mypage" render={() => <MyPage changeUserInfo = {this.changeUserInfo} deleteGroup = {this.deleteGroup} exitGroup = {this.exitGroup} isSignIn={this.state.isSignIn} userInfo={this.state.userInfo} groupInfo={this.state.groupInfo} isAdmin={this.state.isAdmin} />} />
           </Switch>
         </BrowserRouter>

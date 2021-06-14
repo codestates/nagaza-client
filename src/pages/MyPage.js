@@ -1,8 +1,5 @@
 // import logo from './logo.svg';
 import React, { Component } from "react";
-import GetGroupInfo from '../component/GetGroupInfo.js';
-import UpdateGroup from '../component/UpdateGroup.js';
-import GetUserInfo from '../component/GetUserInfo.js';
 import Logo from "../component/Logo.js";
 import ProfileMenu from "../component/ProfileMenu.js";
 import DisplayGroupInfo from "../component/DisplayGroupInfo.js";
