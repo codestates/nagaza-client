@@ -1,0 +1,15 @@
+.profileBtn {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    padding: 15px 20px;
+    background: brown;
+    box-shadow: 0 4px 64px rgba(0, 0, 0, 0.2);
+    transition: 1.3s cubic-bezier(0.53, 0, 0.15, 1.3);
+    z-index: 2;
+    border-radius: 20px;
+}

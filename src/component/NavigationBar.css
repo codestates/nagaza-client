@@ -8,6 +8,7 @@
     border-radius: 20px;
 }
 .navigationSearch {
+    position: fixed;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

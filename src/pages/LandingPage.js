@@ -1,5 +1,5 @@
 // import logo from './logo.svg';
-import React from "react";
+import React, { Component } from "react";
 import CheckBox from "../component/CheckBox.js";
 import MyLocation from "../component/MyLocation.js";
 import SignIn from "../component/SignInModal.js";
@@ -9,13 +9,24 @@ import Navigation from "../component/NavigationBar.js";
 import Header from "../component/Header.js";
 import "../App.css";
 
-function landingPage() {
-    return (
-        <>
-            <Header>
-            </Header>
-        </>
-    );
+class landingPage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    render() {
+        return (
+            <>
+                <Header></Header>
+                <div>
+                    <div>
+                        <span>반가워요</span>
+                        <h1>제목을 만들자</h1>
+                    </div>
+                </div>
+            </>
+        );
+    }
 }
 
 export default landingPage;

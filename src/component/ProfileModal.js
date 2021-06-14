@@ -1,89 +1,41 @@
-import React, { Redirect, Component } from "react";
+import React, { useState, useEffect, Redirect, Component } from "react";
 import MyPage from "../pages/MyPage.js";
 import axios from "axios";
 import "./ProfileModal.css";
 
-export default class ProfileModal extends Component {
-    //로그인 상태 - 글로벌(혹은 상위) - isLogin
-    //프로필 옵션 모달창 클릭상태 - 글로벌(혹은 상위) - isProfileModalOpen
+export default function ProfileModal(props) {
+    // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
+    const { isOpen, closeModal, header } = props;
 
-    // local state
-    constructor(props) {
-        super(props);
-        this.state = {
-            isSignInModal: false,
-            isSignUpModal: false,
-        };
-        this.clickSignOutHandler = this.clickSignOutHandler.bind(this);
-        this.clickMypageHandler = this.clickMypageHandler.bind(this);
-        this.openSignInModal = this.openSignInModal.bind(this);
-        this.clickSignUpHandler = this.clickSignUpHandler.bind(this);
-    }
-
-    //methods
-    clickSignOutHandler = () => {};
-    clickMypageHandler = () => {};
-
-    openSignInModal = () => {
-        //isSignInModalOpen = true;
-        //isProfileModalOpen = false;
-        //SignIn Modal을 띄워줌
-    };
-    openSignUpModal = () => {
-        //isSignInModalOpen = true;
-        //isProfileModalOpen = false;
-        //SignIn Modal을 띄워줌
-    };
-
-    clickSignUpHandler = () => {};
-    render() {
-        return (
-            <>
-                {this.props.isLogin ? (
-                    <div
-                        className="modal"
-                        onClick={() => this.props.closeProfileModal()}
-                    >
-                        <div className="notLogin">
-                            <div
-                                className="signOutBtn"
-                                onClick={() => this.clickSignOutHandler()}
-                            >
-                                <span>로그아웃</span>
-                            </div>
-                            <div
-                                className="myPageBtn"
-                                onClick={() => thisclickMypageHandler()}
-                            >
-                                <span>마이페이지</span>
-                            </div>
-                        </div>
-                    </div>
-                ) : (
-                    <div
-                        className="modal"
-                        onClick={() => {
-                            props.setProfileModalOpen();
-                        }}
-                    >
-                        <div className="login modal">
-                            <div
-                                className="signInBtn"
-                                onClick={() => clickSignInHandler()}
-                            >
-                                <span>로그인</span>
-                            </div>
-                            <div
-                                className="signUpBtn"
-                                onClick={() => clickSignUpHandler()}
-                            >
-                                <span>시발년아</span>
-                            </div>
-                        </div>
-                    </div>
-                )}
-                ;
-            </>
-        );
-    }
+    return (
+        <div className={isOpen ? "openModal modal" : "modal"}>
+            {isOpen ? (
+                <section>
+                    <header>
+                        {header}
+                        <button
+                            className="close"
+                            onClick={() => {
+                                closeModal();
+                            }}
+                        >
+                            X
+                        </button>
+                    </header>
+                    <main>{props.children}</main>
+                    <footer>
+                        <button
+                            className="close"
+                            onClick={() => {
+                                closeModal();
+                            }}
+                        >
+                            {" "}
+                            close{" "}
+                        </button>
+                    </footer>
+                </section>
+            ) : null}
+        </div>
+    );
 }

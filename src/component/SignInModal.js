@@ -3,11 +3,7 @@ import axios from "axios";
 import SigninErrorBox from "./SignInErrorBox";
 
 export default function SignIn() {
-    state = {
-        //이메일 입력상태 - 로컬
-        //암호 입력상태 - 로컬
-        //모달창 클릭상태 - 글로벌(혹은 상위)
-    };
+    
     signInModalExitHandler = () => {
         //isSignInModalOpen = false
     };
