@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Header from "./Header";
 import "./NavigationBar.css";
 
@@ -10,6 +11,7 @@ export default function NavigationBar(props) {
     let [personNum, setPersonNum] = useState("");
     let [isOpenBox, setOpenBox] = useState([false, false, false]);
 
+    const history = useHistory()
     //검색 기능시 서버에 요청하는 onClickEvent 메서드 필요
     //전체 Input이 ComboBox로 구성될지, 혹은 Input으로 구성될지 결정
 
@@ -20,6 +22,11 @@ export default function NavigationBar(props) {
     };
     const searchGroup = () => {
         // 그룹 검색과 동시에 grouppage로 이동
+        // console.log(location.pathname)
+        if(location.pathname === '/LandingPage'){
+            // console.dir(history)
+            history.push('/grouppage')
+        }
         props.searchGroup([locationCord, dateStart, dateEnd, personNum])
     };
     return (

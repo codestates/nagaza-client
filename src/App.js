@@ -14,6 +14,7 @@ import {
   Route,
   Redirect,
   withRouter,
+  useHistory
 } from "react-router-dom";
 
 class App extends Component {
@@ -39,7 +40,7 @@ class App extends Component {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.setState({
           isConnected: true,
           data: res.data,
@@ -68,6 +69,7 @@ class App extends Component {
     this.setState({
       searchGroupData: data.data
     }) // 서버에서 searchInfo토대로 그룹 검색
+    // console.log(this.state.searchGroupData)
   }
 
   render() {
@@ -76,7 +78,7 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route path="/Landingpage" render={() => <LandingPage signIn={this.signIn} signOut={this.signOut} searchGroup={this.searchGroup} isSignIn={this.state.isSignIn} />} />
-            <Route path="/Grouppage" render={() => <GroupPage searchGroup={this.searchGroup} />} />
+            <Route path="/Grouppage" render={() => <GroupPage searchGroup={this.searchGroup} searchGroupData={this.state.searchGroupData} />} />
             <Route path="/Mypage" render={() => <MyPage userInfo={this.state.userInfo} groupInfo={this.state.groupInfo} isAdmin={this.state.isAdmin} />} />
           </Switch>
         </BrowserRouter>

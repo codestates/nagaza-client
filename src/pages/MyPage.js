@@ -9,8 +9,8 @@ class MyPage extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      admin: props.admin,
-      isGroupOn : false,
+      isAdmin : props.isAdmin,
+      userInfo : []
     }
   }
 
