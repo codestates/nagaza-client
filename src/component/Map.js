@@ -63,7 +63,7 @@ const Map = (props) => {
                 ></CreateGroup>
             ) : (
                 // 모달완성되면 여기를 <div></div>
-                <div>그룹을 생성하려면 지도를 클릭해 주세요</div>
+                <div className={'make-group-message'}>그룹을 생성하려면 지도를 클릭해 주세요</div>
             )}
             <div id="map" style={{ width: "100%", height: "90%" }}></div>
         </div>

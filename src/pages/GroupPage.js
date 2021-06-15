@@ -1,8 +1,6 @@
 // import logo from './logo.svg';
 import React, { Component } from "react";
 import GroupList from "../component/GroupList";
-import data from "../mockdata/groupData.json";
-import Nav from "../component/Nav";
 import Map from "../component/Map";
 // import SearchGroup from "../component/SearchGroup.js"
 import Header from "../component/Header";
@@ -78,21 +76,10 @@ class GroupPage extends Component {
             createGroupState: false,
         });
     };
-    // getGroupInfo = () => {
-    //   this.setState({
-    //     groupInfo: data.data
-    //   })
-    // }  //state의 카테고리와 키워드를 nav에서 받아서 setstate
 
     render() {
         return (
             <div className={"group-page"}>
-                {/* <div className={'upper-nav'}>
-          <div className={'logo-in-group'}>Logo자리</div>
-          <div className={'nav-in-group'} onClick={this.openSearchModal}>nav자리</div>
-          <SearchGroup getGroupInfo={this.getGroupInfo} close={this.closeSearchModal} isOpen={this.state.isSerachModalOpen}></SearchGroup>
-          <div className={'profile-in-group'}>profile자리</div>
-        </div> */}
                 <Header
                     signIn={this.props.signIn}
                     signOut={this.props.signOut}
@@ -100,7 +87,11 @@ class GroupPage extends Component {
                     isSignIn={this.props.isSignIn}
                 ></Header>
                 <div className={"middle-info-and-map"}>
-                    <GroupList searchGroupData={this.props.searchGroupData}>
+                    <GroupList
+                        groupInfo={this.props.groupInfo}
+                        joinGroup={this.props.joinGroup}
+                        searchGroupData={this.props.searchGroupData}
+                    >
                         그룹 정보
                     </GroupList>
                     <Map

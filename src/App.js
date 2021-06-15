@@ -27,6 +27,7 @@ class App extends Component {
     };
     constructor(props) {
         super(props);
+        this.joinGroup = this.joinGroup.bind(this);
         this.searchGroup = this.searchGroup.bind(this);
         this.signIn = this.signIn.bind(this);
         this.signOut = this.signOut.bind(this);
@@ -94,6 +95,12 @@ class App extends Component {
         });
     };
 
+    joinGroup = (groupInfo) => {
+        this.setState({
+            groupInfo: [groupInfo],
+        });
+    };
+
     render() {
         return (
             <div>
@@ -114,6 +121,8 @@ class App extends Component {
                             path="/Grouppage"
                             render={() => (
                                 <GroupPage
+                                    groupInfo={this.state.groupInfo}
+                                    joinGroup={this.joinGroup}
                                     searchGroup={this.searchGroup}
                                     searchGroupData={this.state.searchGroupData}
                                 />
