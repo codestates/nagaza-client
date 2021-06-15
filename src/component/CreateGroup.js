@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import axios from "axios";
 
 export default function CreateGroup(props) {
+
+  const today = new Date()
+
   let [createInfo, setInfo] = useState({
     groupName: "",
     groupCategory: "",
     groupStartTime: "",
     groupEndTime: "",
     groupMessage: "",
+    groupDate : `${today.getFullYear()}/${today.getMonth()}/${today.getDay()}`
   });
 
   const onChange = (e) => {

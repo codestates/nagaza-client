@@ -36,124 +36,6 @@
         transform: rotate(360deg);
     }
 }
-
-select {
-    border: none;
-}
-.lander-page {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 400vh;
-    background-color: grey;
-    justify-content: space-around;
-}
-.header {
-    flex-grow: 0.2;
-    background-color: honeydew;
-    display: flex;
-    justify-content: space-between;
-}
-.logo-box {
-    background-color: lawngreen;
-    /* text-align: center; */
-    width: 10rem;
-    margin: 1rem;
-}
-.profile {
-    background-color: lightblue;
-    width: 10rem;
-    margin: 1rem;
-}
-.description-and-image {
-    flex-grow: 1.8;
-    background-color: hotpink;
-    display: flex;
-}
-.description-part {
-    background-color: lightcyan;
-    width: 40%;
-    margin: 1rem;
-}
-.description-text {
-    margin: 1rem;
-}
-.description-title {
-    margin: 1rem;
-}
-.img-part-box {
-    width: 60%;
-    margin: 1rem;
-    background-color: lightskyblue;
-}
-.description-and-category {
-    flex-grow: 2;
-    background-color: indigo;
-    display: flex;
-    flex-direction: column;
-}
-.category-title {
-    flex-grow: 0.1;
-    margin: 1rem;
-    background-color: lightslategray;
-}
-.category-box {
-    flex-grow: 2;
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-    background-color: lime;
-    margin: 1rem;
-}
-.category-item {
-    background-color: magenta;
-    width: 20%;
-    height: 40%;
-    margin: 1rem;
-}
-.desciption-and-map {
-    flex-grow: 2;
-    background-color: khaki;
-    display: flex;
-    justify-content: space-around;
-}
-.map-description {
-    width: 50%;
-    background-color: maroon;
-    margin: 1rem;
-}
-.map-img-box {
-    width: 50%;
-    background-color: mediumblue;
-    margin: 1rem;
-}
-
-.desciption-and-endCloseGroup {
-    flex-grow: 2;
-    background-color: lawngreen;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-.endCloseGroup-title {
-    background-color: mediumpurple;
-    margin: 1rem;
-    flex-grow: 0.1;
-}
-.endCloseGroup-box {
-    background-color: midnightblue;
-    margin: 1rem;
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-around;
-    /* flex-wrap: wrap; */
-}
-.endCloseGroup-item {
-    background-color: magenta;
-    width: 20%;
-    height: 60%;
-    margin: auto;
-}
 .group-page {
     display: flex;
     flex-direction: column;
@@ -162,41 +44,12 @@ select {
     background-color: #fff;
     position: relative;
 }
-.upper-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 5rem;
-}
-.logo-in-group {
-    width: 3rem;
-    margin: auto;
-    margin-left: 1rem;
-    background-color: honeydew;
-    border-radius: 50%;
-}
-.nav-in-group {
-    width: 40rem;
-    height: 4rem;
-    margin: auto;
-    background-color: hotpink;
-    border-radius: 10%;
-}
-.profile-in-group {
-    width: 3rem;
-    margin: auto;
-    margin-right: 1rem;
-    background-color: indianred;
-    border-radius: 50%;
-}
 .c-modal {
     position: fixed;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    /* width: 50vw; */
-    /* height: 60vh;     */
     background: rgba(0, 0, 0, 0.6);
     z-index: 1050;
 }
@@ -216,16 +69,6 @@ select {
     position: absolute;
     left: 65%;
     top: 30%;
-}
-.searchModal {
-    width: 40rem;
-    height: 48rem;
-    background-color: white;
-    position: relative;
-    box-sizing: border-box;
-    margin: 4rem auto;
-    padding: 1.5rem;
-    background: #fff;
 }
 .createModal {
     width: 100%;
@@ -290,7 +133,6 @@ select {
 .middle-info-and-map {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
     margin: auto;
     height: 80%;
     width: 90%;
@@ -298,8 +140,6 @@ select {
 .group-info {
     width: 60%;
     overflow: auto;
-    margin: 1rem;
-    /* text-align: center; */
     margin: 5rem auto;
     font-size: 3rem;
     font-weight: bold;
