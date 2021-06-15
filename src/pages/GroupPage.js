@@ -67,14 +67,11 @@ class GroupPage extends Component {
     };
 
     createGroupHandle = (createInfo) => {
-        //post요청으로 그룹 생성
-        // console.log(createInfo)
-        const groupInfo = [this.state.createGroupLocation, ...[createInfo]];
-        console.log(groupInfo);
-        //요청후
+        createInfo.location = this.state.createGroupLocation
         this.setState({
             createGroupState: false,
         });
+        this.props.createGroupHandle(createInfo)
     };
 
     render() {

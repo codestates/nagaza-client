@@ -20,10 +20,20 @@ import {
 class App extends Component {
     state = {
         isSignIn: true,
-        userInfo: [],
-        groupInfo: [],
+        userInfo: [],//유저의 정보
+        groupInfo: [],//유저가 속한 그룹의 정보
         searchGroupData: [],
         isAdmin: true,
+        transCategoryId: {
+            'ball game': 1,
+            'aqua sports': 2,
+            'weight training': 3,
+            'running': 4,
+            'yoga': 5,
+            'hiking': 6,
+            'cycling': 7,
+            'climbing': 8
+        }
     };
     constructor(props) {
         super(props);
@@ -34,23 +44,24 @@ class App extends Component {
         this.changeUserInfo = this.changeUserInfo.bind(this);
         this.deleteGroup = this.deleteGroup.bind(this);
         this.exitGroup = this.exitGroup.bind(this);
+        this.createGroupHandle = this.createGroupHandle.bind(this);
     }
     componentDidMount() {
-        axios
-            .get(
-                "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
-                {
-                    withCredentials: true,
-                }
-            )
-            .then((res) => {
-                // console.log(res);
-                this.setState({
-                    isConnected: true,
-                    data: res.data,
-                });
-            })
-            .catch((err) => console.log(err));
+        // axios
+        //     .get(
+        //         "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
+        //         {
+        //             withCredentials: true,
+        //         }
+        //     )
+        //     .then((res) => {
+        //         // console.log(res);
+        //         this.setState({
+        //             isConnected: true,
+        //             data: res.data,
+        //         });
+        //     })
+        //     .catch((err) => console.log(err));
     }
 
     signIn = () => {
@@ -72,40 +83,134 @@ class App extends Component {
         // 변경해야될 state : isSingIn : false , userInfo : [], groupInfo : [], isAdmin ; false
     };
 
-    searchGroup = (searchInfo) => {
-        //그룹 검색
+    searchGroup = async (searchInfo) => {
+        // if (searchInfo.category === '') {
+        //     alert('운동을 골라주세요')
+        // }
+        // else {
+        //     await axios.get('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/groupInfo', searchInfo, {
+        //         'Content-Type': 'application/json',
+        //         withCredentials: true
+        //     })
+        //         .catch(e => console.log(e))
+        //         .then(res => console.log(res))
+        //         .then(res => {
+        //             this.setState({
+        //                 searchGroupData : res.groupInfo
+        //             })
+        //         })
+        // }
 
-        //searchInfo는 카테고리, 시작시간, 인원수로 구성된 배열
-        //해당 배열을 바탕으로 get으로 얻어온 모든 그룹을 필터링해서 원하는 그룹만 남겨 setState
+
         this.setState({
             searchGroupData: data.data,
-        }); // 서버에서 searchInfo토대로 그룹 검색
-        // console.log(this.state.searchGroupData)
-    };
-
-    changeUserInfo = (changeUserInfo) => {
-        this.setState({
-            userInfo: changeUserInfo,
         });
     };
 
-    deleteGroup = () => {
+    changeUserInfo = async (changeUserInfo) => {
+
+        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/updateuserinfo', {
+        //     userId: this.state.userInfo.userId,
+        //     newUserName: changeUserInfo.username,
+        //     newEmail: changeUserInfo.email,
+        //     newAge: changeUserInfo.age,
+        //     newLocation : changeUserInfo.location
+        //     newPreference: this.state.transCategoryId[changeUserInfo.category]
+        // }, {
+        //     'Content-Type': 'application/json',
+        //     withCredentials: true
+        // })
+        //     .catch(e => console.log(e))
+        //     .then(res => console.log(res))
+        //     .then(res => {
+        //         this.setState({
+        //             userInfo: res.userInfo
+
+        //         })
+        //     })
+
+        await this.setState({
+            userInfo: changeUserInfo,
+        });
+        console.log(this.state.userInfo)
+    };
+
+    deleteGroup = async () => {
+
+        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/deletegroup', {
+        //     groupId: this.state.groupInfo.groupId,
+        //     userId: this.state.userInfo.userId
+        // }, {
+        //     'Content-Type': 'application/json',
+        //     withCredentials: true
+        // })
+        //     .catch(e => console.log(e))
+        //     .then(res => console.log(res))
+        //     .then(res => {
+        //         this.setState({
+        //             isAdmin: false,
+        //             groupInfo: res
+        //         })
+        //     })
         this.setState({
             isAdmin: false,
             groupInfo: [],
         });
     };
 
-    exitGroup = () => {
+    exitGroup = async () => {
+
+        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/unjoingroup', {
+        //     groupId: this.state.groupInfo.groupId,
+        //     userId: this.state.userInfo.userId
+        // }, {
+        //     'Content-Type': 'application/json',
+        //     withCredentials: true
+        // })
+        //     .catch(e => console.log(e))
+        //     .then(res => console.log(res))
+        //     .then(res => {
+        //         this.setState({
+        //             groupInfo: res
+        //         })
+        //     })
         this.setState({
             groupInfo: [],
         });
     };
 
-    joinGroup = (groupInfo) => {
+    joinGroup = async (groupId) => {
+
+        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/joingroup', {
+        //     groupId: groupId,
+        //     userId: 'this.state.userInfo.userId'
+        // }, {
+        //     'Content-Type': 'application/json',
+        //     withCredentials: true
+        // })
+        //     .catch(e => console.log(e))
+        //     .then(res => console.log(res))
+        //     .then(res => {
+        //         this.setState({
+        //             groupInfo : res.groupInfo
+        //         })
+        //     })
+
         this.setState({
             groupInfo: [groupInfo],
         });
+    };
+
+    createGroupHandle = async (createInfo) => {
+        const categoryText = createInfo.categoryId
+        console.log(createInfo)
+        await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/creategroup', createInfo,
+            {
+                'Content-Type': 'application/json',
+                withCredentials: true
+            })
+            .catch(e => console.log(e))
+            .then(res => console.log(res.message))
     };
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
@@ -131,6 +236,7 @@ class App extends Component {
                             path="/Grouppage"
                             render={() => (
                                 <GroupPage
+                                    createGroupHandle={this.createGroupHandle}
                                     groupInfo={this.state.groupInfo}
                                     joinGroup={this.joinGroup}
                                     searchGroup={this.searchGroup}

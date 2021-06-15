@@ -44,11 +44,20 @@ export default function DisplayUserInfo(props) {
           <div className={'contents-key'}>이메일 : </div><input className={'contents-value'} type="text" name="email" defaultValue="props.userInfo.email" onChange={onChange}></input>
           <div className={'contents-key'}>나이 : </div><input className={'contents-value'} type="text" name="age" defaultValue="props.userInfo.age" onChange={onChange} ></input>
           <div className={'contents-key'}>지역 : </div><input className={'contents-value'} type="text" name="location" defaultValue="props.userInfo.location" onChange={onChange}></input>
-          <div className={'contents-key'}>선호활동 : </div><input className={'contents-value'} type="text" name="category" defaultValue="props.userInfo.category" onChange={onChange}></input>
+          <div className={'contents-key'}>선호활동 : </div><select className={'contents-value'} name="category" onChange={onChange}>
+            <option value="">활동을 선택하세요</option>
+            <option value="ball game">구기 운동</option>
+            <option value="aqua sports">아쿠아스포츠</option>
+            <option value="weight">웨이트</option>
+            <option value="running">러닝</option>
+            <option value="yoga">요가</option>
+            <option value="hiking">등산</option>
+            <option value="cycling">사이클링</option>
+            <option value="climbing">클라이밍</option>
+          </select>
           <button className={'user-info-button'} onClick={reverseChange}>변경하기</button>
         </div>
       </div>
     )
   )
 }
-
