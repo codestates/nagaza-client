@@ -1,17 +1,23 @@
 import React, { Component } from "react";
+import { useHistory } from "react-router-dom";
 
-export default class Logo extends Component {
-    constructor() {
-        super();
-    }
+export default function Logo() {
+    const backtoLandingpage = () => {
+        if (location.pathname.toLowerCase() !== "/landingpage")
+            history.push("/landingpage");
+    };
     //로고 hover event, click event = redirection to LandingPage
-    render() {
-        return (
-            <>
-                <div className="logo">
-                    <img className="logoImage" src="/img/nagaza-logo.png" />
-                </div>
-            </>
-        );
-    }
+    const history = useHistory();
+    return (
+        <>
+            <div
+                className="logo"
+                onClick={() => {
+                    backtoLandingpage();
+                }}
+            >
+                <img className="logoImage" src="/img/nagaza-logo.png" />
+            </div>
+        </>
+    );
 }

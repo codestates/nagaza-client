@@ -27,7 +27,7 @@ class GroupPage extends Component {
         this.closeCreateModel = this.closeCreateModel.bind(this);
         this.getGroupLocation = this.getGroupLocation.bind(this);
     }
-
+    
     openSearchModal = () => {
         this.setState({
             isSerachModalOpen: true,
@@ -85,6 +85,8 @@ class GroupPage extends Component {
                     signOut={this.props.signOut}
                     searchGroup={this.props.searchGroup}
                     isSignIn={this.props.isSignIn}
+                    setWhereAmI={this.props.setWhereAmI}
+                    whereAmI={this.props.whereAmI}
                 ></Header>
                 <div className={"middle-info-and-map"}>
                     <GroupList
