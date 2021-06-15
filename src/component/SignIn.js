@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 import "./SignIn.css";
 export default function SignIn() {
-    
     // const kakaoLogin = () => {
     //     Kakao.init("8e9d95ae5c32cab6e230605a3d201368");
     //     Kakao.Auth.login({
@@ -74,10 +73,7 @@ export default function SignIn() {
                 <button className="loginBtn"> 로그인 </button>
                 <div className="socialBox">
                     <div className="kakao">
-                        <img
-                            className="kakaoLogo"
-                            src="/Images/SignIn/kakao.png"
-                        />
+                        <img className="kakaoLogo" src="/img/kakao-logo.png" />
                         <div
                             className="kakaoText"
                             onClick={() => {
@@ -89,10 +85,7 @@ export default function SignIn() {
                     </div>
 
                     <div className="facebook">
-                        <img
-                            className="facebookLogo"
-                            src="/Images/SignIn/facebook.png"
-                        />
+                        <img className="facebookLogo" src="/img/facebook.png" />
                         <div className="facebookText">
                             페이스북 계정으로 신규가입
                         </div>

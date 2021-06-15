@@ -9,7 +9,7 @@ export default class Logo extends Component {
         return (
             <>
                 <div className="logo">
-                    <img className="logoImage" src="#" />
+                    <img className="logoImage" src="/img/nagaza-logo.png" />
                 </div>
             </>
         );
