@@ -42,7 +42,14 @@ export default function NavigationBar(props) {
         "11",
         "12",
     ];
+    let date = new Date();
 
+    let month = date.getMonth() + 1;
+    if (month < 10) {
+        month = "0" + month;
+    }
+    const dateStr = date.getFullYear() + "-" + month + "-" + date.getDate();
+    console.log(dateStr);
     const history = useHistory();
     //검색 기능시 서버에 요청하는 onClickEvent 메서드 필요
     //전체 Input이 ComboBox로 구성될지, 혹은 Input으로 구성될지 결정
@@ -52,11 +59,12 @@ export default function NavigationBar(props) {
         //값이 바뀌면 상태값에 저장되도록
         console.log(e.target);
     };
+    
     const searchGroup = () => {
         // 그룹 검색과 동시에 grouppage로 이동
         // console.log(location.pathname)
-        if (location.pathname === "/LandingPage") {
-            // console.dir(history)
+        if (location.pathname.toLowerCase() === "/landingpage") {
+            console.dir(history);
             history.push("/grouppage");
         }
         props.searchGroup([locationCord, dateStart, dateEnd, personNum]);
@@ -68,76 +76,25 @@ export default function NavigationBar(props) {
                 <div className="navigationWrapper">
                     <div className="navigationSearch">
                         <div className="geolocation search">
-                            <span>위치</span>
+                            <span>카테고리</span>
                             <input type="text"></input>
                         </div>
-                        <div className="dateStart search">
-                            <span>시작시간</span>
+                        <div className="date search">
+                            <span>시작일</span>
                             <div className="timeOption">
-                                <select name="ampm">
-                                    <option value="none">시간대</option>
-                                    <option value="none">오전</option>
-                                    <option value="korean">오후</option>
-                                </select>
-                                <select name="startHour">
-                                    {hours.map((el) => {
-                                        return (
-                                            <option key={el} value={el}>
-                                                {el}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                                <select name="startMinute">
-                                    {minutes.map((el) => {
-                                        return (
-                                            <option key={el} value={el}>
-                                                {el}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
+                                <input
+                                    type="date"
+                                    defaultValue={dateStr}
+                                ></input>
                             </div>
                         </div>
-                        <div className="dateEnd search">
-                            <span>종료시간</span>
+                        <div className="date search">
+                            <span>종료일</span>
                             <div className="timeOption">
-                                <select name="ampm">
-                                    <option value="none">오전</option>
-                                    <option value="korean">오후</option>
-                                </select>
-                                <select name="startHour">
-                                    {hours.map((el) => {
-                                        return (
-                                            <option key={el} value={el}>
-                                                {el}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                                <select name="startMinute">
-                                    {minutes.map((el) => {
-                                        return (
-                                            <option key={el} value={el}>
-                                                {el}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
+                                <input type="date"></input>
                             </div>
                         </div>
-                        <div className="person search">
-                            <span>인원</span>
-                            <select name="personNum">
-                                {people.map((el) => {
-                                    return (
-                                        <option key={el} value={el}>
-                                            {el}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
+
                         <div className="searchBtn-wrapper">
                             <div
                                 className="searchBtn"

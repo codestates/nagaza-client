@@ -36,7 +36,7 @@
     transition: 0.01s;
 }
 .menu a:hover {
-    color: #d84315;
+    color: rgb(83, 83, 255);
 }
 .menu span:nth-of-type(1) {
     transition-delay: 0.4s;

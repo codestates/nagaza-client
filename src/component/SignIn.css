@@ -13,7 +13,7 @@
     flex-direction: column;
 }
 .modalContents > .signinIcon {
-    width: 150px;
+    width: 32px;
     margin: 0 auto;
 }
 .modalContents > .loginId {
@@ -43,6 +43,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
 }
 .modalContents > .loginMid .autoLogin {
     font-size: 12px;

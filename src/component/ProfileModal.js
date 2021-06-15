@@ -4,16 +4,20 @@ import axios from "axios";
 import "./ProfileModal.css";
 import SignIn from "./SignIn.js";
 import SignUp from "./SignUp.js";
+import { useHistory } from "react-router-dom";
 
 export default function ProfileModal(props) {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
     const { isOpen, closeModal, header } = props;
     const [modalState, setModal] = useState(false);
+    const history = useHistory();
     let modalContent = <></>;
     if (header === "회원가입") {
         modalContent = <SignUp></SignUp>;
     } else if (header === "로그인") {
         modalContent = <SignIn></SignIn>;
+    } else if (header === "로그아웃") {
+        modalContent = "로그아웃 되었습니다.";
     }
     return (
         <div className={isOpen ? "openModal modal" : "modal"}>

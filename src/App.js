@@ -19,7 +19,7 @@ import {
 
 class App extends Component {
     state = {
-        isSignIn: false,
+        isSignIn: true,
         userInfo: [],
         groupInfo: [],
         searchGroupData: [],

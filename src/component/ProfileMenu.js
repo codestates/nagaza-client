@@ -10,7 +10,18 @@ export default function ProfileMenu(props) {
     const [isLogin, setLogin] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
     const [modalHeader, setModalHeader] = useState("");
-    const history = useHistory()
+    const history = useHistory();
+    const whereAmI = location.pathname.toLowerCase();
+    let optionName = "";
+    // if (location.pathname.toLowerCase() === "/mypage") {
+    //     let mypageBtn = document.getElementsByClassName(".menu1");
+    //     mypageBtn.classList.add("hidden");
+    // }
+    if (whereAmI === "/mypage") {
+        optionName = "GroupPage";
+    } else {
+        optionName = "MyPage";
+    }
 
     const openModal = () => {
         setModalOpen(true);
@@ -18,6 +29,7 @@ export default function ProfileMenu(props) {
     const closeModal = () => {
         setModalOpen(false);
     };
+
     return (
         <div className={isMenuWide ? "menu expanded" : "menu"}>
             <div
@@ -42,6 +54,7 @@ export default function ProfileMenu(props) {
                     if (props.isSignIn) {
                         //로그인 상태일때 : 로그아웃
                         setModalHeader("로그아웃");
+                        
                         openModal();
                     } else {
                         //비로그인 상태일때 : 로그인
@@ -50,15 +63,14 @@ export default function ProfileMenu(props) {
                     }
                 }}
             >
-                <a href="#">{props.isSignIn ? "Sign Out" : "Sign In"}</a>
+                <a href="#">{props.isSignIn ? "SignOut" : "SignIn"}</a>
             </span>
             <span
                 className={isCloseMenu ? "menu1 hidden" : "menu1"}
                 onClick={() => {
                     if (props.isSignIn) {
                         //로그인 상태일때 : 마이페이지
-                        setModalHeader("마이페이지");
-                        openModal();
+                        history.push("/mypage");
                     } else {
                         //비로그인 상태일때 : 회원가입
                         setModalHeader("회원가입");
@@ -66,14 +78,14 @@ export default function ProfileMenu(props) {
                     }
                 }}
             >
-                <a href="#">{props.isSignIn ? "My Page" : "Sign Up"}</a>
+                <a href="#">{props.isSignIn ? optionName : "SignUp"}</a>
             </span>
             <ProfileModal
                 isOpen={modalOpen}
                 closeModal={closeModal}
                 header={modalHeader}
             >
-                <main> </main>
+                <main></main>
             </ProfileModal>
         </div>
     );

@@ -18,6 +18,7 @@
     margin: 0 auto;
     border-radius: 0.3rem;
     background-color: #fff;
+    z-index: 0;
     /* 팝업이 열릴때 스르륵 열리는 효과 */
     animation: modal-show 0.3s;
     overflow: hidden;
@@ -58,8 +59,9 @@
 .modal.openModal {
     display: flex;
     align-items: center;
+    z-index: 1200;
     /* 팝업이 열릴때 스르륵 열리는 효과 */
-    animation: modal-bg-show 3s;
+    animation: modal-bg-show 0.5s;
 }
 @keyframes modal-show {
     from {
