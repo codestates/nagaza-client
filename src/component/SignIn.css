@@ -112,18 +112,15 @@
 }
 .modalContents .loginEnd {
     text-align: center;
-    font-size: 11px;
+}
+.loginLine:hover {
+    color: red;
 }
 .modalContents .loginEnd > .loginLine {
     color: #bcbcbc;
-    font-size: 11px;
-    margin-bottom: 35px;
+    font-size: 12px;
 }
-.modalContents .loginEnd > .loginLine a {
-    color: black;
-    text-decoration: underline;
-    cursor: pointer;
-}
+
 .modalContents .loginEnd .noUser {
     text-decoration: underline;
 }

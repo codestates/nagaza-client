@@ -1,12 +1,16 @@
 .navigationWrapper {
     display: flex;
     height: 5rem;
-    width: 55rem;
+    width: 50rem;
     background-color: #fff;
     align-items: center;
     justify-content: center;
-    border-radius: 20px;
+    border-radius: 50px;
     box-shadow: 0 4px 64px rgba(0, 0, 0, 0.2);
+}
+input {
+    border: 0.5px;
+    height: 3rem;
 }
 .navigationSearch {
     position: relative;
@@ -14,16 +18,45 @@
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    background-color: #fff;
-    width: 50rem;
+    width: 55rem;
     height: 4rem;
 }
-.Search {
+.search {
     display: flex;
+    justify-content: space-between;
+    width: 10rem;
     height: 3rem;
     background-color: #fff;
-    flex-direction: row;
+    flex-direction: column;
 }
 select {
     width: 3rem;
+    display: flex;
+    flex-direction: row;
+    border: none;
+}
+.personNum {
+    width: 5rem;
+}
+.timeOption {
+    display: flex;
+    flex-direction: row;
+}
+.searchBtn {
+    background-color: royalblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 60px;
+    border-radius: 50px;
+}
+
+.geoDescription {
+    display: flex;
+}
+.geothumbnail {
+    border: 1px solid black;
+    width: 480px;
+    height: 480px;
 }
