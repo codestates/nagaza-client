@@ -17,18 +17,20 @@ class MyPage extends Component {
   render() {
     return (
       <div className={'my-page'}>
-        <div className="header">
-          <div>
-            <Logo></Logo>
-          </div>
-          <div>어서오세요 this.props.userInfo.username 님</div>
-          <div>
-            <ProfileMenu isSignIn={this.props.isSignIn} ></ProfileMenu>
+        <div className={"headermenu"}>
+          <div className={"mainmenu"}>
+            <div className={"mainmenu-logo"}>
+              <Logo></Logo>
+            </div>
+            <div className={'welcome-message'}>환영합니다 this.props.userInfo.username님</div>
+            <div className={"mainmenu-profile"}>
+              <ProfileMenu isSignIn={this.props.isSignIn}></ProfileMenu>
+            </div>
           </div>
         </div>
         <div className={'middle-myInfo'}>
           <DisplayUserInfo userInfo={this.state.userInfo} changeUserInfo={this.props.changeUserInfo} ></DisplayUserInfo>
-          <DisplayGroupInfo isAdmin ={this.state.isAdmin} groupInfo={this.state.groupInfo} deleteGroup={this.props.deleteGroup} exitGroup={this.props.exitGroup}></DisplayGroupInfo>
+          <DisplayGroupInfo isAdmin={this.state.isAdmin} groupInfo={this.state.groupInfo} deleteGroup={this.props.deleteGroup} exitGroup={this.props.exitGroup}></DisplayGroupInfo>
         </div>
       </div>
     );
