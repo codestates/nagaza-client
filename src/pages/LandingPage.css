@@ -1,3 +1,8 @@
+.lp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .lp-landingPage > section:nth-child(1) {
     height: 100vh;
 }
@@ -12,7 +17,7 @@
     position: sticky;
     top: 0;
 }
-.lp-main-content {
+.lp {
     margin-top: 8rem;
     display: flex;
     justify-content: space-evenly;
@@ -25,10 +30,32 @@
 .lp-main-content > div {
     margin-left: 2rem;
 }
-.lp-main-content > div > div {
+.lp > div > div {
     font-size: 3.2rem;
     font-weight: bold;
 }
 .lp-main-content > div > img {
     width: 50vw;
+}
+.lp-category {
+    margin-left: 2rem;
+}
+.lp-category > img {
+    width: 300px;
+    height: 200px;
+    border-radius: 30px;
+}
+.lp-category > div {
+    font-size: 1rem;
+}
+.category-entry {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.second-page {
+    display: flex;
+    flex-direction: column;
 }

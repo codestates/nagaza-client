@@ -2,6 +2,42 @@ import React from "react";
 import axios from "axios";
 import "./SignIn.css";
 export default function SignIn() {
+    
+    // const kakaoLogin = () => {
+    //     Kakao.init("8e9d95ae5c32cab6e230605a3d201368");
+    //     Kakao.Auth.login({
+    //         success: function (response) {
+    //             Kakao.API.request({
+    //                 url: "/v2/user/me",
+    //                 success: function (response) {
+    //                     console.log(Kakao.Auth);
+    //                     console.log(response);
+    //                 },
+    //                 fail: function (error) {
+    //                     console.log(error);
+    //                 },
+    //             });
+    //         },
+    //         fail: function (error) {
+    //             console.log(error);
+    //         },
+    //     });
+    // };
+    // const kakaoLogout = () => {
+    //     if (Kakao.Auth.getAccessToken()) {
+    //         Kakao.API.request({
+    //             url: "/v1/user/unlink",
+    //             success: function (response) {
+    //                 console.log(Kakao.Auth);
+    //                 console.log(response);
+    //             },
+    //             fail: function (error) {
+    //                 console.log(error);
+    //             },
+    //         });
+    //         Kakao.Auth.setAccessToken(undefined);
+    //     }
+    // };
     return (
         ////만약 isopen(this.state.isModalOpen)이 true일때 코드를 실행 false면  null
         /// <div onClick={close}> 로그인창 말고 회색 바탕을 누를시 모달이 꺼지게 만듬
@@ -34,7 +70,7 @@ export default function SignIn() {
                     </label>
                     <div className="autoLogin">아이디/비밀번호 찾기</div>
                 </div>
-        
+
                 <button className="loginBtn"> 로그인 </button>
                 <div className="socialBox">
                     <div className="kakao">
@@ -42,10 +78,16 @@ export default function SignIn() {
                             className="kakaoLogo"
                             src="/Images/SignIn/kakao.png"
                         />
-                        <div className="kakaoText">
+                        <div
+                            className="kakaoText"
+                            onClick={() => {
+                                kakaoLogin();
+                            }}
+                        >
                             카카오 계정으로 신규가입
                         </div>
                     </div>
+
                     <div className="facebook">
                         <img
                             className="facebookLogo"
@@ -57,8 +99,9 @@ export default function SignIn() {
                     </div>
                 </div>
                 <div className="loginEnd">
-                    <div className="loginLine">회원이 아니신가요? </div>
-                    <div className="noUser">비회원 주문 조회</div>
+                    <div className="loginLine">
+                        아직 나가자 회원이 아니신가요?
+                    </div>
                 </div>
             </div>
         </>

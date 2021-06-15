@@ -10,6 +10,38 @@ export default function NavigationBar(props) {
     let [dateEnd, setDateEnd] = useState("");
     let [personNum, setPersonNum] = useState("");
     let [isOpenBox, setOpenBox] = useState([false, false, false]);
+    const minutes = ["분", "00", "10", "20", "30", "40", "50", "60"];
+    const hours = [
+        "시간",
+        "00",
+        "01",
+        "02",
+        "03",
+        "04",
+        "05",
+        "06",
+        "07",
+        "08",
+        "09",
+        "10",
+        "11",
+        "12",
+    ];
+    const ampm = ["시간대", "오전", "오후"];
+    const people = [
+        "+",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+    ];
 
     const history = useHistory();
     //검색 기능시 서버에 요청하는 onClickEvent 메서드 필요
@@ -29,71 +61,81 @@ export default function NavigationBar(props) {
         }
         props.searchGroup([locationCord, dateStart, dateEnd, personNum]);
     };
+
     return (
         <>
             <form className="navigationBar">
                 <div className="navigationWrapper">
                     <div className="navigationSearch">
-                        <div className="geolocation Search">
+                        <div className="geolocation search">
                             <span>위치</span>
-                            <input type=""></input>
+                            <input type="text"></input>
                         </div>
-                        <div className="dateStart Search">
+                        <div className="dateStart search">
                             <span>시작시간</span>
-                            <select name="ampm">
-                                <option value="none">오전</option>
-                                <option value="korean">오후</option>
-                            </select>
-                            <select name="startHour">
-                                <option value="none">시간</option>
-                                <option value="korean">01</option>
-                                <option value="english">02</option>
-                                <option value="chinese">03</option>
-                                <option value="spanish">04</option>
-                            </select>
-                            <select name="startMinute">
-                                <option value="none">분</option>
-                                <option value="korean">00</option>
-                                <option value="korean">10</option>
-                                <option value="english">20</option>
-                                <option value="chinese">30</option>
-                                <option value="spanish">40</option>
-                                <option value="spanish">50</option>
-                            </select>
+                            <div className="timeOption">
+                                <select name="ampm">
+                                    <option value="none">시간대</option>
+                                    <option value="none">오전</option>
+                                    <option value="korean">오후</option>
+                                </select>
+                                <select name="startHour">
+                                    {hours.map((el) => {
+                                        return (
+                                            <option key={el} value={el}>
+                                                {el}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <select name="startMinute">
+                                    {minutes.map((el) => {
+                                        return (
+                                            <option key={el} value={el}>
+                                                {el}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                            </div>
                         </div>
-                        <div className="dateEnd Search">
+                        <div className="dateEnd search">
                             <span>종료시간</span>
-                            <select name="ampm">
-                                <option value="none">오전</option>
-                                <option value="korean">오후</option>
-                            </select>
-                            <select name="startHour">
-                                <option value="none">시간</option>
-                                <option value="korean">01</option>
-                                <option value="english">02</option>
-                                <option value="chinese">03</option>
-                                <option value="spanish">04</option>
-                            </select>
-                            <select name="startMinute">
-                                <option value="none">분</option>
-                                <option value="korean">00</option>
-                                <option value="korean">10</option>
-                                <option value="english">20</option>
-                                <option value="chinese">30</option>
-                                <option value="spanish">40</option>
-                                <option value="spanish">50</option>
-                            </select>
+                            <div className="timeOption">
+                                <select name="ampm">
+                                    <option value="none">오전</option>
+                                    <option value="korean">오후</option>
+                                </select>
+                                <select name="startHour">
+                                    {hours.map((el) => {
+                                        return (
+                                            <option key={el} value={el}>
+                                                {el}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                                <select name="startMinute">
+                                    {minutes.map((el) => {
+                                        return (
+                                            <option key={el} value={el}>
+                                                {el}
+                                            </option>
+                                        );
+                                    })}
+                                </select>
+                            </div>
                         </div>
-                        <div className="personNum Search">
+                        <div className="person search">
                             <span>인원</span>
                             <select name="personNum">
-                                <option value="none">2</option>
-                                <option value="korean">3</option>
-                                <option value="korean">4</option>
-                                <option value="english">5</option>
-                                <option value="chinese">6</option>
-                                <option value="spanish">7</option>
-                                <option value="spanish">8</option>
+                                {people.map((el) => {
+                                    return (
+                                        <option key={el} value={el}>
+                                            {el}
+                                        </option>
+                                    );
+                                })}
                             </select>
                         </div>
                         <div className="searchBtn-wrapper">
@@ -103,7 +145,7 @@ export default function NavigationBar(props) {
                                     searchGroup();
                                 }}
                             >
-                                <i>검색</i>
+                                <span>검색</span>
                             </div>
                         </div>
                     </div>
