@@ -17,7 +17,7 @@ export default function CreateGroup(props) {
       [name]: value,
     });
   };
-  console.log(props.isOpen)
+  // console.log(props.isOpen)
   if (props.isOpen) {
     return (
       <div className='c-modal'>
@@ -26,23 +26,23 @@ export default function CreateGroup(props) {
             <header className='close'>
               <button onClick={props.close}>&times;</button>
             </header>
-            <main className='modalContents'>
-              <div>그룹 이름을 입력하세요</div>
+            <main className='modal-contents'>
+              <div className={'contents-group'} >그룹 이름을 입력하세요</div>
               <input type="text" name="groupName" onChange={onChange}></input>
-              <select name="groupCategory" onChange={onChange}>
+              <select className={'contents-category'} name="groupCategory" onChange={onChange}>
                 <option value="">활동을 선택하세요</option>
                 <option value="soccer">축구</option>
                 <option value="baseball">야구</option>
                 <option value="basketball">농구</option>
                 <option value="swimming">수영</option>
               </select>
-              <div>시작 시간을 입력하세요</div>
-              <input type="date" name="groupStartTime" onChange={onChange}></input>
-              <div>종료 예상 시간을 입력하세요</div>
-              <input type="date" name="groupEndTime" onChange={onChange}></input>
-              <div> 간단한 메세지를 입력하세요 </div>
+              <div className={'contents-start'}>시작 시간을 입력하세요</div>
+              <input type="time" name="groupStartTime" onChange={onChange}></input>
+              <div className={'contents-end'}>종료 예상 시간을 입력하세요</div>
+              <input type="time" name="groupEndTime" onChange={onChange}></input>
+              <div className={'contents-message'}> 간단한 메세지를 입력하세요 </div>
               <input type="text" name="groupMessage" onChange={onChange}></input>
-              <button
+              <button className={'contents-button'}
                 onClick={() => {
                   props.createGroupHandle(createInfo);
                 }}
