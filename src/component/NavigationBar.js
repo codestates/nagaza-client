@@ -6,8 +6,8 @@ import "./NavigationBar.css";
 export default function NavigationBar(props) {
     const [searchInfo, setSearchInfo] = useState({
         category: '',
-        startTime: '',
-        endTime: ''
+        startDate: '',
+        endDate: ''
     })
     let [isOpenBox, setOpenBox] = useState([false, false, false]);
 
@@ -57,7 +57,7 @@ export default function NavigationBar(props) {
                                 <input
                                     name={'startTime'}
                                     onChange={onChange}
-                                    type="time"
+                                    type="date"
                                 ></input>
                             </div>
                         </div>
@@ -68,7 +68,7 @@ export default function NavigationBar(props) {
                                 <input
                                     name={'endTime'}
                                     onChange={onChange}
-                                    type="time"
+                                    type="date"
                                 ></input>
                             </div>
                         </div>

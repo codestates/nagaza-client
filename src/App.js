@@ -25,16 +25,16 @@ class App extends Component {
         groupInfo: [], //유저가 속한 그룹의 정보
         searchGroupData: [],
         isAdmin: true,
-        transCategoryId: {
-            "ball game": 1,
-            "aqua sports": 2,
-            "weight training": 3,
-            running: 4,
-            yoga: 5,
-            hiking: 6,
-            cycling: 7,
-            climbing: 8,
-        },
+        transCategoryId: [
+            "ball game",
+            "aqua sports",
+            "weight training",
+            "running",
+            "yoga",
+            "hiking",
+            "cycling",
+            "climbing",
+        ],
     };
     constructor(props) {
         super(props);
@@ -46,23 +46,6 @@ class App extends Component {
         this.deleteGroup = this.deleteGroup.bind(this);
         this.exitGroup = this.exitGroup.bind(this);
         this.createGroupHandle = this.createGroupHandle.bind(this);
-    }
-    componentDidMount() {
-        // axios
-        //     .get(
-        //         "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
-        //         {
-        //             withCredentials: true,
-        //         }
-        //     )
-        //     .then((res) => {
-        //         // console.log(res);
-        //         this.setState({
-        //             isConnected: true,
-        //             data: res.data,
-        //         });
-        //     })
-        //     .catch((err) => console.log(err));
     }
 
     signIn = () => {
@@ -88,28 +71,28 @@ class App extends Component {
 
     searchGroup = async (searchInfo) => {
         const categoryText = searchInfo.category;
-        searchInfo.category = this.state.transCategoryId[categoryText];
-        // if (searchInfo.category === '') {
-        //     alert('운동을 골라주세요')
-        // }
-        // else {
-        //     await axios.get('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/groupInfo', searchInfo, {
-        //         'Content-Type': 'application/json',
-        //         withCredentials: true
-        //     })
-        //         .catch(e => console.log(e))
-        //         .then(res => console.log(res))
-        //         .then(res => {
-        //             this.setState({
-        //                 searchGroupData : res.groupInfo
-        //             })
-        //         })
-        // }
-
-        // console.log(searchInfo)
-        this.setState({
-            searchGroupData: data.data,
-        });
+        searchInfo.category = this.state.transCategoryId.indexOf(searchInfo.category) + 1
+        if (searchInfo.category === '') {
+            alert('운동을 골라주세요')
+        }
+        else {
+            await axios.get('https://localhost:4000/group/groupinfo',
+                searchInfo,
+                {
+                    'Content-Type': 'application/json',
+                    withCredentials: true
+                })
+                .then(res => {
+                    const groupInfo = res.data.groupInfo
+                    groupInfo.map((el) => {
+                        const categoryIdOnServer = parseInt(el.category_id) - 1 
+                        el.category_id = this.state.transCategoryId[categoryIdOnServer]
+                    })
+                    this.setState({
+                        searchGroupData: groupInfo
+                    })
+                })
+        }
     };
 
     changeUserInfo = async (changeUserInfo) => {
@@ -182,7 +165,7 @@ class App extends Component {
     };
 
     joinGroup = async (groupId) => {
-        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/joingroup', {
+        // await axios.post('https://127.0.0.1/group/joingroup', {
         //     groupId: groupId,
         //     userId: 'this.state.userInfo.userId'
         // }, {
@@ -196,7 +179,7 @@ class App extends Component {
         //             groupInfo : res.groupInfo
         //         })
         //     })
-        console.log(1);
+        // console.log(1);
         this.setState({
             groupInfo: [],
         });
@@ -205,17 +188,17 @@ class App extends Component {
     createGroupHandle = async (createInfo) => {
         const categoryText = createInfo.categoryId;
         console.log(createInfo);
-        await axios
-            .post(
-                "https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/creategroup",
-                createInfo,
-                {
-                    "Content-Type": "application/json",
-                    withCredentials: true,
-                }
-            )
-            .catch((e) => console.log(e))
-            .then((res) => console.log(res.message));
+        // await axios
+        //     .post(
+        //         "https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/creategroup",
+        //         createInfo,
+        //         {
+        //             "Content-Type": "application/json",
+        //             withCredentials: true,
+        //         }
+        //     )
+        //     .catch((e) => console.log(e))
+        //     .then((res) => console.log(res.message));
     };
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
@@ -250,13 +233,13 @@ class App extends Component {
                                         }
                                         groupInfo={this.state.groupInfo}
                                         joinGroup={this.joinGroup}
+                                        transCategoryId = {this.state.transCategoryId}
                                         searchGroup={this.searchGroup}
                                         searchGroupData={
                                             this.state.searchGroupData
                                         }
                                         signIn={this.signIn}
                                         signOut={this.signOut}
-                                        searchGroup={this.searchGroup}
                                         isSignIn={this.state.isSignIn}
                                     />
                                 ) : (
