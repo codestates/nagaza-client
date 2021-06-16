@@ -4,6 +4,20 @@ import axios from "axios";
 import CreateGroup from "./CreateGroup";
 
 const Map = (props) => {
+
+    const isGroupIn = props.groupInfo.length >= 1 ? true : false
+
+    const joinEvent = () => {
+
+        if (!isGroupIn) {
+          props.joinGroup(props.groupInfo.username)//groupid o , username x
+          alert('그룹에 가입되었습니다')
+        }
+        else {
+          alert('동시에 두개의 그룹에 가입할 수 없습니다.')
+        }
+      }
+
     useEffect(() => {
         let container = document.getElementById("map");
 
@@ -11,35 +25,50 @@ const Map = (props) => {
             center: new kakao.maps.LatLng(
                 37.365264512305174,
                 127.10676860117488
-            ), //지도 센터 잡아 주는 곳
+            ), //지도 센터 잡아 주는 곳 // props.userLocation
             level: 3, // 지도 스케일 정해주는 곳
         };
         let map = new kakao.maps.Map(container, options);
 
-        let markerPosition = new kakao.maps.LatLng(
-            37.365264512305174,
-            127.10676860117488
-        ); // 위치 기반 그룹 표시
-        let marker = new kakao.maps.Marker({
-            position: markerPosition,
-            clickable: true, // 마커 클릭시 그룹생성 안뜨게
-        });
-        marker.setMap(map);
 
-        let iwContent = '<div style="padding:0.7rem;"></div>', // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-            iwPosition = new kakao.maps.LatLng(33.450701, 126.570667);
 
-        let infowindow = new kakao.maps.InfoWindow({
-            position: iwPosition,
-            content: iwContent,
-        });
 
-        infowindow.open(map, marker);
 
-        infowindow.open(map, marker);
+        const makeMarker = (groupinfo) => {
+            let markerPosition = new kakao.maps.LatLng(
+                37.365264512305174,
+                127.10676860117488
+            ); // 위치 기반 그룹 표시
+            let marker = new kakao.maps.Marker({
+                position: markerPosition,
+                clickable: true, // 마커 클릭시 그룹생성 안뜨게
+            });
+            marker.setMap(map);
+
+            let iwContent = `<div style="padding:0.7rem;">
+                                <div class ="marker-category">${props.searchGroupDataOnMap.category}</div>
+                                <div class ="marker-start-time">${props.searchGroupDataOnMap.startTime}</div>
+                                <button class ="marker-join-button" onClick="${joinEvent}">그룹참가</button>
+                            </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
+                iwPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+
+            let infowindow = new kakao.maps.InfoWindow({
+                position: iwPosition,
+                content: iwContent,
+            });
+
+            infowindow.open(map, marker);
+        }
+
+        // props.searchGroupDataOnMap.map((el) => {
+        //el정보 분해해서
+        // makeMarker(el)
+        // })
+
+        makeMarker()
+
 
         kakao.maps.event.addListener(map, "click", function (mouseEvent) {
-            // 클릭한 위도, 경도 정보를 가져옵니다
             let latlng = mouseEvent.latLng;
             // 위도 : lating.getLat()
             // 경도 : lating.getLng()
@@ -47,10 +76,8 @@ const Map = (props) => {
             props.changeGroupState();
             props.getGroupLocation([latlng.getLat(), latlng.getLng()]);
             props.open();
-            // console.log(props.isOpen)
         });
     }, []);
-    // console.log(props.isOpen)
     return (
         <div className={"map-info"}>
             {props.createGroupState ? (
