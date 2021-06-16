@@ -9,6 +9,7 @@ class GroupPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            searchGroupDataOnMap: [],
             searchGroupData: props.searchGroupData,
             createGroupState: false,
             createGroupLocation: null,
@@ -27,7 +28,24 @@ class GroupPage extends Component {
         this.closeCreateModel = this.closeCreateModel.bind(this);
         this.getGroupLocation = this.getGroupLocation.bind(this);
     }
-    
+
+    componentDidMount = async () => {
+
+
+        // await axios.get('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/groupInfo', {
+        //     'Content-Type': 'application/json',
+        //     withCredentials: true
+        // })
+        //     .catch(e => console.log(e))
+        //     .then(res => console.log(res))
+        //     .then(res => {
+        //         this.setState({
+        //             searchGroupDataOnMap: res.groupInfo
+        //         })
+        //     })
+
+    }
+
     openSearchModal = () => {
         this.setState({
             isSerachModalOpen: true,
@@ -94,6 +112,9 @@ class GroupPage extends Component {
                         그룹 정보
                     </GroupList>
                     <Map
+                        groupInfo={this.props.groupInfo}
+                        searchGroupDataOnMap={this.state.searchGroupData}
+                        joinGroup={this.props.joinGroup}
                         getGroupLocation={this.getGroupLocation}
                         close={this.closeCreateModel}
                         open={this.openCreateModel}

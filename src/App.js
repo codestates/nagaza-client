@@ -85,6 +85,8 @@ class App extends Component {
     };
 
     searchGroup = async (searchInfo) => {
+        const categoryText = searchInfo.category
+        searchInfo.category = this.state.transCategoryId[categoryText]
         // if (searchInfo.category === '') {
         //     alert('운동을 골라주세요')
         // }
@@ -102,7 +104,7 @@ class App extends Component {
         //         })
         // }
 
-
+        // console.log(searchInfo)
         this.setState({
             searchGroupData: data.data,
         });
@@ -196,9 +198,9 @@ class App extends Component {
         //             groupInfo : res.groupInfo
         //         })
         //     })
-
+        console.log(1)
         this.setState({
-            groupInfo: [groupInfo],
+            groupInfo: [],
         });
     };
 
@@ -237,8 +239,10 @@ class App extends Component {
                             path="/Grouppage"
                             render={() => (
                                 <GroupPage
+                                    categoryId = {this.state.transCategoryId}
+                                    // userLocation={this.state.userInfo.location}
                                     createGroupHandle={this.createGroupHandle}
-gi                                    groupInfo={this.state.groupInfo}
+                                    groupInfo={this.state.groupInfo}
                                     joinGroup={this.joinGroup}
                                     searchGroup={this.searchGroup}
                                     searchGroupData={this.state.searchGroupData}
