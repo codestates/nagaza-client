@@ -59,9 +59,10 @@ export default function SignIn(props) {
 
     //서버에 로그인 요청
     const signinHandler = async () => {
+        console.log(1)
         await axios
             .post(
-                `https://localhost:4000/user/signin`,
+                'https://localhost:4000/user/signin',
                 {
                     email: userId,
                     password: password,
@@ -71,11 +72,11 @@ export default function SignIn(props) {
                     withCredentials: true,
                 }
             )
+            .cate(e => console.log(e))
             .then((res) => {
-                userdataSave(res.userInfo, res.groupInfo);
                 console.log(res);
             });
-
+console.log(2)
         /* isLogin에 반영
                  history.push("/landingpage");
                  */
@@ -98,7 +99,7 @@ export default function SignIn(props) {
                     onChange={(e) => {
                         setEmail(e.target.value);
                         isValidationId(e.target.value);
-                        console.log(userId);
+                        // console.log(userId);
                     }}
                 />
                 <input
@@ -109,7 +110,7 @@ export default function SignIn(props) {
                     onChange={(e) => {
                         setPassword(e.target.value);
                         isValidationPassword(e.target.value);
-                        console.log(password);
+                        // console.log(password);
                     }}
                 />
                 <div className="loginMid">
@@ -151,7 +152,7 @@ export default function SignIn(props) {
                 <button
                     className="loginBtn"
                     onClick={() => {
-                        props.signIn();
+                        signinHandler();
                         props.closeModal();
                         signinHandler();
                     }}

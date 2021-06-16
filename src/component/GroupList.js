@@ -11,7 +11,7 @@ export default function GroupList(props) {
         <div  className={'group-info'} >검색된 그룹이 없습니다.</div>
       ) : (
         props.searchGroupData.map((el) => (
-          <GroupListEntry key={el.groupid} isGroupIn = {props.groupInfo} joinGroup={props.joinGroup} groupInfo={el.groupInfo} />
+          <GroupListEntry key={el.id} isGroupIn = {props.groupInfo} joinGroup={props.joinGroup} groupInfo={el} />
         ))
       )}
     </div>

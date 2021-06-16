@@ -4,6 +4,7 @@ import GroupList from "../component/GroupList";
 import Map from "../component/Map";
 // import SearchGroup from "../component/SearchGroup.js"
 import Header from "../component/Header";
+import axios from "axios";
 
 class GroupPage extends Component {
     constructor(props) {
@@ -15,6 +16,7 @@ class GroupPage extends Component {
             createGroupLocation: null,
             isSerachModalOpen: false,
             isCreateModalOpen: false,
+            searchGroupDataOnMap : []
             //검색할 카테고리(ex. 활동, 위치, 시간)
             //카테고리의 키워드(ex. 활동-축구, 시간 -몇월, 몇일, 몇시)
         };
@@ -30,17 +32,22 @@ class GroupPage extends Component {
     }
 
     componentDidMount = async () => {
-        // await axios.get('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/groupInfo', {
-        //     'Content-Type': 'application/json',
-        //     withCredentials: true
-        // })
-        //     .catch(e => console.log(e))
-        //     .then(res => console.log(res))
-        //     .then(res => {
-        //         this.setState({
-        //             searchGroupDataOnMap: res.groupInfo
-        //         })
-        //     })
+        await axios.get('https://localhost:4000/group/groupinfo',
+        {
+            'Content-Type': 'application/json',
+            withCredentials: true
+        })
+        .then(res => {
+            const groupInfo = res.data.groupInfo
+            groupInfo.map((el) => {
+                const categoryIdOnServer = parseInt(el.category_id) - 1 
+                el.category_id = this.props.transCategoryId[categoryIdOnServer]
+            })
+            this.setState({
+                searchGroupDataOnMap: groupInfo
+            })
+        })
+        console.log(this.state.searchGroupDataOnMap)
     };
 
     openSearchModal = () => {
@@ -93,7 +100,7 @@ class GroupPage extends Component {
         return (
             <div
                 className={"group-page"}
-                onClick={console.log(this.props.isSignIn)}
+                // onClick={console.log(this.props.isSignIn)}
             >
                 <Header
                     className="gp-header-component"
@@ -112,7 +119,7 @@ class GroupPage extends Component {
                     </GroupList>
                     <Map
                         groupInfo={this.props.groupInfo}
-                        searchGroupDataOnMap={this.state.searchGroupData}
+                        searchGroupDataOnMap={this.state.searchGroupDataOnMap}
                         joinGroup={this.props.joinGroup}
                         getGroupLocation={this.getGroupLocation}
                         close={this.closeCreateModel}
