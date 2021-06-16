@@ -46,15 +46,50 @@ class App extends Component {
         this.deleteGroup = this.deleteGroup.bind(this);
         this.exitGroup = this.exitGroup.bind(this);
         this.createGroupHandle = this.createGroupHandle.bind(this);
-        this.userdataSave = this.userdataSave.bind(this);
+        this.getAccessToken = this.getAccessToken.bind(this);
     }
 
-    signIn = (userInfo, groupInfo) => {
-        // console.log("signIn");
-        let isAdmin = userInfo.id === groupInfo.admin ? true : false
-        const categoryNumb = Number(groupInfo.category_id) - 1
-        // console.log(categoryNumb)
-        groupInfo.category_id = this.state.transCategoryId[categoryNumb] 
+    async getAccessToken(authCode) {
+        await axios
+        .post(`https://localhost:4000/user/socialsignin`,
+            {
+                authorizationCode: authCode,
+            }
+        )
+            .then((data) => {
+                console.log(data)
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        //APP에 accessCode를 저장함.
+    };
+
+    componentDidMount() {
+        // axios
+        //     .get(
+        //         "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
+        //         {
+        //             withCredentials: true,
+        //         }
+        //     )
+        //     .then((res) => {
+        //         // console.log(res);
+        //         this.setState({
+        //             isConnected: true,
+        //             data: res.data,
+        //         });
+        //     })
+        //     .catch((err) => console.log(err));
+        const url = new URL(window.location.href);
+        const authorizationCode = url.searchParams.get("code");
+        if (authorizationCode) {
+            this.getAccessToken(authorizationCode);
+        }
+        console.log('인가코드:', authorizationCode)
+    }
+    
+    signIn = () => {
         this.setState({
             isSignIn: true,
             userInfo: userInfo,
@@ -195,19 +230,15 @@ class App extends Component {
     };
 
     createGroupHandle = async (createInfo) => {
-        const categoryText = createInfo.categoryId;
-        console.log(createInfo);
-        // await axios
-        //     .post(
-        //         "https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/creategroup",
-        //         createInfo,
-        //         {
-        //             "Content-Type": "application/json",
-        //             withCredentials: true,
-        //         }
-        //     )
-        //     .catch((e) => console.log(e))
-        //     .then((res) => console.log(res.message));
+        const categoryText = createInfo.categoryId
+        console.log(createInfo)
+        await axios.post('https://localhost:4000/group/creategroup', createInfo,
+            {
+                'Content-Type': 'application/json',
+                withCredentials: true
+            })
+            .catch(e => console.log(e))
+            .then(res => console.log(res))
     };
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
