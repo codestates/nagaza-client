@@ -388,3 +388,7 @@ span {
     font-size: 3rem;
     font-weight: bold;
 }
+.marker-join-button{
+    width: 70%;
+    height: 5%;
+}
