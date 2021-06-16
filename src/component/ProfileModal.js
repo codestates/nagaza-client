@@ -18,7 +18,9 @@ export default function ProfileModal(props) {
     if (header === "회원가입") {
         modalContent = <SignUp></SignUp>;
     } else if (header === "로그인") {
-        modalContent = <SignIn></SignIn>;
+        modalContent = (
+            <SignIn signIn={props.signIn} closeModal={closeModal}></SignIn>
+        );
     } else if (header === "로그아웃") {
         modalContent = "로그아웃되었습니다.";
     }

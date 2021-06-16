@@ -49,11 +49,12 @@ export default function SignIn(props) {
             },
         })
             .then((res) => res.json())
-            .then((data) => {})
+            .then((data) => {
+                //APP에 accessCode를 저장함.
+            })
             .catch((err) => {
                 console.log(err);
             });
-        //APP에 accessCode를 저장함.
     };
 
     //서버에 로그인 요청
@@ -66,7 +67,7 @@ export default function SignIn(props) {
             // }
             data: {
                 userId: userId,
-                accessToken: accessToken,
+                password: password,
             },
         })
             .then((res) => res.json())
@@ -144,7 +145,16 @@ export default function SignIn(props) {
                         </span>
                     </div>
                 </div>
-                <button className="loginBtn"> 로그인 </button>
+                <button
+                    className="loginBtn"
+                    onClick={() => {
+                        props.signIn();
+                        props.closeModal();
+                    }}
+                >
+                    {" "}
+                    로그인{" "}
+                </button>
 
                 <div className="socialBox">
                     <div className="kakao">
