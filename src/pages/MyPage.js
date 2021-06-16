@@ -4,6 +4,7 @@ import Logo from "../component/Logo.js";
 import ProfileMenu from "../component/ProfileMenu.js";
 import DisplayGroupInfo from "../component/DisplayGroupInfo.js";
 import DisplayUserInfo from "../component/DisplayUserInfo.js";
+import Header from "../component/Header.js";
 class MyPage extends Component {
     constructor(props) {
         super(props);
@@ -18,16 +19,13 @@ class MyPage extends Component {
         return (
             <div className={"my-page"}>
                 <div className={"headermenu"}>
-                    <div className={"mainmenu"}>
-                        <div className={"mainmenu-logo"}>
-                            <Logo></Logo>
-                        </div>
-                        <div className={"mainmenu-profile"}>
-                            <ProfileMenu
-                                isSignIn={this.props.isSignIn}
-                            ></ProfileMenu>
-                        </div>
-                    </div>
+                    <Header
+                        className="gp-header-component"
+                        signIn={this.props.signIn}
+                        signOut={this.props.signOut}
+                        searchGroup={this.props.searchGroup}
+                        isSignIn={this.props.isSignIn}
+                    ></Header>
                     <div className={"welcome-message"}>
                         <div>환영합니다 this.props.userInfo.username님</div>
                     </div>
