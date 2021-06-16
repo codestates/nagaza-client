@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import GroupPage from "./pages/GroupPage";
 import LandingPage from "./pages/LandingPage";
 import MyPage from "./pages/MyPage";
+import KaKaoOauth from "./pages/KakaoOauth";
 // import logo from "./logo.svg";
 import data from "./mockdata/groupData.json";
 
@@ -19,7 +20,7 @@ import {
 
 class App extends Component {
     state = {
-        isSignIn: true,
+        isSignIn: false,
         userInfo: [],
         groupInfo: [],
         searchGroupData: [],
@@ -58,7 +59,7 @@ class App extends Component {
             isSignIn: true,
             userInfo: [],
             groupInfo: [],
-            isAdmin: true
+            isAdmin: true,
         }); // '/signIn'에 post로 로그인 요청 유저의 정보와 그룹정보, 어드민정보를 받아와 setState
         // 변경해야될 state : isSignIn : true, userInfo, groupInfo, isAdmin
     };
@@ -67,7 +68,7 @@ class App extends Component {
             isSignIn: false,
             userInfo: [],
             groupInfo: [],
-            isAdmin: false
+            isAdmin: false,
         }); // '/signout'에 로그가웃 요청
         // 변경해야될 state : isSingIn : false , userInfo : [], groupInfo : [], isAdmin ; false
     };
@@ -151,6 +152,10 @@ class App extends Component {
                                     isAdmin={this.state.isAdmin}
                                 />
                             )}
+                        />
+                        <Route
+                            path="/KakaoOuath"
+                            render={() => <KaKaoOauth />}
                         />
                     </Switch>
                 </BrowserRouter>

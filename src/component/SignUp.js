@@ -13,36 +13,43 @@ export default function SignUp() {
     return (
         <>
             <div className="modalContents">
-                <img
-                    className="signinIcon"
-                    src="/Images/SignIn/signinIcon.png"
-                />
+                <img className="signinIcon" src="/img/nagaza-logo.png" />
                 <input
                     name="email"
                     className="loginId"
                     type="text"
                     placeholder="이메일"
                 />
+                <div className="errMsg">
+                    <div>에러메시지가 나오는 곳</div>
+                </div>
                 <input
                     name="password"
                     className="loginPw"
                     type="password"
                     placeholder="비밀번호"
                 />
+                <div className="errMsg">
+                    <div>에러메시지가 나오는 곳</div>
+                </div>
                 <div className="loginMid">
+                    <div>위치</div>
                     <input
-                        name="나이"
+                        name="위치"
                         className="loginPw"
                         type="text"
-                        placeholder="나이"
+                        placeholder="위치"
                     />
+                    <div>성별</div>
                     <select
                         name="성별"
                         className="loginPw"
                         type="text"
                         placeholder="성별"
                     >
-                        <option value="none">선택</option>
+                        <option value="none" disabled>
+                            성별
+                        </option>
                         <option value="male">남자</option>
                         <option value="female">여자</option>
                     </select>
@@ -60,42 +67,27 @@ export default function SignUp() {
                         type="text"
                         placeholder="선호하는 운동"
                     >
-                        <option value="none">선택</option>
-                        <option value="male">구기운동</option>
-                        <option value="female">아쿠아 스포츠</option>
-                        <option value="female">웨이트</option>
-                        <option value="female">웨이트</option>
-                        <option value="female">웨이트</option>
-                        <option value="female">웨이트</option>
-                        <option value="female">웨이트</option>
-
+                        <option value="none" disabled>
+                            선호 운동
+                        </option>
+                        <option value="ballSports">구기운동</option>
+                        <option value="aquaSports">아쿠아스포츠</option>
+                        <option value="running">러닝</option>
+                        <option value="weight">웨이트</option>
+                        <option value="yoga">요가</option>
+                        <option value="hiking">하이킹</option>
+                        <option value="climbing">클라이밍</option>
                     </select>
                 </div>
 
                 <button className="loginBtn"> 로그인 </button>
                 <div className="socialBox">
                     <div className="kakao">
-                        <img
-                            className="kakaoLogo"
-                            src="/Images/SignIn/kakao.png"
-                        />
+                        <img className="kakaoLogo" src="img/kakao-logo.png" />
                         <div className="kakaoText">
                             카카오 계정으로 신규가입
                         </div>
                     </div>
-                    <div className="facebook">
-                        <img
-                            className="facebookLogo"
-                            src="/Images/SignIn/facebook.png"
-                        />
-                        <div className="facebookText">
-                            페이스북 계정으로 신규가입
-                        </div>
-                    </div>
-                </div>
-                <div className="loginEnd">
-                    <div className="loginLine">회원이 아니신가요? </div>
-                    <div className="noUser">비회원 주문 조회</div>
                 </div>
             </div>
         </>
