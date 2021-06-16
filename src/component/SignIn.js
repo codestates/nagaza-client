@@ -59,23 +59,27 @@ export default function SignIn(props) {
 
     //서버에 로그인 요청
     const signinHandler = async () => {
-        await axios({
-            method: "POST",
-            // url: `${SERVER_END_POINT}`,
-            // header : {
-            //  withCredentials : true,
-            // }
-            data: {
-                userId: userId,
-                password: password,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                /* isLogin에 반영
+        console.log(1)
+        await axios
+            .post(
+                'https://localhost:4000/user/signin',
+                {
+                    email: userId,
+                    password: password,
+                },
+                {
+                    "Content-Type": "appliaction/json",
+                    withCredentials: true,
+                }
+            )
+            .cate(e => console.log(e))
+            .then((res) => {
+                console.log(res);
+            });
+console.log(2)
+        /* isLogin에 반영
                  history.push("/landingpage");
                  */
-            });
     };
 
     // SignUp으로 리다이렉션
@@ -95,7 +99,7 @@ export default function SignIn(props) {
                     onChange={(e) => {
                         setEmail(e.target.value);
                         isValidationId(e.target.value);
-                        console.log(userId);
+                        // console.log(userId);
                     }}
                 />
                 <input
@@ -106,7 +110,7 @@ export default function SignIn(props) {
                     onChange={(e) => {
                         setPassword(e.target.value);
                         isValidationPassword(e.target.value);
-                        console.log(password);
+                        // console.log(password);
                     }}
                 />
                 <div className="loginMid">
@@ -148,7 +152,7 @@ export default function SignIn(props) {
                 <button
                     className="loginBtn"
                     onClick={() => {
-                        props.signIn();
+                        signinHandler();
                         props.closeModal();
                     }}
                 >

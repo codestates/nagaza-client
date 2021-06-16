@@ -34,10 +34,10 @@ const Map = (props) => {
 
 
 
-        const makeMarker = (groupinfo) => {
+        const makeMarker = (category, startTime, lat, lng) => {
             let markerPosition = new kakao.maps.LatLng(
-                37.365264512305174,
-                127.10676860117488
+                30,
+                30
             ); // 위치 기반 그룹 표시
             let marker = new kakao.maps.Marker({
                 position: markerPosition,
@@ -46,11 +46,11 @@ const Map = (props) => {
             marker.setMap(map);
 
             let iwContent = `<div style="padding:0.7rem;">
-                                <div class ="marker-category">${props.searchGroupDataOnMap.category}</div>
-                                <div class ="marker-start-time">${props.searchGroupDataOnMap.startTime}</div>
+                                <div class ="marker-category">${category}</div>
+                                <div class ="marker-start-time">${startTime}</div>
                                 <button class ="marker-join-button" onClick="${joinEvent}">그룹참가</button>
                             </div>`, // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-                iwPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+                iwPosition = new kakao.maps.LatLng(lat, lng);
 
             let infowindow = new kakao.maps.InfoWindow({
                 position: iwPosition,
@@ -59,6 +59,15 @@ const Map = (props) => {
 
             infowindow.open(map, marker);
         }
+
+        props.searchGroupDataOnMap.map((el) => {
+            let category = el.category_id
+            let startTime = el.start_time
+            let location = el.location.slice(1, -1).split(/,\s?/);
+            let lat = Number(location[0])
+            let lng = Number(location[1])
+            makeMarker(category, startTime, lat, lng)
+        })
 
         // props.searchGroupDataOnMap.map((el) => {
         //el정보 분해해서
