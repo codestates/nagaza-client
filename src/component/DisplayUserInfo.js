@@ -4,9 +4,7 @@ export default function DisplayUserInfo(props) {
   const [changeState, changeStateSet] = useState(false)
   const [changeuserInfo, changeUserInfoSet] = useState({
     username: '',
-    email: '',
     age: '',
-    location: '',
     category: ''
   })
 
@@ -17,9 +15,10 @@ export default function DisplayUserInfo(props) {
       [name]: value,
     });
   }
-
+  console.log(props)
   const reverseChange = () => {
-    console.log(changeuserInfo)
+    // console.log(changeuserInfo)
+    props.changeUserInfo(changeuserInfo)
     changeStateSet(pre => !pre)
 
   }
@@ -28,11 +27,9 @@ export default function DisplayUserInfo(props) {
     !changeState ? (
       <div className={'user-info'} >
         <div className={'user-info-contents'}>
-          <div className={'contents-key'}>이름 : </div><div className={'contents-value'}> props.userInfo.username</div>
-          <div className={'contents-key'}>이메일 : </div><div className={'contents-value'}> props.userInfo.email</div>
-          <div className={'contents-key'}>나이 : </div><div className={'contents-value'}> props.userInfo.age</div>
-          <div className={'contents-key'}>지역 : </div><div className={'contents-value'}> props.userInfo.location</div>
-          <div className={'contents-key'}>선호활동 : </div><div className={'contents-value'}> props.userInfo.category</div>
+          <div className={'contents-key'}>이름 : </div><div className={'contents-value'}> {props.userInfo.username}</div>
+          <div className={'contents-key'}>나이 : </div><div className={'contents-value'}> {props.userInfo.age}</div>
+          <div className={'contents-key'}>선호활동 : </div><div className={'contents-value'}> {props.userInfo.category}</div>
           <button className={'user-info-button'} onClick={reverseChange}>변경하기</button>
         </div>
       </div>
@@ -40,10 +37,8 @@ export default function DisplayUserInfo(props) {
       <div className={'user-info'} >
         <div className={'user-info-contents'}>
 
-          <div className={'contents-key'}>이름 : </div><input className={'contents-value'} type="text" name="username" defaultValue="props.userInfo.username" onChange={onChange}></input>
-          <div className={'contents-key'}>이메일 : </div><input className={'contents-value'} type="text" name="email" defaultValue="props.userInfo.email" onChange={onChange}></input>
-          <div className={'contents-key'}>나이 : </div><input className={'contents-value'} type="text" name="age" defaultValue="props.userInfo.age" onChange={onChange} ></input>
-          <div className={'contents-key'}>지역 : </div><input className={'contents-value'} type="text" name="location" defaultValue="props.userInfo.location" onChange={onChange}></input>
+          <div className={'contents-key'}>이름 : </div><input className={'contents-value'} type="text" name="username" defaultValue={props.userInfo.username} onChange={onChange}></input>
+          <div className={'contents-key'}>나이 : </div><input className={'contents-value'} type="text" name="age" defaultValue={props.userInfo.age} onChange={onChange} ></input>
           <div className={'contents-key'}>선호활동 : </div><select className={'contents-value'} name="category" onChange={onChange}>
             <option value="">활동을 선택하세요</option>
             <option value="ball game">구기 운동</option>

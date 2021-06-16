@@ -49,16 +49,22 @@ class App extends Component {
         this.userdataSave = this.userdataSave.bind(this);
     }
 
-    signIn = () => {
-        console.log("signIn");
+    signIn = (userInfo, groupInfo) => {
+        // console.log("signIn");
+        let isAdmin = userInfo.id === groupInfo.admin ? true : false
+        const categoryNumb = Number(groupInfo.category_id) - 1
+        // console.log(categoryNumb)
+        groupInfo.category_id = this.state.transCategoryId[categoryNumb] 
         this.setState({
             isSignIn: true,
-            userInfo: [],
-            groupInfo: [],
-            isAdmin: true,
-        }); // '/signIn'에 post로 로그인 요청 유저의 정보와 그룹정보, 어드민정보를 받아와 setState
-        // 변경해야될 state : isSignIn : true, userInfo, groupInfo, isAdmin
+            userInfo: userInfo,
+            groupInfo: groupInfo,
+            isAdmin : isAdmin
+        });
+
+
     };
+
     signOut = () => {
         console.log("signOut");
         this.setState({
@@ -97,29 +103,31 @@ class App extends Component {
     };
 
     changeUserInfo = async (changeUserInfo) => {
-        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/updateuserinfo', {
-        //     userId: this.state.userInfo.userId,
-        //     newUserName: changeUserInfo.username,
-        //     newEmail: changeUserInfo.email,
-        //     newAge: changeUserInfo.age,
-        //     newLocation : changeUserInfo.location
-        //     newPreference: this.state.transCategoryId[changeUserInfo.category]
-        // }, {
-        //     'Content-Type': 'application/json',
-        //     withCredentials: true
-        // })
-        //     .catch(e => console.log(e))
-        //     .then(res => console.log(res))
-        //     .then(res => {
-        //         this.setState({
-        //             userInfo: res.userInfo
+        await axios.post('https://127.0.0.1:4000/user/updateuserinfo', {
+            userId: this.state.userInfo.id,
+            newUserName: changeUserInfo.username,
+            newEmail: changeUserInfo.email,
+            newAge: changeUserInfo.age,
+            newPreference: this.state.transCategoryId.indexOf(changeUserInfo.category) + 1
+        }, {
+            'Content-Type': 'application/json',
+            withCredentials: true
+        })
 
-        //         })
-        //     })
+        await axios.get('https:127.0.0.1:4000/user/userinfo', {
+            userId : this.state.userInfo.id
+        },{
+            'Content-Type': 'application/json',
+            withCredentials: true
+        })
+        .catch(e => console.log(e))
+        .then(res => console.log(res))
 
-        await this.setState({
-            userInfo: changeUserInfo,
-        });
+
+
+        // await this.setState({
+        //     userInfo: changeUserInfo,
+        // });
         console.log(this.state.userInfo);
     };
 
@@ -209,6 +217,7 @@ class App extends Component {
             userInfo: [], //유저의 정보
             groupInfo: [], //유저가 속한 그룹의 정보
         });
+        console.log(this.state.userInfo)
     };
 
     render() {
