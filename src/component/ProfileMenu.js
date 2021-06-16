@@ -125,6 +125,7 @@ export default function ProfileMenu(props) {
                 signIn={props.signIn}
                 closeModal={closeModal}
                 header={modalHeader}
+                userdataSave={props.userdataSave}
             >
                 <main></main>
             </ProfileModal>

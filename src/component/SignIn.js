@@ -154,6 +154,7 @@ console.log(2)
                     onClick={() => {
                         signinHandler();
                         props.closeModal();
+                        signinHandler();
                     }}
                 >
                     {" "}
