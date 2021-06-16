@@ -18,21 +18,21 @@ export default function ProfileMenu(props) {
     switch (whereAmI) {
         case "/mypage":
             if (props.isSignIn) {
-                optionNames = ["SIGNOUT", "HOME", "GROUPPAGE"];
+                optionNames = ["HOME", "GROUPPAGE", "SIGNOUT"];
             } else {
                 optionNames = ["SIGNIN", "SIGNUP"];
             }
             break;
         case "/grouppage":
             if (props.isSignIn) {
-                optionNames = ["SIGNOUT", "HOME", "MYPAGE"];
+                optionNames = ["HOME", "MYPAGE", "SIGNOUT"];
             } else {
                 optionNames = ["SIGNIN", "SIGNUP"];
             }
             break;
         case "/landingpage":
             if (props.isSignIn) {
-                optionNames = ["SIGNOUT", "MYPAGE", "GROUPPAGE"];
+                optionNames = ["MYPAGE", "GROUPPAGE", "SIGNOUT"];
             } else {
                 optionNames = ["SIGNIN", "SIGNUP"];
             }
@@ -62,6 +62,7 @@ export default function ProfileMenu(props) {
             case "SIGNOUT":
                 alert("로그아웃이 되었습니다.");
                 setModalHeader("로그아웃");
+                history.push("/landingpage");
                 props.signOut();
                 break;
             default:
@@ -121,6 +122,7 @@ export default function ProfileMenu(props) {
 
             <ProfileModal
                 isOpen={modalOpen}
+                signIn={props.signIn}
                 closeModal={closeModal}
                 header={modalHeader}
             >

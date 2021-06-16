@@ -30,8 +30,6 @@ class GroupPage extends Component {
     }
 
     componentDidMount = async () => {
-
-
         // await axios.get('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/groupInfo', {
         //     'Content-Type': 'application/json',
         //     withCredentials: true
@@ -43,8 +41,7 @@ class GroupPage extends Component {
         //             searchGroupDataOnMap: res.groupInfo
         //         })
         //     })
-
-    }
+    };
 
     openSearchModal = () => {
         this.setState({
@@ -94,7 +91,10 @@ class GroupPage extends Component {
 
     render() {
         return (
-            <div className={"group-page"}>
+            <div
+                className={"group-page"}
+                onClick={console.log(this.props.isSignIn)}
+            >
                 <Header
                     className="gp-header-component"
                     signIn={this.props.signIn}
