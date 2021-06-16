@@ -60,8 +60,7 @@ export default function SignIn(props) {
     //서버에 로그인 요청
     const signinHandler = async () => {
         console.log(1)
-        await axios
-            .post(
+        await axios.post(
                 'https://localhost:4000/user/signin',
                 {
                     email: userId,
@@ -72,11 +71,13 @@ export default function SignIn(props) {
                     withCredentials: true,
                 }
             )
-            .cate(e => console.log(e))
+            .catch(e => alert('로그인에 실패 했습니다'))
             .then((res) => {
-                console.log(res);
+                // console.log(res)
+                // console.log(res.data.groupInfo)
+                props.signIn(res.data.userInfo, res.data.groupInfo)
             });
-console.log(2)
+// console.log(2)
         /* isLogin에 반영
                  history.push("/landingpage");
                  */
