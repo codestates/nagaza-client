@@ -15,7 +15,7 @@
     border-radius: 1rem;
 }
 .menu.expanded {
-    width: 10rem;
+    width: 12rem;
     height: 3rem;
 }
 .menu span {
@@ -52,7 +52,7 @@
 }
 .menu span.hidden {
     width: 0;
-    visibility: hidden;
+    display: hidden;
     opacity: 0;
     transform: rotateY(90deg);
 }
@@ -70,7 +70,7 @@
     transition-delay: 0s;
 }
 .icon-menu {
-    order: 3;
+    order: 4;
     position: relative;
     display: flex;
     /*flex-direction: row;*/
@@ -85,6 +85,7 @@
 /* .icon, ::before, ::after 햄버거 메뉴 스타일 */
 .icon-menu .icon {
     position: relative;
+    left: -0.9rem;
     width: 100%;
     height: 2px;
     background: #aaa;

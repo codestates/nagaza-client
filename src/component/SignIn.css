@@ -41,8 +41,7 @@
 }
 .modalContents > .loginMid {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-evenly;
     width: 100%;
 }
 .modalContents > .loginMid .autoLogin {
@@ -126,4 +125,8 @@
 
 .modalContents .loginEnd .noUser {
     text-decoration: underline;
+}
+
+.ok {
+    color: red;
 }

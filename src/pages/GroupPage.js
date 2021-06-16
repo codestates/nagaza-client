@@ -85,23 +85,22 @@ class GroupPage extends Component {
     };
 
     createGroupHandle = (createInfo) => {
-        createInfo.location = this.state.createGroupLocation
+        createInfo.location = this.state.createGroupLocation;
         this.setState({
             createGroupState: false,
         });
-        this.props.createGroupHandle(createInfo)
+        this.props.createGroupHandle(createInfo);
     };
 
     render() {
         return (
             <div className={"group-page"}>
                 <Header
+                    className="gp-header-component"
                     signIn={this.props.signIn}
                     signOut={this.props.signOut}
                     searchGroup={this.props.searchGroup}
                     isSignIn={this.props.isSignIn}
-                    setWhereAmI={this.props.setWhereAmI}
-                    whereAmI={this.props.whereAmI}
                 ></Header>
                 <div className={"middle-info-and-map"}>
                     <GroupList

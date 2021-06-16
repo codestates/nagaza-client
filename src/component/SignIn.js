@@ -4,13 +4,28 @@ import { useHistory } from "react-router-dom";
 import "./SignIn.css";
 export default function SignIn(props) {
     // 로컬 상태,입력 반영
-    const [userId, setId] = useState("");
-    const [password, setPassword] = useState("");
+    const [userId, setEmail] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [isValidId, setValidId] = useState(false);
+    const [isValidPassword, setValidPassword] = useState(false);
     // 상위 상태
     const { isOpen, openModal, closeModal, header, setHeader } = props;
 
     //redirection tool
     const history = useHistory();
+
+    const isValidationId = (email) => {
+        let regExp =
+            /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+        setValidId(regExp.test(email));
+        console.log(isValidId);
+    };
+    const isValidationPassword = (password) => {
+        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/; //  8 ~ 10자 영문, 숫자 조합
+        setValidPassword(regExp.test(password));
+        console.log(isValidPassword);
+    };
+
     //카카오 Oauth 인증 신청
     const kakaoOauth = () => {
         const REST_API_KEY = `cb855df8892be53bdaf2507eeeac3138`;
@@ -28,7 +43,7 @@ export default function SignIn(props) {
     const getAccessToken = async (authCode) => {
         await axios({
             method: "POST",
-            url: `http://localhost:8080/callback`,
+            url: `${process.env.SERVER_API_URI}/SocialSigning`,
             data: {
                 authorizationCode: authCode,
             },
@@ -78,6 +93,7 @@ export default function SignIn(props) {
                     placeholder="아이디"
                     onChange={(e) => {
                         setEmail(e.target.value);
+                        isValidationId(e.target.value);
                         console.log(userId);
                     }}
                 />
@@ -88,6 +104,7 @@ export default function SignIn(props) {
                     placeholder="비밀번호"
                     onChange={(e) => {
                         setPassword(e.target.value);
+                        isValidationPassword(e.target.value);
                         console.log(password);
                     }}
                 />
@@ -99,11 +116,36 @@ export default function SignIn(props) {
                     <div className="autoLogin">아이디/비밀번호 찾기</div>
                 </div>
                 <div className="errMsg">
-                    <div>에러메시지가 나오는 곳</div>
-                    <div>에러메시지가 나오는 곳</div>
+                    <div>
+                        <span
+                            className={
+                                userId
+                                    ? isValidId
+                                        ? "ok hidden"
+                                        : "ok"
+                                    : "ok hidden"
+                            }
+                        >
+                            이메일 입력이 올바르지 않습니다.
+                        </span>
+                    </div>
+                    <div>
+                        <span
+                            className={
+                                password
+                                    ? isValidPassword
+                                        ? "ok hidden"
+                                        : "ok"
+                                    : "ok hidden"
+                            }
+                        >
+                            비밀번호 입력이 올바르지 않습니다. 8자이상 영문숫자
+                            조합으로 입력해주세요.
+                        </span>
+                    </div>
                 </div>
                 <button className="loginBtn"> 로그인 </button>
-                
+
                 <div className="socialBox">
                     <div className="kakao">
                         <img className="kakaoLogo" src="/img/kakao-logo.png" />

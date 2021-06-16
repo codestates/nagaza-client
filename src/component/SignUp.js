@@ -21,7 +21,7 @@ export default function SignUp() {
                     placeholder="이메일"
                 />
                 <div className="errMsg">
-                    <div>에러메시지가 나오는 곳</div>
+                    <span>에러메시지가 나오는 곳</span>
                 </div>
                 <input
                     name="password"
@@ -30,17 +30,17 @@ export default function SignUp() {
                     placeholder="비밀번호"
                 />
                 <div className="errMsg">
-                    <div>에러메시지가 나오는 곳</div>
+                    <span>에러메시지가 나오는 곳</span>
                 </div>
                 <div className="loginMid">
-                    <div>위치</div>
+                    <span>위치</span>
                     <input
                         name="위치"
                         className="loginPw"
                         type="text"
                         placeholder="위치"
                     />
-                    <div>성별</div>
+                    <span>성별</span>
                     <select
                         name="성별"
                         className="loginPw"

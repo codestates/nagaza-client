@@ -21,20 +21,20 @@ import {
 class App extends Component {
     state = {
         isSignIn: true,
-        userInfo: [],//유저의 정보
-        groupInfo: [],//유저가 속한 그룹의 정보
+        userInfo: [], //유저의 정보
+        groupInfo: [], //유저가 속한 그룹의 정보
         searchGroupData: [],
         isAdmin: true,
         transCategoryId: {
-            'ball game': 1,
-            'aqua sports': 2,
-            'weight training': 3,
-            'running': 4,
-            'yoga': 5,
-            'hiking': 6,
-            'cycling': 7,
-            'climbing': 8
-        }
+            "ball game": 1,
+            "aqua sports": 2,
+            "weight training": 3,
+            running: 4,
+            yoga: 5,
+            hiking: 6,
+            cycling: 7,
+            climbing: 8,
+        },
     };
     constructor(props) {
         super(props);
@@ -66,6 +66,7 @@ class App extends Component {
     }
 
     signIn = () => {
+        console.log("signIn");
         this.setState({
             isSignIn: true,
             userInfo: [],
@@ -75,6 +76,7 @@ class App extends Component {
         // 변경해야될 state : isSignIn : true, userInfo, groupInfo, isAdmin
     };
     signOut = () => {
+        console.log("signOut");
         this.setState({
             isSignIn: false,
             userInfo: [],
@@ -104,14 +106,16 @@ class App extends Component {
         //         })
         // }
 
+<<<<<<< HEAD
+=======
         // console.log(searchInfo)
+>>>>>>> 2dc4545868e94dfe3646826806a25e47aefbd2ac
         this.setState({
             searchGroupData: data.data,
         });
     };
 
     changeUserInfo = async (changeUserInfo) => {
-
         // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/updateuserinfo', {
         //     userId: this.state.userInfo.userId,
         //     newUserName: changeUserInfo.username,
@@ -135,11 +139,10 @@ class App extends Component {
         await this.setState({
             userInfo: changeUserInfo,
         });
-        console.log(this.state.userInfo)
+        console.log(this.state.userInfo);
     };
 
     deleteGroup = async () => {
-
         // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/deletegroup', {
         //     groupId: this.state.groupInfo.groupId,
         //     userId: this.state.userInfo.userId
@@ -162,7 +165,6 @@ class App extends Component {
     };
 
     exitGroup = async () => {
-
         // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/unjoingroup', {
         //     groupId: this.state.groupInfo.groupId,
         //     userId: this.state.userInfo.userId
@@ -183,7 +185,6 @@ class App extends Component {
     };
 
     joinGroup = async (groupId) => {
-
         // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/joingroup', {
         //     groupId: groupId,
         //     userId: 'this.state.userInfo.userId'
@@ -205,15 +206,19 @@ class App extends Component {
     };
 
     createGroupHandle = async (createInfo) => {
-        const categoryText = createInfo.categoryId
-        console.log(createInfo)
-        await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/creategroup', createInfo,
-            {
-                'Content-Type': 'application/json',
-                withCredentials: true
-            })
-            .catch(e => console.log(e))
-            .then(res => console.log(res.message))
+        const categoryText = createInfo.categoryId;
+        console.log(createInfo);
+        await axios
+            .post(
+                "https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/creategroup",
+                createInfo,
+                {
+                    "Content-Type": "application/json",
+                    withCredentials: true,
+                }
+            )
+            .catch((e) => console.log(e))
+            .then((res) => console.log(res.message));
     };
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
@@ -239,6 +244,7 @@ class App extends Component {
                             path="/Grouppage"
                             render={() => (
                                 <GroupPage
+                                    className="GroupPage"
                                     categoryId = {this.state.transCategoryId}
                                     // userLocation={this.state.userInfo.location}
                                     createGroupHandle={this.createGroupHandle}
@@ -246,6 +252,10 @@ class App extends Component {
                                     joinGroup={this.joinGroup}
                                     searchGroup={this.searchGroup}
                                     searchGroupData={this.state.searchGroupData}
+                                    signIn={this.signIn}
+                                    signOut={this.signOut}
+                                    searchGroup={this.searchGroup}
+                                    isSignIn={this.state.isSignIn}
                                 />
                             )}
                         />
@@ -253,6 +263,7 @@ class App extends Component {
                             path="/Mypage"
                             render={() => (
                                 <MyPage
+                                    className="MyPage"
                                     changeUserInfo={this.changeUserInfo}
                                     deleteGroup={this.deleteGroup}
                                     exitGroup={this.exitGroup}
@@ -260,6 +271,10 @@ class App extends Component {
                                     userInfo={this.state.userInfo}
                                     groupInfo={this.state.groupInfo}
                                     isAdmin={this.state.isAdmin}
+                                    signIn={this.signIn}
+                                    signOut={this.signOut}
+                                    searchGroup={this.searchGroup}
+                                    isSignIn={this.state.isSignIn}
                                 />
                             )}
                         />
