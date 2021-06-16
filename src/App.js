@@ -20,21 +20,21 @@ import {
 
 class App extends Component {
     state = {
-        isSignIn: true,
-        userInfo: [],//유저의 정보
-        groupInfo: [],//유저가 속한 그룹의 정보
+        isSignIn: false,
+        userInfo: [], //유저의 정보
+        groupInfo: [], //유저가 속한 그룹의 정보
         searchGroupData: [],
         isAdmin: true,
-        transCategoryId: {
-            'ball game': 1,
-            'aqua sports': 2,
-            'weight training': 3,
-            'running': 4,
-            'yoga': 5,
-            'hiking': 6,
-            'cycling': 7,
-            'climbing': 8
-        }
+        transCategoryId: [
+            "ball game",
+            "aqua sports",
+            "weight training",
+            "running",
+            "yoga",
+            "hiking",
+            "cycling",
+            "climbing",
+        ],
     };
     constructor(props) {
         super(props);
@@ -92,13 +92,16 @@ class App extends Component {
     signIn = () => {
         this.setState({
             isSignIn: true,
-            userInfo: [],
-            groupInfo: [],
-            isAdmin: true,
-        }); // '/signIn'에 post로 로그인 요청 유저의 정보와 그룹정보, 어드민정보를 받아와 setState
-        // 변경해야될 state : isSignIn : true, userInfo, groupInfo, isAdmin
+            userInfo: userInfo,
+            groupInfo: groupInfo,
+            isAdmin : isAdmin
+        });
+
+
     };
+
     signOut = () => {
+        console.log("signOut");
         this.setState({
             isSignIn: false,
             userInfo: [],
@@ -109,59 +112,61 @@ class App extends Component {
     };
 
     searchGroup = async (searchInfo) => {
-        // if (searchInfo.category === '') {
-        //     alert('운동을 골라주세요')
-        // }
-        // else {
-        //     await axios.get('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/groupInfo', searchInfo, {
-        //         'Content-Type': 'application/json',
-        //         withCredentials: true
-        //     })
-        //         .catch(e => console.log(e))
-        //         .then(res => console.log(res))
-        //         .then(res => {
-        //             this.setState({
-        //                 searchGroupData : res.groupInfo
-        //             })
-        //         })
-        // }
-
-
-        this.setState({
-            searchGroupData: data.data,
-        });
+        const categoryText = searchInfo.category;
+        searchInfo.category = this.state.transCategoryId.indexOf(searchInfo.category) + 1
+        if (searchInfo.category === '') {
+            alert('운동을 골라주세요')
+        }
+        else {
+            await axios.get('https://localhost:4000/group/groupinfo',
+                searchInfo,
+                {
+                    'Content-Type': 'application/json',
+                    withCredentials: true
+                })
+                .then(res => {
+                    const groupInfo = res.data.groupInfo
+                    groupInfo.map((el) => {
+                        const categoryIdOnServer = parseInt(el.category_id) - 1 
+                        el.category_id = this.state.transCategoryId[categoryIdOnServer]
+                    })
+                    this.setState({
+                        searchGroupData: groupInfo
+                    })
+                })
+        }
     };
 
     changeUserInfo = async (changeUserInfo) => {
+        await axios.post('https://127.0.0.1:4000/user/updateuserinfo', {
+            userId: this.state.userInfo.id,
+            newUserName: changeUserInfo.username,
+            newEmail: changeUserInfo.email,
+            newAge: changeUserInfo.age,
+            newPreference: this.state.transCategoryId.indexOf(changeUserInfo.category) + 1
+        }, {
+            'Content-Type': 'application/json',
+            withCredentials: true
+        })
 
-        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/updateuserinfo', {
-        //     userId: this.state.userInfo.userId,
-        //     newUserName: changeUserInfo.username,
-        //     newEmail: changeUserInfo.email,
-        //     newAge: changeUserInfo.age,
-        //     newLocation : changeUserInfo.location
-        //     newPreference: this.state.transCategoryId[changeUserInfo.category]
-        // }, {
-        //     'Content-Type': 'application/json',
-        //     withCredentials: true
-        // })
-        //     .catch(e => console.log(e))
-        //     .then(res => console.log(res))
-        //     .then(res => {
-        //         this.setState({
-        //             userInfo: res.userInfo
+        await axios.get('https:127.0.0.1:4000/user/userinfo', {
+            userId : this.state.userInfo.id
+        },{
+            'Content-Type': 'application/json',
+            withCredentials: true
+        })
+        .catch(e => console.log(e))
+        .then(res => console.log(res))
 
-        //         })
-        //     })
 
-        await this.setState({
-            userInfo: changeUserInfo,
-        });
-        console.log(this.state.userInfo)
+
+        // await this.setState({
+        //     userInfo: changeUserInfo,
+        // });
+        console.log(this.state.userInfo);
     };
 
     deleteGroup = async () => {
-
         // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/deletegroup', {
         //     groupId: this.state.groupInfo.groupId,
         //     userId: this.state.userInfo.userId
@@ -184,7 +189,6 @@ class App extends Component {
     };
 
     exitGroup = async () => {
-
         // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/unjoingroup', {
         //     groupId: this.state.groupInfo.groupId,
         //     userId: this.state.userInfo.userId
@@ -205,8 +209,7 @@ class App extends Component {
     };
 
     joinGroup = async (groupId) => {
-
-        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/joingroup', {
+        // await axios.post('https://127.0.0.1/group/joingroup', {
         //     groupId: groupId,
         //     userId: 'this.state.userInfo.userId'
         // }, {
@@ -220,9 +223,9 @@ class App extends Component {
         //             groupInfo : res.groupInfo
         //         })
         //     })
-
+        // console.log(1);
         this.setState({
-            groupInfo: [groupInfo],
+            groupInfo: [],
         });
     };
 
@@ -240,6 +243,13 @@ class App extends Component {
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
     // 그뒤 userinfo를 받아와 정보를 새로 리셋한다.
+    userdataSave = (userInfo, groupInfo) => {
+        this.setState({
+            userInfo: [], //유저의 정보
+            groupInfo: [], //유저가 속한 그룹의 정보
+        });
+        console.log(this.state.userInfo)
+    };
 
     render() {
         return (
@@ -254,34 +264,59 @@ class App extends Component {
                                     signOut={this.signOut}
                                     searchGroup={this.searchGroup}
                                     isSignIn={this.state.isSignIn}
+                                    userdataSave={this.userdataSave}
                                 />
                             )}
                         />
                         <Route
                             path="/Grouppage"
-                            render={() => (
-                                <GroupPage
-                                    createGroupHandle={this.createGroupHandle}
-gi                                    groupInfo={this.state.groupInfo}
-                                    joinGroup={this.joinGroup}
-                                    searchGroup={this.searchGroup}
-                                    searchGroupData={this.state.searchGroupData}
-                                />
-                            )}
+                            render={() =>
+                                this.state.isSignIn ? (
+                                    <GroupPage
+                                        className="GroupPage"
+                                        categoryId={this.state.transCategoryId}
+                                        // userLocation={this.state.userInfo.location}
+                                        createGroupHandle={
+                                            this.createGroupHandle
+                                        }
+                                        groupInfo={this.state.groupInfo}
+                                        joinGroup={this.joinGroup}
+                                        transCategoryId = {this.state.transCategoryId}
+                                        searchGroup={this.searchGroup}
+                                        searchGroupData={
+                                            this.state.searchGroupData
+                                        }
+                                        signIn={this.signIn}
+                                        signOut={this.signOut}
+                                        isSignIn={this.state.isSignIn}
+                                    />
+                                ) : (
+                                    <Redirect to="/landingpage"></Redirect>
+                                )
+                            }
                         />
                         <Route
                             path="/Mypage"
-                            render={() => (
-                                <MyPage
-                                    changeUserInfo={this.changeUserInfo}
-                                    deleteGroup={this.deleteGroup}
-                                    exitGroup={this.exitGroup}
-                                    isSignIn={this.state.isSignIn}
-                                    userInfo={this.state.userInfo}
-                                    groupInfo={this.state.groupInfo}
-                                    isAdmin={this.state.isAdmin}
-                                />
-                            )}
+                            render={() =>
+                                this.state.isSignIn ? (
+                                    <MyPage
+                                        className="MyPage"
+                                        changeUserInfo={this.changeUserInfo}
+                                        deleteGroup={this.deleteGroup}
+                                        exitGroup={this.exitGroup}
+                                        isSignIn={this.state.isSignIn}
+                                        userInfo={this.state.userInfo}
+                                        groupInfo={this.state.groupInfo}
+                                        isAdmin={this.state.isAdmin}
+                                        signIn={this.signIn}
+                                        signOut={this.signOut}
+                                        searchGroup={this.searchGroup}
+                                        isSignIn={this.state.isSignIn}
+                                    />
+                                ) : (
+                                    <Redirect to="/landingPage"></Redirect>
+                                )
+                            }
                         />
                         <Route
                             path="/KakaoOuath"

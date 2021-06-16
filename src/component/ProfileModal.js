@@ -13,16 +13,20 @@ export default function ProfileModal(props) {
     let modalContent;
     const [isOpenSignup, setSignup] = useState(false);
     const [isOpenSignin, setSignin] = useState(false);
-
     const history = useHistory();
-    let InandUp = true;
 
     if (header === "회원가입") {
-        InandUp = false;
+        modalContent = <SignUp></SignUp>;
     } else if (header === "로그인") {
-        InandUp = true;
+        modalContent = (
+            <SignIn
+                signIn={props.signIn}
+                closeModal={closeModal}
+                userdataSave={props.userdataSave}
+            ></SignIn>
+        );
     } else if (header === "로그아웃") {
-        alert("로그아웃되었습니다.");
+        modalContent = "로그아웃되었습니다.";
     }
 
     return (
@@ -40,13 +44,7 @@ export default function ProfileModal(props) {
                             x
                         </button>
                     </header>
-                    <main>
-                        {InandUp ? (
-                            <SignIn setHeader={setHeader}></SignIn>
-                        ) : (
-                            <SignUp></SignUp>
-                        )}
-                    </main>
+                    <main>{modalContent}</main>
                     <footer></footer>
                 </section>
             ) : null}

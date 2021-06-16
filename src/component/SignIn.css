@@ -42,13 +42,16 @@
 .modalContents > .loginMid {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     width: 100%;
 }
 .modalContents > .loginMid .autoLogin {
     font-size: 12px;
     color: #8d8d8d;
     line-height: 5;
+    display: flex;
+    align-items: center;
+}
+.modalContents > .loginMid {
     display: flex;
     align-items: center;
 }
@@ -126,4 +129,13 @@
 
 .modalContents .loginEnd .noUser {
     text-decoration: underline;
+}
+
+/* 에러메세지 컬러 */
+.errMsg > .ok {
+    background-color: rgba(165, 42, 42, 0.2);
+    color: red;
+}
+.subInput {
+    width: 30%;
 }

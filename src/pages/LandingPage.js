@@ -15,12 +15,16 @@ class landingPage extends Component {
         return (
             <>
                 <div className="lp-landingPage">
-                    <div className="lp-header">
+                    <div
+                        className="lp-header"
+                    >
                         <Header
+                            className="lp-header-component"
                             signIn={this.props.signIn}
                             signOut={this.props.signOut}
                             searchGroup={this.props.searchGroup}
                             isSignIn={this.props.isSignIn}
+                            userdataSave={this.props.userdataSave}
                         ></Header>
                     </div>
                     <section className="lp first-page">

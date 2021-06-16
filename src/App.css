@@ -147,7 +147,7 @@ span {
 }
 .close {
     float: right;
-    font-size: 25px;
+    font-size: 2rem;
 }
 .modal-contents {
     width: 100%;
@@ -367,8 +367,10 @@ span {
     margin: 1rem;
 }
 #map {
+    position: relative;
     border-radius: 0.5rem;
     border: 0;
+    z-index: 0;
     box-shadow: 0 10px 64px rgba(0, 0, 0, 0.2);
 }
 .welcome-message {
@@ -385,4 +387,8 @@ span {
 .no-group {
     font-size: 3rem;
     font-weight: bold;
+}
+.marker-join-button{
+    width: 70%;
+    height: 5%;
 }

@@ -4,8 +4,8 @@ import Logo from "../component/Logo.js";
 import Profile from "../component/Profile.js";
 import ProfileMenu from "../component/ProfileMenu.js";
 import "./Header.css";
-function Header({ signIn, signOut, searchGroup, isSignIn }) {
-    // console.log(props)
+function Header(props) {
+    
     return (
         <>
             <div className="headermenu">
@@ -15,14 +15,15 @@ function Header({ signIn, signOut, searchGroup, isSignIn }) {
                     </div>
                     <div className="mainmenu-profile">
                         <ProfileMenu
-                            isSignIn={isSignIn}
-                            signIn={signIn}
-                            signOut={signOut}
+                            isSignIn={props.isSignIn}
+                            signIn={props.signIn}
+                            signOut={props.signOut}
+                            userdataSave={props.userdataSave}
                         ></ProfileMenu>
                     </div>
                 </div>
                 <div className="lp-navigation">
-                    <Navigation searchGroup={searchGroup}></Navigation>
+                    <Navigation searchGroup={props.searchGroup}></Navigation>
                 </div>
             </div>
         </>

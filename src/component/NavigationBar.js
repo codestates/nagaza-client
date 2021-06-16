@@ -6,8 +6,8 @@ import "./NavigationBar.css";
 export default function NavigationBar(props) {
     const [searchInfo, setSearchInfo] = useState({
         category: '',
-        startTime: '',
-        personNum: ''
+        startDate: '',
+        endDate: ''
     })
     let [isOpenBox, setOpenBox] = useState([false, false, false]);
 
@@ -57,23 +57,20 @@ export default function NavigationBar(props) {
                                 <input
                                     name={'startTime'}
                                     onChange={onChange}
-                                    type="time"
+                                    type="date"
                                 ></input>
                             </div>
                         </div>
+
                         <div className="date search">
-                            <span>인원 수</span>
-                            <select className={'contents-category'} name="personNum" onChange={onChange}>
-                                <option value="">인원수를 선택하세요</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                            </select>
+                            <span>종료시간</span>
+                            <div className="timeOption">
+                                <input
+                                    name={'endTime'}
+                                    onChange={onChange}
+                                    type="date"
+                                ></input>
+                            </div>
                         </div>
                         <div className="searchBtn-wrapper">
                             <div
