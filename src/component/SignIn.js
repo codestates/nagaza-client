@@ -18,28 +18,28 @@ export default function SignIn(props) {
         window.location.assign(
             `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
         );
-        const url = new URL(window.location.href);
-        const authorizationCode = url.searchParams.get("code");
-        if (authorizationCode) {
-            getAccessToken(authorizationCode);
-        }
+        // const url = new URL(window.location.href);
+        // const authorizationCode = url.searchParams.get("code");
+        // if (authorizationCode) {
+        //     getAccessToken(authorizationCode);
+        // }
     };
 
-    const getAccessToken = async (authCode) => {
-        await axios({
-            method: "POST",
-            url: `http://localhost:8080/callback`,
-            data: {
-                authorizationCode: authCode,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {})
-            .catch((err) => {
-                console.log(err);
-            });
-        //APP에 accessCode를 저장함.
-    };
+    // const getAccessToken = async (authCode) => {
+    //     await axios({
+    //         method: "POST",
+    //         url: `https://localhost:4000/socialsignin`,
+    //         data: {
+    //             authorizationCode: authCode,
+    //         },
+    //     })
+    //         .then((res) => res.json())
+    //         .then((data) => {})
+    //         .catch((err) => {
+    //             console.log(err);
+    //         });
+    //     //APP에 accessCode를 저장함.
+    // };
 
     //서버에 로그인 요청
     const signinHandler = async () => {
