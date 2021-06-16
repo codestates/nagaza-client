@@ -46,6 +46,7 @@ class App extends Component {
         this.deleteGroup = this.deleteGroup.bind(this);
         this.exitGroup = this.exitGroup.bind(this);
         this.createGroupHandle = this.createGroupHandle.bind(this);
+        this.userdataSave = this.userdataSave.bind(this);
     }
     componentDidMount() {
         // axios
@@ -220,6 +221,12 @@ class App extends Component {
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
     // 그뒤 userinfo를 받아와 정보를 새로 리셋한다.
+    userdataSave = (userInfo, groupInfo) => {
+        this.setState({
+            userInfo: [], //유저의 정보
+            groupInfo: [], //유저가 속한 그룹의 정보
+        });
+    };
 
     render() {
         return (
@@ -234,6 +241,7 @@ class App extends Component {
                                     signOut={this.signOut}
                                     searchGroup={this.searchGroup}
                                     isSignIn={this.state.isSignIn}
+                                    userdataSave={this.userdataSave}
                                 />
                             )}
                         />
