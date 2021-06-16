@@ -9,7 +9,7 @@ export default function GroupListEntry(props) {
   const joinEvent = () => {
 
     if (!isGroupIn) {
-      props.joinGroup(props.groupInfo.username)
+      props.joinGroup(props.groupInfo.username)//groupid o , username x
       alert('그룹에 가입되었습니다')
     }
     else {

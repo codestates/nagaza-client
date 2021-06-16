@@ -4,70 +4,31 @@ import Header from "./Header";
 import "./NavigationBar.css";
 
 export default function NavigationBar(props) {
-    //로컬 상태
-    let [locationCord, setLocation] = useState("");
-    let [dateStart, setDateStart] = useState("");
-    let [dateEnd, setDateEnd] = useState("");
-    let [personNum, setPersonNum] = useState("");
+    const [searchInfo, setSearchInfo] = useState({
+        category: '',
+        startTime: '',
+        personNum: ''
+    })
     let [isOpenBox, setOpenBox] = useState([false, false, false]);
-    const minutes = ["분", "00", "10", "20", "30", "40", "50", "60"];
-    const hours = [
-        "시간",
-        "00",
-        "01",
-        "02",
-        "03",
-        "04",
-        "05",
-        "06",
-        "07",
-        "08",
-        "09",
-        "10",
-        "11",
-        "12",
-    ];
-    const ampm = ["시간대", "오전", "오후"];
-    const people = [
-        "+",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "10",
-        "11",
-        "12",
-    ];
-    let date = new Date();
 
-    let month = date.getMonth() + 1;
-    if (month < 10) {
-        month = "0" + month;
-    }
-    const dateStr = date.getFullYear() + "-" + month + "-" + date.getDate();
-    console.log(dateStr);
     const history = useHistory();
-    //검색 기능시 서버에 요청하는 onClickEvent 메서드 필요
-    //전체 Input이 ComboBox로 구성될지, 혹은 Input으로 구성될지 결정
 
-    //메서드
-    const typingHandler = (e) => {
-        //값이 바뀌면 상태값에 저장되도록
-        console.log(e.target);
+    const onChange = (e) => {
+        // console.log(e)
+        const { value, name } = e.target
+        setSearchInfo({
+            ...searchInfo,
+            [name]: value
+        })
     };
-    
+
     const searchGroup = () => {
-        // 그룹 검색과 동시에 grouppage로 이동
-        // console.log(location.pathname)
         if (location.pathname.toLowerCase() === "/landingpage") {
-            console.dir(history);
+            // console.dir(history);
             history.push("/grouppage");
         }
-        props.searchGroup([locationCord, dateStart, dateEnd, personNum]);
+        // console.log(searchInfo)
+        props.searchGroup(searchInfo);
     };
 
     return (
@@ -77,24 +38,43 @@ export default function NavigationBar(props) {
                     <div className="navigationSearch">
                         <div className="geolocation search">
                             <span>카테고리</span>
-                            <input type="text"></input>
+
+                            <select className={'contents-category'} name="category" onChange={onChange}>
+                                <option value="">활동을 선택하세요</option>
+                                <option value="ball game">구기 운동</option>
+                                <option value="aqua sports">아쿠아스포츠</option>
+                                <option value="weight training">웨이트</option>
+                                <option value="running">러닝</option>
+                                <option value="yoga">요가</option>
+                                <option value="hiking">등산</option>
+                                <option value="cycling">사이클링</option>
+                                <option value="climbing">클라이밍</option>
+                            </select>
                         </div>
                         <div className="date search">
-                            <span>시작일</span>
+                            <span>시작시간</span>
                             <div className="timeOption">
                                 <input
-                                    type="date"
-                                    defaultValue={dateStr}
+                                    name={'startTime'}
+                                    onChange={onChange}
+                                    type="time"
                                 ></input>
                             </div>
                         </div>
                         <div className="date search">
-                            <span>종료일</span>
-                            <div className="timeOption">
-                                <input type="date"></input>
-                            </div>
+                            <span>인원 수</span>
+                            <select className={'contents-category'} name="personNum" onChange={onChange}>
+                                <option value="">인원수를 선택하세요</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                            </select>
                         </div>
-
                         <div className="searchBtn-wrapper">
                             <div
                                 className="searchBtn"
