@@ -1,3 +1,66 @@
+:root {
+    /* theme color */
+    --main-blue-color: #89acf0;
+    --light-blue-color: #c4d5f7;
+    --lighter-blue-color: #e1eafb;
+    --main-black-color: #000000;
+    --light-grey-color: #666666;
+    --lighter-grey-color: #999999;
+    /* alert color */
+    --alert-text-color: #c04c50;
+    --alert-content-color: #d0797c;
+    /* font-size */
+    --h1-font: 4.8rem;
+    --h2-font: 3.6rem;
+    --h3-font: 2.4rem;
+    --h4-font: 1.8rem;
+    --general-font: 1.2rem;
+    --small-font: 1rem;
+    --smaller-font: 0.8rem;
+    /* padding 디폴트 */
+    --default-padding: 1.8rem;
+    /* margin 디폴트*/
+    --bottom-margin: 1.8rem;
+    /* 모깎기 디폴트 */
+    --default-border: 2rem;
+}
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+}
+
+header,
+section,
+article,
+aside,
+footer,
+main,
+a,
+button,
+input,
+textarea,
+img,
+nav,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+span {
+    margin: 0;
+    padding: 0;
+    /* 폰트 크기 상속 */
+    font-size: inherit;
+}
+
 .App {
     text-align: center;
 }

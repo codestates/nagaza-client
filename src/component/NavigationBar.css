@@ -32,8 +32,7 @@ input {
     background-color: #fff;
     flex-direction: column;
 }
-.date.search {
-}
+
 .personNum {
     width: 5rem;
 }
@@ -42,7 +41,7 @@ input {
     flex-direction: row;
 }
 .searchBtn {
-    background-color: royalblue;
+    background-color: #c9d4f2;
     display: flex;
     justify-content: center;
     align-items: center;

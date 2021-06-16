@@ -8,17 +8,23 @@ import { useHistory } from "react-router-dom";
 
 export default function ProfileModal(props) {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-    const { isOpen, closeModal, header } = props;
-    const [modalState, setModal] = useState(false);
+    const { isOpen, openModal, closeModal, header, setHeader } = props;
+
+    let modalContent;
+    const [isOpenSignup, setSignup] = useState(false);
+    const [isOpenSignin, setSignin] = useState(false);
+
     const history = useHistory();
-    let modalContent = <></>;
+    let InandUp = true;
+
     if (header === "회원가입") {
-        modalContent = <SignUp></SignUp>;
+        InandUp = false;
     } else if (header === "로그인") {
-        modalContent = <SignIn></SignIn>;
+        InandUp = true;
     } else if (header === "로그아웃") {
-        modalContent = "로그아웃 되었습니다.";
+        alert("로그아웃되었습니다.");
     }
+
     return (
         <div className={isOpen ? "openModal modal" : "modal"}>
             {isOpen ? (
@@ -30,10 +36,17 @@ export default function ProfileModal(props) {
                                 closeModal();
                             }}
                         >
-                            X
+                            {" "}
+                            x
                         </button>
                     </header>
-                    <main>{modalContent}</main>
+                    <main>
+                        {InandUp ? (
+                            <SignIn setHeader={setHeader}></SignIn>
+                        ) : (
+                            <SignUp></SignUp>
+                        )}
+                    </main>
                     <footer></footer>
                 </section>
             ) : null}
