@@ -8,11 +8,6 @@ import Header from "../component/Header.js";
 class MyPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            isAdmin: props.isAdmin,
-            userInfo: props.userInfo,
-            groupInfo: props.groupInfo,
-        };
     }
 
     render() {
@@ -32,12 +27,12 @@ class MyPage extends Component {
                 </div>
                 <div className={"middle-myInfo"}>
                     <DisplayUserInfo
-                        userInfo={this.state.userInfo}
+                        userInfo={this.props.userInfo}
                         changeUserInfo={this.props.changeUserInfo}
                     ></DisplayUserInfo>
                     <DisplayGroupInfo
-                        isAdmin={this.state.isAdmin}
-                        groupInfo={this.state.groupInfo}
+                        isAdmin={this.props.isAdmin}
+                        groupInfo={this.props.groupInfo}
                         deleteGroup={this.props.deleteGroup}
                         exitGroup={this.props.exitGroup}
                     ></DisplayGroupInfo>
