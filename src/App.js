@@ -8,7 +8,7 @@ import data from "./mockdata/groupData.json";
 import axios from "axios";
 require("dotenv").config();
 
-const NAGAZA_SERVER_API = process.env.NAGAZA_SERVER_API;
+const NAGAZA_SERVER_API = process.env.REACT_APP_NAGAZA_SERVER_API;
 
 import "./App.css";
 import {
@@ -49,7 +49,6 @@ class App extends Component {
         this.deleteGroup = this.deleteGroup.bind(this);
         this.exitGroup = this.exitGroup.bind(this);
         this.createGroupHandle = this.createGroupHandle.bind(this);
-        this.getAccessToken = this.getAccessToken.bind(this);
     }
 
     signIn = (userInfo, groupData) => {
@@ -61,20 +60,6 @@ class App extends Component {
         }); // '/signIn'에 post로 로그인 요청 유저의 정보와 그룹정보, 어드민정보를 받아와 setState
         // 변경해야될 state : isSignIn : true, userInfo, groupInfo, isAdmin
     };
-
-    getAccessToken(authCode) {
-        await axios
-            .post(`https://localhost:4000/user/socialsignin`, {
-                authorizationCode: authCode,
-            })
-            .then((data) => {
-                console.log(data);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-        //APP에 accessCode를 저장함.
-    }
 
     componentDidMount() {
         // axios
@@ -92,11 +77,6 @@ class App extends Component {
         //         });
         //     })
         //     .catch((err) => console.log(err));
-        const url = new URL(window.location.href);
-        const authorizationCode = url.searchParams.get("code");
-        if (authorizationCode) {
-            this.getAccessToken(authorizationCode);
-        }
     }
 
     signOut = () => {
@@ -157,7 +137,7 @@ class App extends Component {
 
         await axios
             .get(
-                "https:127.0.0.1:4000/user/userinfo",
+                `${NAGAZA_SERVER_API}/user/userinfo`,
                 {
                     userId: this.state.userInfo.id,
                 },
