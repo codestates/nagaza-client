@@ -1,6 +1,7 @@
 import React, { Component, useEffect, useState } from "react"; // 프로필 클릭시 옵션 모달창
 import { useHistory } from "react-router-dom";
 import "./ProfileMenu.css";
+import axios from "axios";
 import ProfileModal from "./ProfileModal.js";
 export default function ProfileMenu(props) {
     // useState를 사용하여 open상태를 변경한다. (open일때 true로 만들어 열리는 방식)
@@ -60,14 +61,22 @@ export default function ProfileMenu(props) {
                 history.push("/grouppage");
                 break;
             case "SIGNOUT":
-                alert("로그아웃이 되었습니다.");
-                setModalHeader("로그아웃");
-                history.push("/landingpage");
-                props.signOut();
+                signOutHandler();
                 break;
             default:
                 break;
         }
+    };
+    const signOutHandler = () => {
+        axios
+            .post("https://localhost:4000/user/signout", {
+                "Content-Type": "appliaction/json",
+                withCredentials: true,
+            })
+            .catch((e) => console.log(e));
+        setModalHeader("로그아웃");
+        openModal();
+        props.signOut();
     };
     const openModal = () => {
         setModalOpen(true);
@@ -75,19 +84,6 @@ export default function ProfileMenu(props) {
     const closeModal = () => {
         setModalOpen(false);
     };
-    // onClick={() => {
-    //     if (props.isSignIn) {
-    //         //로그인 상태일때 : 로그아웃
-    //         setModalHeader("로그아웃되었습니다.");
-    //         openModal();
-    //         signOut();
-    //     } else {
-    //         //비로그인 상태일때 : 로그인
-    //         setModalHeader("로그인");
-    //         openModal();
-    //     }
-    // }}
-
     return (
         <div className={isMenuWide ? "menu expanded" : "menu"}>
             <div
@@ -125,7 +121,8 @@ export default function ProfileMenu(props) {
                 signIn={props.signIn}
                 closeModal={closeModal}
                 header={modalHeader}
-                userdataSave={props.userdataSave}
+                setModalHeader={setModalHeader}
+                openModal={openModal}
             >
                 <main></main>
             </ProfileModal>

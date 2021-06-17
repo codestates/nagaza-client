@@ -7,6 +7,15 @@
     display: flex;
     justify-content: center;
 }
+.headermenu > .mainmenu-title {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: -3rem;
+    font-size: 2rem;
+    font-weight: 900;
+    color: #719aee;
+}
 
 .mainmenu {
     display: flex;
