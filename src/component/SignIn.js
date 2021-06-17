@@ -50,6 +50,14 @@ export default function SignIn(props) {
         //landingpage.js에서 계속
     };
 
+    const signinHandler = () => {
+        if (isValidId && isValidPassword) {
+            signinRequest();
+        } else {
+            //do nothing
+        }
+    };
+
     //서버에 로그인 요청
     const signinRequest = async () => {
         await axios
@@ -69,13 +77,16 @@ export default function SignIn(props) {
                 console.log("userInfo :", res.data.userInfo);
                 console.log("userInfo :", res.data.groupInfo);
                 props.signIn(res.data.userInfo, res.data.groupInfo);
+                closeModal();
             });
     };
+
     const changeToSignUp = () => {
         closeModal();
         setModalHeader("회원가입");
         openModal();
     };
+
     return (
         <>
             <div className="modalContents">
@@ -143,8 +154,7 @@ export default function SignIn(props) {
                 <button
                     className="loginBtn"
                     onClick={() => {
-                        signinRequest();
-                        props.closeModal();
+                        signinHandler();
                     }}
                 >
                     {" "}

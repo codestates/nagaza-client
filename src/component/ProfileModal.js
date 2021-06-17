@@ -16,7 +16,14 @@ export default function ProfileModal(props) {
     const history = useHistory();
 
     if (header === "회원가입") {
-        modalContent = <SignUp></SignUp>;
+        modalContent = (
+            <SignUp
+                signIn={props.signIn}
+                closeModal={closeModal}
+                setModalHeader={setModalHeader}
+                openModal={openModal}
+            ></SignUp>
+        );
     } else if (header === "로그인") {
         modalContent = (
             <SignIn

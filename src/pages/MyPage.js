@@ -27,7 +27,7 @@ class MyPage extends Component {
                         isSignIn={this.props.isSignIn}
                     ></Header>
                     <div className={"welcome-message"}>
-                        <div>환영합니다 this.props.userInfo.username님</div>
+                        <div>환영합니다 {this.props.userInfo.username}님</div>
                     </div>
                 </div>
                 <div className={"middle-myInfo"}>

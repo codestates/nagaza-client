@@ -37,6 +37,7 @@ class App extends Component {
             "cycling",
             "climbing",
         ],
+        accessToken: "",
     };
     constructor(props) {
         super(props);
@@ -48,7 +49,7 @@ class App extends Component {
         this.deleteGroup = this.deleteGroup.bind(this);
         this.exitGroup = this.exitGroup.bind(this);
         this.createGroupHandle = this.createGroupHandle.bind(this);
-        this.userdataSave = this.userdataSave.bind(this);
+        this.getAccessToken = this.getAccessToken.bind(this);
     }
 
     signIn = (userInfo, groupData) => {
@@ -60,6 +61,44 @@ class App extends Component {
         }); // '/signIn'에 post로 로그인 요청 유저의 정보와 그룹정보, 어드민정보를 받아와 setState
         // 변경해야될 state : isSignIn : true, userInfo, groupInfo, isAdmin
     };
+
+    getAccessToken(authCode) {
+        await axios
+            .post(`https://localhost:4000/user/socialsignin`, {
+                authorizationCode: authCode,
+            })
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+        //APP에 accessCode를 저장함.
+    }
+
+    componentDidMount() {
+        // axios
+        //     .get(
+        //         "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
+        //         {
+        //             withCredentials: true,
+        //         }
+        //     )
+        //     .then((res) => {
+        //         // console.log(res);
+        //         this.setState({
+        //             isConnected: true,
+        //             data: res.data,
+        //         });
+        //     })
+        //     .catch((err) => console.log(err));
+        const url = new URL(window.location.href);
+        const authorizationCode = url.searchParams.get("code");
+        if (authorizationCode) {
+            this.getAccessToken(authorizationCode);
+        }
+    }
+
     signOut = () => {
         console.log("signOut");
         this.setState({
@@ -98,29 +137,41 @@ class App extends Component {
     };
 
     changeUserInfo = async (changeUserInfo) => {
-        // await axios.post(`${NAGAZA_SERVER_API}/group/updateuserinfo`, {
-        //     userId: this.state.userInfo.userId,
-        //     newUserName: changeUserInfo.username,
-        //     newEmail: changeUserInfo.email,
-        //     newAge: changeUserInfo.age,
-        //     newLocation : changeUserInfo.location,
-        //     newPreference: this.state.transCategoryId[changeUserInfo.category]
-        // }, {
-        //     'Content-Type': 'application/json',
-        //     withCredentials: true
-        // })
-        //     .catch(e => console.log(e))
-        //     .then(res => console.log(res))
-        //     .then(res => {
-        //         this.setState({
-        //             userInfo: res.userInfo
+        await axios.post(
+            `${NAGAZA_SERVER_API}/user/updateuserinfo`,
+            {
+                userId: this.state.userInfo.id,
+                newUserName: changeUserInfo.username,
+                newEmail: changeUserInfo.email,
+                newAge: changeUserInfo.age,
+                newPreference:
+                    this.state.transCategoryId.indexOf(
+                        changeUserInfo.category
+                    ) + 1,
+            },
+            {
+                "Content-Type": "application/json",
+                withCredentials: true,
+            }
+        );
 
-        //         })
-        //     })
+        await axios
+            .get(
+                "https:127.0.0.1:4000/user/userinfo",
+                {
+                    userId: this.state.userInfo.id,
+                },
+                {
+                    "Content-Type": "application/json",
+                    withCredentials: true,
+                }
+            )
+            .catch((e) => console.log(e))
+            .then((res) => console.log(res));
 
-        this.setState({
-            userInfo: changeUserInfo,
-        });
+        // await this.setState({
+        //     userInfo: changeUserInfo,
+        // });
         console.log(this.state.userInfo);
     };
 
@@ -190,17 +241,13 @@ class App extends Component {
     createGroupHandle = async (createInfo) => {
         const categoryText = createInfo.categoryId;
         console.log(createInfo);
-        // await axios
-        //     .post(
-        //         `${NAGAZA_SERVER_API}/group/creategroup`,
-        //         createInfo,
-        //         {
-        //             "Content-Type": "application/json",
-        //             withCredentials: true,
-        //         }
-        //     )
-        //     .catch((e) => console.log(e))
-        //     .then((res) => console.log(res.message));
+        await axios
+            .post(`${NAGAZA_SERVER_API}/group/creategroup`, createInfo, {
+                "Content-Type": "application/json",
+                withCredentials: true,
+            })
+            .catch((e) => console.log(e))
+            .then((res) => console.log(res));
     };
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
@@ -210,6 +257,7 @@ class App extends Component {
             userInfo: [], //유저의 정보
             groupInfo: [], //유저가 속한 그룹의 정보
         });
+        console.log(this.state.userInfo);
     };
 
     render() {

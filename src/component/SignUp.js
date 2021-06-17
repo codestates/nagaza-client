@@ -20,6 +20,8 @@ export default function SignUp() {
     const [age, setAge] = useState("");
     const [preference, setPreference] = useState("");
 
+    const { signIn, closeModal, setModalHeader, openModal } = props;
+
     const isValidationId = (email) => {
         let regExp =
             /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
@@ -40,9 +42,9 @@ export default function SignUp() {
     };
 
     //서버에 회원가입 요청
-    const signupRequestHandler = () => {
+    const signupHandler = () => {
         if (isValidId && isValidPassword && isValidsub) {
-            //다맞으면 리퀘스트 핸들러
+            signupRequest();
         } else {
             //donothing
         }
@@ -69,6 +71,9 @@ export default function SignUp() {
                 console.log("userInfo :", res.data.userInfo);
                 console.log("userInfo :", res.data.groupInfo);
                 props.signIn(res.data.userInfo, res.data.groupInfo);
+                closeModal();
+                setModalHeader("로그인");
+                openModal();
             });
     };
 
