@@ -4,10 +4,6 @@ import { useHistory } from "react-router-dom";
 import "./SignIn.css";
 require("dotenv").config();
 
-const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
-const KAKAO_CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET;
-const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
-const NAGAZA_SERVER_API = process.env.NAGAZA_SERVER_API;
 export default function SignIn(props) {
     // 로컬 상태,입력 반영
     const [userId, setEmail] = useState(null);
@@ -18,6 +14,13 @@ export default function SignIn(props) {
 
     // 상위 상태
     const { closeModal, setModalHeader, openModal } = props;
+
+    const REACT_APP_NAGAZA_SERVER_API = process.env.REACT_APP_NAGAZA_SERVER_API;
+    const REACT_APP_KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+    const REACT_APP_KAKAO_CLIENT_SECRET =
+        process.env.REACT_APP_KAKAO_CLIENT_SECRET;
+    const REACT_APP_KAKAO_REDIRECT_URI =
+        process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
     //redirection tool
     const history = useHistory();
@@ -45,7 +48,7 @@ export default function SignIn(props) {
     //카카오 Oauth 인증 신청
     const kakaoOauth = () => {
         window.location.assign(
-            `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`
+            `https://kauth.kakao.com/oauth/authorize?client_id=${REACT_APP_KAKAO_CLIENT_ID}&redirect_uri=${REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`
         );
         //landingpage.js에서 계속
     };

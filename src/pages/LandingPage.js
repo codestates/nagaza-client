@@ -5,12 +5,19 @@ import Footer from "../component/Footer.js";
 import axios from "axios";
 import "./LandingPage.css";
 import "../App.css";
+require("dotenv").config();
+
+const REACT_APP_NAGAZA_SERVER_API = process.env.REACT_APP_NAGAZA_SERVER_API;
+const REACT_APP_KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+const REACT_APP_KAKAO_CLIENT_SECRET = process.env.REACT_APP_KAKAO_CLIENT_SECRET;
+const REACT_APP_KAKAO_REDIRECT_URI = process.env.REACT_APP_KAKAO_REDIRECT_URI;
 
 class landingPage extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
+
     //리다이렉션 되었을 때
     componentDidMount() {
         if (!this.props.isSignIn) {
@@ -27,7 +34,7 @@ class landingPage extends Component {
         console.log(authCode);
         await axios
             .post(
-                `https://localhost:4000/user/socialsignin`,
+                `${REACT_APP_NAGAZA_SERVER_API}/user/socialsignin`,
                 {
                     authorizationCode: authCode,
                 },
