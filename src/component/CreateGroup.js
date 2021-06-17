@@ -5,13 +5,18 @@ export default function CreateGroup(props) {
 
   const today = new Date()
 
+  let month = new String(today.getMonth() + 1);
+  month = month >= 10 ? month : '0' + month;
+  let day = new String(today.getDate());
+  day = day >= 10 ? day : '0' + day;
+
   let [createInfo, setInfo] = useState({
     groupName: "",
     categoryId: "",
     startTime: "",
     endTime: "",
     description: "",
-    date : `${today.getFullYear()}-${today.getMonth()}-${today.getDay()}`
+    date: `${today.getFullYear()}-${month}-${day}`
   });
 
   const onChange = (e) => {

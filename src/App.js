@@ -54,12 +54,12 @@ class App extends Component {
         let isAdmin = userInfo.id === groupInfo.admin ? true : false
         const categoryNumb = Number(groupInfo.category_id) - 1
         // console.log(categoryNumb)
-        groupInfo.category_id = this.state.transCategoryId[categoryNumb] 
+        groupInfo.category_id = this.state.transCategoryId[categoryNumb]
         this.setState({
             isSignIn: true,
             userInfo: userInfo,
             groupInfo: groupInfo,
-            isAdmin : isAdmin
+            isAdmin: isAdmin
         });
 
 
@@ -92,7 +92,7 @@ class App extends Component {
                 .then(res => {
                     const groupInfo = res.data.groupInfo
                     groupInfo.map((el) => {
-                        const categoryIdOnServer = parseInt(el.category_id) - 1 
+                        const categoryIdOnServer = parseInt(el.category_id) - 1
                         el.category_id = this.state.transCategoryId[categoryIdOnServer]
                     })
                     this.setState({
@@ -115,13 +115,13 @@ class App extends Component {
         })
 
         await axios.get('https:127.0.0.1:4000/user/userinfo', {
-            userId : this.state.userInfo.id
-        },{
+            userId: this.state.userInfo.id
+        }, {
             'Content-Type': 'application/json',
             withCredentials: true
         })
-        .catch(e => console.log(e))
-        .then(res => console.log(res))
+            .catch(e => console.log(e))
+            .then(res => console.log(res))
 
 
 
@@ -194,20 +194,38 @@ class App extends Component {
         });
     };
 
-    createGroupHandle = async (createInfo) => {
-        const categoryText = createInfo.categoryId;
-        console.log(createInfo);
-        // await axios
-        //     .post(
-        //         "https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/creategroup",
-        //         createInfo,
-        //         {
-        //             "Content-Type": "application/json",
-        //             withCredentials: true,
-        //         }
-        //     )
-        //     .catch((e) => console.log(e))
-        //     .then((res) => console.log(res.message));
+    createGroupHandle = async (info) => {
+
+        const valueArr = Object.values(info)
+
+        if (valueArr.includes('')) {
+            alert('모든 칸을 채워주세요')
+        }
+        else {
+
+
+            // console.log(info);
+            let createInfo = {};
+            createInfo.categoryId = Number(this.state.transCategoryId.indexOf(info.categoryId)) + 1;
+            createInfo.date = info.date;
+            createInfo.admin = this.state.userInfo.id;
+            createInfo.location = String(info.location);
+            createInfo.description = info.description;
+            createInfo.startTime = info.startTime;
+            createInfo.endTime = info.endTime;
+            createInfo.groupName = info.groupName;
+            console.log(createInfo)
+
+            await axios
+                .post(
+                    "https://127.0.0.1:4000/group/creategroup",
+                    createInfo,
+                    {
+                        "Content-Type": "application/json",
+                        withCredentials: true,
+                    }
+                )
+        }
     };
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
@@ -250,7 +268,7 @@ class App extends Component {
                                         }
                                         groupInfo={this.state.groupInfo}
                                         joinGroup={this.joinGroup}
-                                        transCategoryId = {this.state.transCategoryId}
+                                        transCategoryId={this.state.transCategoryId}
                                         searchGroup={this.searchGroup}
                                         searchGroupData={
                                             this.state.searchGroupData

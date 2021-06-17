@@ -16,7 +16,8 @@ class GroupPage extends Component {
             createGroupLocation: null,
             isSerachModalOpen: false,
             isCreateModalOpen: false,
-            searchGroupDataOnMap : []
+            searchGroupDataOnMap : [],
+            positions : []
             //검색할 카테고리(ex. 활동, 위치, 시간)
             //카테고리의 키워드(ex. 활동-축구, 시간 -몇월, 몇일, 몇시)
         };
@@ -47,7 +48,18 @@ class GroupPage extends Component {
                 searchGroupDataOnMap: groupInfo
             })
         })
-        console.log(this.state.searchGroupDataOnMap)
+
+        for (let i = 0; i < this.state.searchGroupDataOnMap.length; i++) {
+            let location = this.state.searchGroupDataOnMap[i].location.slice(0, -1).split(/,\s?/);
+
+            this.setState({
+                positions : [...this.state.positions, {
+                    category: this.state.searchGroupDataOnMap[i].category_id,
+                    startTime: this.state.searchGroupDataOnMap[i].start_time,
+                    latlng: new kakao.maps.LatLng(location[1], location[0])
+                }]
+            })
+        }
     };
 
     openSearchModal = () => {
@@ -129,6 +141,7 @@ class GroupPage extends Component {
                         createGroupLocation={this.state.createGroupLocation}
                         changeGroupState={this.changeGroupState}
                         createGroupState={this.state.createGroupState}
+                        positions={this.state.positions}
                     ></Map>
                     {/* 지도 창  */}
                 </div>
