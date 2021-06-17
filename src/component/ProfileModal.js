@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 
 export default function ProfileModal(props) {
     // 열기, 닫기, 모달 헤더 텍스트를 부모로부터 받아옴
-    const { isOpen, openModal, closeModal, header, setHeader } = props;
+    const { isOpen, closeModal, header, setModalHeader, openModal } = props;
 
     let modalContent;
     const [isOpenSignup, setSignup] = useState(false);
@@ -22,7 +22,8 @@ export default function ProfileModal(props) {
             <SignIn
                 signIn={props.signIn}
                 closeModal={closeModal}
-                userdataSave={props.userdataSave}
+                setModalHeader={setModalHeader}
+                openModal={openModal}
             ></SignIn>
         );
     } else if (header === "로그아웃") {

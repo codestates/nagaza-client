@@ -1,5 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
+require("dotenv").config();
+
+const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
+const KAKAO_CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET;
+const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
+const NAGAZA_SERVER_API = process.env.NAGAZA_SERVER_API;
 
 export default function SignUp() {
     //local state
@@ -7,6 +13,7 @@ export default function SignUp() {
     const [password, setPassword] = useState(null);
     const [isValidId, setValidId] = useState(false);
     const [isValidPassword, setValidPassword] = useState(false);
+    const [isValidsub, setValidsub] = useState(false);
 
     const [location, setLocation] = useState("");
     const [gender, setGender] = useState("");
@@ -17,36 +24,61 @@ export default function SignUp() {
         let regExp =
             /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
         setValidId(regExp.test(email));
-        console.log(isValidId);
     };
 
     const isValidationPassword = (password) => {
         var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/; //  8 ~ 10자 영문, 숫자 조합
         setValidPassword(regExp.test(password));
-        console.log(isValidPassword);
     };
-    
+
     const isValidationSubinput = () => {
         if (!location && !gender && !age && !preference) {
-            return false;
+            setValidsub(false);
+        } else {
+            setValidsub(!location || !gender || !age || !preference);
         }
-        return !location || !gender || !age || !preference;
     };
 
     //서버에 회원가입 요청
     const signupRequestHandler = () => {
-        axios
-            .post(`URL`, {
-                data: {},
-            })
-            .then((res) => res.json)
-            .then();
+        if (isValidId && isValidPassword && isValidsub) {
+            //다맞으면 리퀘스트 핸들러
+        } else {
+            //donothing
+        }
+    };
+    const signupRequest = async () => {
+        await axios
+            .post(
+                `${NAGAZA_SERVER_API}/user/signup`,
+                {
+                    email: userId,
+                    password: password,
+                    location: location,
+                    gender: gender,
+                    age: age,
+                    preference: preference,
+                },
+                {
+                    "Content-Type": "appliaction/json",
+                    withCredentials: true,
+                }
+            )
+            .catch((e) => console.log(e))
+            .then((res) => {
+                console.log("userInfo :", res.data.userInfo);
+                console.log("userInfo :", res.data.groupInfo);
+                props.signIn(res.data.userInfo, res.data.groupInfo);
+            });
     };
 
     return (
         <>
             <div className="modalContents">
-                <img className="signinIcon" src="/img/nagaza-logo.png" />
+                <div className="modalTitle">
+                    <img className="signinIcon" src="/img/nagaza-logo.png" />
+                    <div>NAGAZA 회원가입</div>
+                </div>
                 <input
                     name="email"
                     className="loginId"
@@ -58,7 +90,7 @@ export default function SignUp() {
                     }}
                 />
                 <div className="errMsg">
-                    <span
+                    <div
                         className={
                             userId
                                 ? isValidId
@@ -67,8 +99,8 @@ export default function SignUp() {
                                 : "ok hidden"
                         }
                     >
-                        이메일 입력이 올바르지 않습니다.
-                    </span>
+                        <span>이메일 입력이 올바르지 않습니다.</span>
+                    </div>
                 </div>
                 <input
                     name="password"
@@ -81,7 +113,7 @@ export default function SignUp() {
                     }}
                 />
                 <div className="errMsg">
-                    <span
+                    <div
                         className={
                             password
                                 ? isValidPassword
@@ -90,9 +122,11 @@ export default function SignUp() {
                                 : "ok hidden"
                         }
                     >
-                        비밀번호 입력이 올바르지 않습니다. 8자이상 영문, 숫자
-                        조합으로 입력해주세요.
-                    </span>
+                        <span>
+                            비밀번호 입력이 올바르지 않습니다. (8자이상 10자이하
+                            영문숫자조합)
+                        </span>
+                    </div>
                 </div>
                 <div className="loginMid">
                     <span>위치</span>
@@ -158,14 +192,8 @@ export default function SignUp() {
                     </select>
                 </div>
                 <div className="errMsg">
-                    <div>
-                        <span
-                            className={
-                                isValidationSubinput() ? "ok" : "ok hidden"
-                            }
-                        >
-                            이메일 입력이 올바르지 않습니다.
-                        </span>
+                    <div className={isValidSub ? "ok" : "ok hidden"}>
+                        <span>모든 항목을 입력해주세요.</span>
                     </div>
                 </div>
                 <button className="loginBtn"> 로그인 </button>

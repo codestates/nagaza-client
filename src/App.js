@@ -2,11 +2,13 @@ import React, { Component } from "react";
 import GroupPage from "./pages/GroupPage";
 import LandingPage from "./pages/LandingPage";
 import MyPage from "./pages/MyPage";
-import KaKaoOauth from "./pages/KakaoOauth";
+
 // import logo from "./logo.svg";
 import data from "./mockdata/groupData.json";
-
 import axios from "axios";
+require("dotenv").config();
+
+const NAGAZA_SERVER_API = process.env.NAGAZA_SERVER_API;
 
 import "./App.css";
 import {
@@ -49,13 +51,12 @@ class App extends Component {
         this.userdataSave = this.userdataSave.bind(this);
     }
 
-    signIn = () => {
+    signIn = (userInfo, groupData) => {
         console.log("signIn");
         this.setState({
             isSignIn: true,
-            userInfo: [],
-            groupInfo: [],
-            isAdmin: true,
+            userInfo: userInfo,
+            groupInfo: groupData,
         }); // '/signIn'에 post로 로그인 요청 유저의 정보와 그룹정보, 어드민정보를 받아와 setState
         // 변경해야될 state : isSignIn : true, userInfo, groupInfo, isAdmin
     };
@@ -72,37 +73,37 @@ class App extends Component {
 
     searchGroup = async (searchInfo) => {
         const categoryText = searchInfo.category;
-        searchInfo.category = this.state.transCategoryId.indexOf(searchInfo.category) + 1
-        if (searchInfo.category === '') {
-            alert('운동을 골라주세요')
-        }
-        else {
-            await axios.get('https://localhost:4000/group/groupinfo',
-                searchInfo,
-                {
-                    'Content-Type': 'application/json',
-                    withCredentials: true
+        searchInfo.category =
+            this.state.transCategoryId.indexOf(searchInfo.category) + 1;
+        if (searchInfo.category === "") {
+            alert("운동을 골라주세요");
+        } else {
+            await axios
+                .get(`${NAGAZA_SERVER_API}/group/groupinfo`, searchInfo, {
+                    "Content-Type": "application/json",
+                    withCredentials: true,
                 })
-                .then(res => {
-                    const groupInfo = res.data.groupInfo
+                .then((res) => {
+                    const groupInfo = res.data.groupInfo;
                     groupInfo.map((el) => {
-                        const categoryIdOnServer = parseInt(el.category_id) - 1 
-                        el.category_id = this.state.transCategoryId[categoryIdOnServer]
-                    })
+                        const categoryIdOnServer = parseInt(el.category_id) - 1;
+                        el.category_id =
+                            this.state.transCategoryId[categoryIdOnServer];
+                    });
                     this.setState({
-                        searchGroupData: groupInfo
-                    })
-                })
+                        searchGroupData: groupInfo,
+                    });
+                });
         }
     };
 
     changeUserInfo = async (changeUserInfo) => {
-        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/updateuserinfo', {
+        // await axios.post(`${NAGAZA_SERVER_API}/group/updateuserinfo`, {
         //     userId: this.state.userInfo.userId,
         //     newUserName: changeUserInfo.username,
         //     newEmail: changeUserInfo.email,
         //     newAge: changeUserInfo.age,
-        //     newLocation : changeUserInfo.location
+        //     newLocation : changeUserInfo.location,
         //     newPreference: this.state.transCategoryId[changeUserInfo.category]
         // }, {
         //     'Content-Type': 'application/json',
@@ -117,14 +118,14 @@ class App extends Component {
         //         })
         //     })
 
-        await this.setState({
+        this.setState({
             userInfo: changeUserInfo,
         });
         console.log(this.state.userInfo);
     };
 
     deleteGroup = async () => {
-        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/deletegroup', {
+        // await axios.post(`${NAGAZA_SERVER_API}/group/deletegroup`, {
         //     groupId: this.state.groupInfo.groupId,
         //     userId: this.state.userInfo.userId
         // }, {
@@ -146,7 +147,7 @@ class App extends Component {
     };
 
     exitGroup = async () => {
-        // await axios.post('https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/unjoingroup', {
+        // await axios.post(`${NAGAZA_SERVER_API}/group/unjoingroup`, {
         //     groupId: this.state.groupInfo.groupId,
         //     userId: this.state.userInfo.userId
         // }, {
@@ -166,7 +167,7 @@ class App extends Component {
     };
 
     joinGroup = async (groupId) => {
-        // await axios.post('https://127.0.0.1/group/joingroup', {
+        // await axios.post(`${NAGAZA_SERVER_API}/group/joingroup`, {
         //     groupId: groupId,
         //     userId: 'this.state.userInfo.userId'
         // }, {
@@ -191,7 +192,7 @@ class App extends Component {
         console.log(createInfo);
         // await axios
         //     .post(
-        //         "https://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com/group/creategroup",
+        //         `${NAGAZA_SERVER_API}/group/creategroup`,
         //         createInfo,
         //         {
         //             "Content-Type": "application/json",
@@ -224,7 +225,6 @@ class App extends Component {
                                     signOut={this.signOut}
                                     searchGroup={this.searchGroup}
                                     isSignIn={this.state.isSignIn}
-                                    userdataSave={this.userdataSave}
                                 />
                             )}
                         />
@@ -241,7 +241,9 @@ class App extends Component {
                                         }
                                         groupInfo={this.state.groupInfo}
                                         joinGroup={this.joinGroup}
-                                        transCategoryId = {this.state.transCategoryId}
+                                        transCategoryId={
+                                            this.state.transCategoryId
+                                        }
                                         searchGroup={this.searchGroup}
                                         searchGroupData={
                                             this.state.searchGroupData
@@ -277,10 +279,6 @@ class App extends Component {
                                     <Redirect to="/landingPage"></Redirect>
                                 )
                             }
-                        />
-                        <Route
-                            path="/KakaoOuath"
-                            render={() => <KaKaoOauth />}
                         />
                     </Switch>
                 </BrowserRouter>

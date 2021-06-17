@@ -1,18 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./SignIn.css";
+require("dotenv").config();
+
+const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
+const KAKAO_CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET;
+const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
+const NAGAZA_SERVER_API = process.env.NAGAZA_SERVER_API;
 export default function SignIn(props) {
     // 로컬 상태,입력 반영
     const [userId, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
     const [isValidId, setValidId] = useState(false);
     const [isValidPassword, setValidPassword] = useState(false);
+    const [authCode, setAuthcode] = useState("");
+
     // 상위 상태
-    const { isOpen, openModal, closeModal, header, setHeader } = props;
+    const { closeModal, setModalHeader, openModal } = props;
 
     //redirection tool
     const history = useHistory();
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter") {
+            signinHandler();
+            closeModal();
+        }
+    };
 
     const isValidationId = (email) => {
         let regExp =
@@ -20,49 +35,26 @@ export default function SignIn(props) {
         setValidId(regExp.test(email));
         console.log(isValidId);
     };
+
     const isValidationPassword = (password) => {
-        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/; //  8 ~ 10자 영문, 숫자 조합
+        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{12}$/; //  8 ~ 10자 영문, 숫자 조합
         setValidPassword(regExp.test(password));
         console.log(isValidPassword);
     };
 
     //카카오 Oauth 인증 신청
     const kakaoOauth = () => {
-        const REST_API_KEY = `cb855df8892be53bdaf2507eeeac3138`;
-        const REDIRECT_URI = `http://localhost:3000/landingpage`;
         window.location.assign(
-            `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`
+            `https://kauth.kakao.com/oauth/authorize?client_id=${KAKAO_CLIENT_ID}&redirect_uri=${KAKAO_REDIRECT_URI}&response_type=code`
         );
-        const url = new URL(window.location.href);
-        const authorizationCode = url.searchParams.get("code");
-        if (authorizationCode) {
-            getAccessToken(authorizationCode);
-        }
-    };
-
-    const getAccessToken = async (authCode) => {
-        await axios({
-            method: "POST",
-            url: `${process.env.SERVER_API_URI}/SocialSigning`,
-            data: {
-                authorizationCode: authCode,
-            },
-        })
-            .then((res) => res.json())
-            .then((data) => {
-                //APP에 accessCode를 저장함.
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        //landingpage.js에서 계속
     };
 
     //서버에 로그인 요청
-    const signinHandler = async () => {
-        console.log(1)
+    const signinRequest = async () => {
         await axios
             .post(
-                'https://localhost:4000/user/signin',
+                `${NAGAZA_SERVER_API}/user/signin`,
                 {
                     email: userId,
                     password: password,
@@ -72,34 +64,33 @@ export default function SignIn(props) {
                     withCredentials: true,
                 }
             )
-            .cate(e => console.log(e))
+            .catch((e) => console.log(e))
             .then((res) => {
-                console.log(res);
+                console.log("userInfo :", res.data.userInfo);
+                console.log("userInfo :", res.data.groupInfo);
+                props.signIn(res.data.userInfo, res.data.groupInfo);
             });
-console.log(2)
-        /* isLogin에 반영
-                 history.push("/landingpage");
-                 */
     };
-
-    // SignUp으로 리다이렉션
-    const signinTosignup = () => {
-        //SignUp 창을 끄고,
-        //SignIn 창으로 바꿈
+    const changeToSignUp = () => {
+        closeModal();
+        setModalHeader("회원가입");
+        openModal();
     };
     return (
         <>
             <div className="modalContents">
-                <img className="signinIcon" src="/img/nagaza-logo.png" />
+                <div className="modalTitle">
+                    <img className="signinIcon" src="/img/nagaza-logo.png" />
+                    <div>NAGAZA 로그인</div>
+                </div>
                 <input
                     name="email"
                     className="loginId"
                     type="email"
-                    placeholder="아이디"
+                    placeholder="이메일"
                     onChange={(e) => {
                         setEmail(e.target.value);
                         isValidationId(e.target.value);
-                        // console.log(userId);
                     }}
                 />
                 <input
@@ -110,51 +101,50 @@ console.log(2)
                     onChange={(e) => {
                         setPassword(e.target.value);
                         isValidationPassword(e.target.value);
-                        // console.log(password);
+                    }}
+                    onKeyPress={(e) => {
+                        handleKeyPress(e);
                     }}
                 />
-                <div className="loginMid">
+                {/* <div className="loginMid">
                     <label className="autoLogin">
                         {" "}
                         <input type="checkbox" id="hint" /> 로그인 유지하기
                     </label>
                     <div className="autoLogin">아이디/비밀번호 찾기</div>
-                </div>
+                </div> */}
                 <div className="errMsg">
-                    <div>
-                        <span
-                            className={
-                                userId
-                                    ? isValidId
-                                        ? "ok hidden"
-                                        : "ok"
-                                    : "ok hidden"
-                            }
-                        >
-                            이메일 입력이 올바르지 않습니다.
-                        </span>
+                    <div
+                        className={
+                            userId
+                                ? isValidId
+                                    ? "ok hidden"
+                                    : "ok"
+                                : "ok hidden"
+                        }
+                    >
+                        <span>이메일 입력이 올바르지 않습니다.</span>
                     </div>
-                    <div>
-                        <span
-                            className={
-                                password
-                                    ? isValidPassword
-                                        ? "ok hidden"
-                                        : "ok"
-                                    : "ok hidden"
-                            }
-                        >
-                            비밀번호 입력이 올바르지 않습니다. 8자이상 영문숫자
-                            조합으로 입력해주세요.
+                    <div
+                        className={
+                            password
+                                ? isValidPassword
+                                    ? "ok hidden"
+                                    : "ok"
+                                : "ok hidden"
+                        }
+                    >
+                        <span>
+                            비밀번호 입력이 올바르지 않습니다. (8자이상 10자이하
+                            영문숫자 조합)
                         </span>
                     </div>
                 </div>
                 <button
                     className="loginBtn"
                     onClick={() => {
-                        signinHandler();
+                        signinRequest();
                         props.closeModal();
-                        signinHandler();
                     }}
                 >
                     {" "}
@@ -175,7 +165,12 @@ console.log(2)
                     </div>
                 </div>
                 <div className="loginEnd">
-                    <div className="loginLine">
+                    <div
+                        className="loginLine"
+                        onClick={() => {
+                            changeToSignUp();
+                        }}
+                    >
                         아직 나가자 회원이 아니신가요?
                     </div>
                 </div>

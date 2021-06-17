@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import Header from "../component/Header.js";
 import Footer from "../component/Footer.js";
+import axios from "axios";
 import "./LandingPage.css";
 import "../App.css";
 
@@ -10,21 +11,52 @@ class landingPage extends Component {
         super(props);
         this.state = {};
     }
+    //리다이렉션 되었을 때
+    componentDidMount() {
+        if (!this.props.isSignIn) {
+            // 로그인이 아닐때
+            const url = new URL(window.location.href);
+            const authorizationCode = url.searchParams.get("code");
+            if (authorizationCode) {
+                this.getAccessToken(authorizationCode);
+            }
+        }
+    }
+
+    getAccessToken = async (authCode) => {
+        console.log(authCode);
+        await axios
+            .post(
+                `https://localhost:4000/user/socialsignin`,
+                {
+                    authorizationCode: authCode,
+                },
+                {
+                    "Content-Type": "appliaction/json",
+                    withCredentials: true,
+                }
+            )
+            .then((res) => {
+                console.log("문제없음");
+                console.log(res);
+            })
+            .catch((err) => {
+                console.log("문제있음");
+                console.log(err);
+            });
+    };
 
     render() {
         return (
             <>
                 <div className="lp-landingPage">
-                    <div
-                        className="lp-header"
-                    >
+                    <div className="lp-header">
                         <Header
                             className="lp-header-component"
                             signIn={this.props.signIn}
                             signOut={this.props.signOut}
                             searchGroup={this.props.searchGroup}
                             isSignIn={this.props.isSignIn}
-                            userdataSave={this.props.userdataSave}
                         ></Header>
                     </div>
                     <section className="lp first-page">

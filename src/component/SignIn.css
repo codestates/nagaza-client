@@ -12,6 +12,12 @@
     justify-content: center;
     flex-direction: column;
 }
+.modalContents > .modalTitle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+}
 .modalContents > .signinIcon {
     width: 32px;
     margin: 0 auto;
@@ -44,6 +50,7 @@
     justify-content: space-between;
     width: 100%;
 }
+
 .modalContents > .loginMid .autoLogin {
     font-size: 12px;
     color: #8d8d8d;
@@ -75,12 +82,14 @@
     background-color: #feec34;
     border-color: #feec34;
     height: 40px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
     margin-bottom: 10px;
     border-radius: 3px;
+    outline: none;
 }
 .modalContents > .socialBox .kakao > .kakaoLogo {
     width: 24px;
@@ -132,8 +141,12 @@
 }
 
 /* 에러메세지 컬러 */
-.errMsg > .ok {
-    background-color: rgba(165, 42, 42, 0.2);
+.ok.hidden {
+    display: none;
+}
+
+.errMsg > .ok > span {
+    display: inherit;
     color: red;
 }
 .subInput {
