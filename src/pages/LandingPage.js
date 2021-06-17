@@ -29,6 +29,9 @@ class landingPage extends Component {
             }
         }
     }
+    componentDidUpdate() {
+        
+    }
 
     getAccessToken = async (authCode) => {
         console.log(authCode);
@@ -46,6 +49,7 @@ class landingPage extends Component {
             .then((res) => {
                 console.log("문제없음");
                 console.log(res);
+                this.props.signIn();
             })
             .catch((err) => {
                 console.log("문제있음");
@@ -64,6 +68,7 @@ class landingPage extends Component {
                             signOut={this.props.signOut}
                             searchGroup={this.props.searchGroup}
                             isSignIn={this.props.isSignIn}
+                            findAddress={this.props.findAddress}
                         ></Header>
                     </div>
                     <section className="lp first-page">

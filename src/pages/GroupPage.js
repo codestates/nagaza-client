@@ -16,8 +16,7 @@ class GroupPage extends Component {
             createGroupLocation: null,
             isSerachModalOpen: false,
             isCreateModalOpen: false,
-            searchGroupDataOnMap : [],
-            positions : []
+            positions: [],
             //검색할 카테고리(ex. 활동, 위치, 시간)
             //카테고리의 키워드(ex. 활동-축구, 시간 -몇월, 몇일, 몇시)
         };
@@ -33,32 +32,44 @@ class GroupPage extends Component {
     }
 
     componentDidMount = async () => {
-        await axios.get('https://localhost:4000/group/groupinfo',
-        {
-            'Content-Type': 'application/json',
-            withCredentials: true
-        })
-        .then(res => {
-            const groupInfo = res.data.groupInfo
-            groupInfo.map((el) => {
-                const categoryIdOnServer = parseInt(el.category_id) - 1 
-                el.category_id = this.props.transCategoryId[categoryIdOnServer]
+        await axios
+            .get("https://localhost:4000/group/groupinfo", {
+                "Content-Type": "application/json",
+                withCredentials: true,
             })
-            this.setState({
-                searchGroupDataOnMap: groupInfo
-            })
-        })
+            .then((res) => {
+                const groupInfo = res.data.groupInfo;
+                groupInfo.map((el) => {
+                    const categoryIdOnServer = parseInt(el.category_id) - 1;
+                    el.category_id =
+                        this.props.transCategoryId[categoryIdOnServer];
+                });
+                this.setState({
+                    searchGroupDataOnMap: groupInfo,
+                });
+            });
 
         for (let i = 0; i < this.state.searchGroupDataOnMap.length; i++) {
-            let location = this.state.searchGroupDataOnMap[i].location.slice(0, -1).split(/,\s?/);
+            let location = this.state.searchGroupDataOnMap[i].location
+                .slice(0, -1)
+                .split(/,\s?/)
+                .map((el) => Number(el));
+            console.log(location);
+            console.log(typeof location[0]);
+            console.log(typeof location[1]);
 
             this.setState({
-                positions : [...this.state.positions, {
-                    category: this.state.searchGroupDataOnMap[i].category_id,
-                    startTime: this.state.searchGroupDataOnMap[i].start_time,
-                    latlng: new kakao.maps.LatLng(location[1], location[0])
-                }]
-            })
+                positions: [
+                    ...this.state.positions,
+                    {
+                        category:
+                            this.state.searchGroupDataOnMap[i].category_id,
+                        startTime:
+                            this.state.searchGroupDataOnMap[i].start_time,
+                        latlng: location,
+                    },
+                ],
+            });
         }
     };
 

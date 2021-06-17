@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./SignUp.css";
 require("dotenv").config();
 
-const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
-const KAKAO_CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET;
-const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
-const NAGAZA_SERVER_API = process.env.NAGAZA_SERVER_API;
+const KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
+const KAKAO_CLIENT_SECRET = process.env.REACT_APP_KAKAO_CLIENT_SECRET;
+const KAKAO_REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
+const NAGAZA_SERVER_API = process.env.REACT_APP_NAGAZA_SERVER_API;
 
 export default function SignUp(props) {
     //local state
@@ -15,10 +16,13 @@ export default function SignUp(props) {
     const [isValidPassword, setValidPassword] = useState(false);
     const [isValidsub, setValidsub] = useState(false);
 
+    const [searchModal, searchOpen] = useState(false);
     const [location, setLocation] = useState("");
     const [gender, setGender] = useState("");
     const [age, setAge] = useState("");
     const [preference, setPreference] = useState("");
+    const [userName, setUsername] = useState("");
+    const [searchArr, setArr] = useState([]);
 
     const { signIn, closeModal, setModalHeader, openModal } = props;
 
@@ -34,19 +38,26 @@ export default function SignUp(props) {
     };
 
     const isValidationSubinput = () => {
-        if (!location && !gender && !age && !preference) {
-            setValidsub(false);
+        if (!!location && !!gender && !!age && !!preference) {
+            setValidsub(true);
         } else {
-            setValidsub(!location || !gender || !age || !preference);
+            setValidsub(false);
         }
     };
-
+    const setupAddress = (e) => {
+        const target = event.target.textContent;
+        console.log(target);
+        let input = document.getElementById("address");
+        input.value = target;
+    };
     //서버에 회원가입 요청
     const signupHandler = () => {
         if (isValidId && isValidPassword && isValidsub) {
             signupRequest();
         } else {
             //donothing
+
+            console.log("안되냐?");
         }
     };
     const signupRequest = async () => {
@@ -55,6 +66,7 @@ export default function SignUp(props) {
                 `${NAGAZA_SERVER_API}/user/signup`,
                 {
                     email: userId,
+                    userName: userName,
                     password: password,
                     location: location,
                     gender: gender,
@@ -68,8 +80,6 @@ export default function SignUp(props) {
             )
             .catch((e) => console.log(e))
             .then((res) => {
-                console.log("userInfo :", res.data.userInfo);
-                console.log("userInfo :", res.data.groupInfo);
                 props.signIn(res.data.userInfo, res.data.groupInfo);
                 closeModal();
                 setModalHeader("로그인");
@@ -91,7 +101,7 @@ export default function SignUp(props) {
                     placeholder="이메일"
                     onChange={(e) => {
                         setEmail(e.target.value);
-                        isValidationId(e.target.value);
+                        isValidationId(userId);
                     }}
                 />
                 <div className="errMsg">
@@ -114,7 +124,7 @@ export default function SignUp(props) {
                     placeholder="비밀번호"
                     onChange={(e) => {
                         setPassword(e.target.value);
-                        isValidationPassword(e.target.value);
+                        isValidationPassword(password);
                     }}
                 />
                 <div className="errMsg">
@@ -133,17 +143,48 @@ export default function SignUp(props) {
                         </span>
                     </div>
                 </div>
+                <div className="loginMiddle">
+                    <span>닉네임</span>
+                    <input
+                        name="username"
+                        className="username"
+                        type="text"
+                        placeholder="유저이름"
+                        onChange={(e) => {
+                            setUsername(e.target.value);
+                        }}
+                    />
+                </div>
                 <div className="loginMid">
                     <span>위치</span>
                     <input
                         name="위치"
                         className="subInput"
+                        id="address"
                         type="text"
                         placeholder="위치"
+                        onClick={() => {
+                            searchOpen(true);
+                        }}
                         onChange={(e) => {
                             setLocation(e.target.value);
+                            isValidationSubinput();
                         }}
                     />
+                    <button
+                        onClick={() => {
+                            props.findAddress(location, (data) => {
+                                const arr = new Array(0);
+                                data.forEach((el, idx) => {
+                                    arr.push(el);
+                                    console.log(el);
+                                });
+                                setArr(arr);
+                            });
+                        }}
+                    >
+                        <span>검색</span>
+                    </button>
                     <span>성별</span>
                     <select
                         name="성별"
@@ -152,16 +193,52 @@ export default function SignUp(props) {
                         placeholder="성별"
                         onChange={(e) => {
                             setGender(e.target.value);
+                            isValidationSubinput();
                         }}
                     >
                         <option value="none" disabled>
                             성별
                         </option>
-                        <option value="male">남자</option>
-                        <option value="female">여자</option>
+                        <option
+                            value="male"
+                            onClick={() => {
+                                setGender(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            남자
+                        </option>
+                        <option
+                            value="female"
+                            onClick={() => {
+                                setGender(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            여자
+                        </option>
                     </select>
                 </div>
-
+                <div
+                    className={
+                        searchModal ? "searchModal" : "searchModal hidden"
+                    }
+                >
+                    <span>검색된 목록입니다.</span>
+                    <ul>
+                        {searchArr.map((el, idx) => (
+                            <li
+                                key={idx}
+                                onClick={() => {
+                                    searchOpen(false);
+                                    setupAddress();
+                                }}
+                            >
+                                <span>{el.place_name}</span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                 <div className="loginMid">
                     <span>나이</span>
                     <input
@@ -171,6 +248,7 @@ export default function SignUp(props) {
                         placeholder="나이"
                         onChange={(e) => {
                             setAge(e.target.value);
+                            isValidationSubinput();
                         }}
                     />
 
@@ -182,18 +260,75 @@ export default function SignUp(props) {
                         placeholder="선호하는 운동"
                         onChange={(e) => {
                             setPreference(e.target.value);
+                            isValidationSubinput();
                         }}
                     >
                         <option value="none" disabled>
                             선호 운동
                         </option>
-                        <option value="ballSports">구기운동</option>
-                        <option value="aquaSports">아쿠아스포츠</option>
-                        <option value="running">러닝</option>
-                        <option value="weight">웨이트</option>
-                        <option value="yoga">요가</option>
-                        <option value="hiking">하이킹</option>
-                        <option value="climbing">클라이밍</option>
+                        <option
+                            value="ballSports"
+                            onClick={() => {
+                                setPreference(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            구기운동
+                        </option>
+                        <option
+                            value="aquaSports"
+                            onClick={() => {
+                                setPreference(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            아쿠아스포츠
+                        </option>
+                        <option
+                            value="running"
+                            onClick={() => {
+                                setPreference(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            러닝
+                        </option>
+                        <option
+                            value="weight"
+                            onClick={() => {
+                                setPreference(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            웨이트
+                        </option>
+                        <option
+                            value="yoga"
+                            onClick={() => {
+                                setPreference(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            요가
+                        </option>
+                        <option
+                            value="hiking"
+                            onClick={() => {
+                                setPreference(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            하이킹
+                        </option>
+                        <option
+                            value="climbing"
+                            onClick={() => {
+                                setPreference(e.target.value);
+                                isValidationSubinput();
+                            }}
+                        >
+                            클라이밍
+                        </option>
                     </select>
                 </div>
                 <div className="errMsg">
@@ -201,11 +336,24 @@ export default function SignUp(props) {
                         <span>모든 항목을 입력해주세요.</span>
                     </div>
                 </div>
-                <button className="loginBtn"> 로그인 </button>
+                <button
+                    className="loginBtn"
+                    onClick={() => {
+                        signupHandler();
+                    }}
+                >
+                    {" "}
+                    회원가입{" "}
+                </button>
                 <div className="socialBox">
                     <div className="kakao">
                         <img className="kakaoLogo" src="img/kakao-logo.png" />
-                        <div className="kakaoText">
+                        <div
+                            className="kakaoText"
+                            onClick={() => {
+                                alert("기능 준비중!");
+                            }}
+                        >
                             카카오 계정으로 신규가입
                         </div>
                     </div>

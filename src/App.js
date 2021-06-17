@@ -6,6 +6,7 @@ import MyPage from "./pages/MyPage";
 // import logo from "./logo.svg";
 import data from "./mockdata/groupData.json";
 import axios from "axios";
+const qs = require("querystring");
 require("dotenv").config();
 
 const NAGAZA_SERVER_API = process.env.REACT_APP_NAGAZA_SERVER_API;
@@ -26,7 +27,7 @@ class App extends Component {
         userInfo: [], //유저의 정보
         groupInfo: [], //유저가 속한 그룹의 정보
         searchGroupData: [],
-        isAdmin: true,
+        isAdmin: false,
         transCategoryId: [
             "ball game",
             "aqua sports",
@@ -49,6 +50,7 @@ class App extends Component {
         this.deleteGroup = this.deleteGroup.bind(this);
         this.exitGroup = this.exitGroup.bind(this);
         this.createGroupHandle = this.createGroupHandle.bind(this);
+        this.findAddress = this.findAddress.bind(this);
     }
 
     signIn = (userInfo, groupInfo) => {
@@ -107,9 +109,10 @@ class App extends Component {
                 .then((res) => {
                     const groupInfo = res.data.groupInfo;
                     groupInfo.map((el) => {
-                        const categoryIdOnServer = parseInt(el.category_id) - 1
-                        el.category_id = this.state.transCategoryId[categoryIdOnServer]
-                    })
+                        const categoryIdOnServer = parseInt(el.category_id) - 1;
+                        el.category_id =
+                            this.state.transCategoryId[categoryIdOnServer];
+                    });
                     this.setState({
                         searchGroupData: groupInfo,
                     });
@@ -206,17 +209,58 @@ class App extends Component {
                 })
             })
     };
+    findAddress = async (query, callback) => {
+        await axios({
+            method: "GET",
+            url: `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}&analyze_type=similar&page=1&size=10`,
+            headers: {
+                Authorization: "KakaoAK cb855df8892be53bdaf2507eeeac3138",
+            },
+            data: {
+                analyze_type: "similar",
+                page: 1,
+                size: 5,
+            },
+        }).then(
+            (res) => {
+                callback(res.data.documents);
+            }
 
+            // res.data.document.forEach((el) => {
+            //     console.log(el);
+            // });
+        );
+    };
+    createGroupHandle = async (createInfo) => {
+        const categoryText = createInfo.categoryId;
+        console.log(createInfo);
+        await axios
+            .post(`${NAGAZA_SERVER_API}/group/creategroup`, createInfo, {
+                "Content-Type": "application/json",
+                withCredentials: true,
+            })
+            .catch((e) => console.log(e))
+            .then((res) => callback);
+    };
     createGroupHandle = async (info) => {
+        const valueArr = Object.values(info);
 
+<<<<<<< HEAD
+        if (valueArr.includes("")) {
+            alert("모든 칸을 채워주세요");
+        } else {
+            // console.log(info);
+=======
         const valueArr = Object.values(info)
 
         if (valueArr.includes('')) {
             alert('모든 칸을 채워주세요')
         }
         else {
+>>>>>>> 121da2086aa4b82cf4ff9734cbfc5226bc626b73
             let createInfo = {};
-            createInfo.categoryId = Number(this.state.transCategoryId.indexOf(info.categoryId)) + 1;
+            createInfo.categoryId =
+                Number(this.state.transCategoryId.indexOf(info.categoryId)) + 1;
             createInfo.date = info.date;
             createInfo.admin = this.state.userInfo.id;
             createInfo.location = String(info.location);
@@ -224,8 +268,18 @@ class App extends Component {
             createInfo.startTime = info.startTime;
             createInfo.endTime = info.endTime;
             createInfo.groupName = info.groupName;
-            console.log(createInfo)
+            console.log(createInfo);
 
+<<<<<<< HEAD
+            await axios.post(
+                "https://127.0.0.1:4000/group/creategroup",
+                createInfo,
+                {
+                    "Content-Type": "application/json",
+                    withCredentials: true,
+                }
+            );
+=======
             await axios
                 .post(
                     "https://127.0.0.1:4000/group/creategroup",
@@ -245,6 +299,7 @@ class App extends Component {
                     })
 
                 })
+>>>>>>> 121da2086aa4b82cf4ff9734cbfc5226bc626b73
         }
     };
 
@@ -271,6 +326,7 @@ class App extends Component {
                                     signOut={this.signOut}
                                     searchGroup={this.searchGroup}
                                     isSignIn={this.state.isSignIn}
+                                    findAddress={this.findAddress}
                                 />
                             )}
                         />
@@ -287,7 +343,9 @@ class App extends Component {
                                         }
                                         groupInfo={this.state.groupInfo}
                                         joinGroup={this.joinGroup}
-                                        transCategoryId={this.state.transCategoryId}
+                                        transCategoryId={
+                                            this.state.transCategoryId
+                                        }
                                         searchGroup={this.searchGroup}
                                         searchGroupData={
                                             this.state.searchGroupData

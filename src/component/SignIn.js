@@ -15,7 +15,7 @@ export default function SignIn(props) {
     // 상위 상태
     const { closeModal, setModalHeader, openModal } = props;
 
-    const REACT_APP_NAGAZA_SERVER_API = process.env.REACT_APP_NAGAZA_SERVER_API;
+    const NAGAZA_SERVER_API = process.env.REACT_APP_NAGAZA_SERVER_API;
     const REACT_APP_KAKAO_CLIENT_ID = process.env.REACT_APP_KAKAO_CLIENT_ID;
     const REACT_APP_KAKAO_CLIENT_SECRET =
         process.env.REACT_APP_KAKAO_CLIENT_SECRET;
@@ -40,7 +40,7 @@ export default function SignIn(props) {
     };
 
     const isValidationPassword = (password) => {
-        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{12}$/; //  8 ~ 10자 영문, 숫자 조합
+        var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,10}$/; //  8 ~ 10자 영문, 숫자 조합
         setValidPassword(regExp.test(password));
         // console.log(isValidPassword);
     };
@@ -54,12 +54,10 @@ export default function SignIn(props) {
     };
 
     const signinHandler = () => {
-        // if (isValidId && isValidPassword) {
-        //     signinRequest();
-        // } else {
-        //     //do nothing
-        // }
-        signinRequest()
+        if (isValidId && isValidPassword) {
+            signinRequest();
+        } else {
+        }
     };
 
     //서버에 로그인 요청
@@ -78,10 +76,13 @@ export default function SignIn(props) {
             )
             .catch((e) => console.log(e))
             .then((res) => {
-                console.log("userInfo :", res.data.userInfo);
-                console.log("groupInfo :", res.data);
-                props.signIn(res.data.userInfo, res.data.groupInfo);
-                closeModal();
+                if (res) {
+                    props.signIn(res.data.userInfo, res.data.groupInfo);
+                    closeModal();
+                } else {
+                    setModalHeader("유효하지않음");
+                    openModal();
+                }
             });
     };
 

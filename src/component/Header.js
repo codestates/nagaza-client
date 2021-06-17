@@ -15,6 +15,7 @@ function Header(props) {
 
                     <div className="mainmenu-profile">
                         <ProfileMenu
+                            findAddress={props.findAddress}
                             isSignIn={props.isSignIn}
                             signIn={props.signIn}
                             signOut={props.signOut}

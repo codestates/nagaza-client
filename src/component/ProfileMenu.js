@@ -123,6 +123,7 @@ export default function ProfileMenu(props) {
                 header={modalHeader}
                 setModalHeader={setModalHeader}
                 openModal={openModal}
+                findAddress={props.findAddress}
             >
                 <main></main>
             </ProfileModal>
