@@ -25,12 +25,6 @@ const Map = (props) => {
             center: new kakao.maps.LatLng(33.450705, 126.570677), //지도 센터 잡아 주는 곳 // props.userLocation
             level: 3, // 지도 스케일 정해주는 곳
         };
-<<<<<<< HEAD
-=======
-        let map = new kakao.maps.Map(container, options);
-
-        // console.log(props.positions)
->>>>>>> 121da2086aa4b82cf4ff9734cbfc5226bc626b73
 
         let map = new kakao.maps.Map(container, options);
 
