@@ -245,19 +245,12 @@ class App extends Component {
     createGroupHandle = async (info) => {
         const valueArr = Object.values(info);
 
-<<<<<<< HEAD
-        if (valueArr.includes("")) {
-            alert("모든 칸을 채워주세요");
-        } else {
-            // console.log(info);
-=======
-        const valueArr = Object.values(info)
+    
 
         if (valueArr.includes('')) {
             alert('모든 칸을 채워주세요')
         }
         else {
->>>>>>> 121da2086aa4b82cf4ff9734cbfc5226bc626b73
             let createInfo = {};
             createInfo.categoryId =
                 Number(this.state.transCategoryId.indexOf(info.categoryId)) + 1;
@@ -270,16 +263,6 @@ class App extends Component {
             createInfo.groupName = info.groupName;
             console.log(createInfo);
 
-<<<<<<< HEAD
-            await axios.post(
-                "https://127.0.0.1:4000/group/creategroup",
-                createInfo,
-                {
-                    "Content-Type": "application/json",
-                    withCredentials: true,
-                }
-            );
-=======
             await axios
                 .post(
                     "https://127.0.0.1:4000/group/creategroup",
@@ -299,7 +282,6 @@ class App extends Component {
                     })
 
                 })
->>>>>>> 121da2086aa4b82cf4ff9734cbfc5226bc626b73
         }
     };
 

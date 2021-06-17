@@ -38,26 +38,33 @@ export default function SignUp(props) {
     };
 
     const isValidationSubinput = () => {
-        if (!!location && !!gender && !!age && !!preference) {
+        if (
+            location !== "" &&
+            gender !== "" &&
+            age !== "" &&
+            preference !== ""
+        ) {
             setValidsub(true);
         } else {
             setValidsub(false);
         }
+        console.log(location, gender, age, preference);
+        console.log(isValidsub);
     };
     const setupAddress = (e) => {
-        const target = event.target.textContent;
-        console.log(target);
+        const text = e.target.textContent;
+        console.log(text);
         let input = document.getElementById("address");
-        input.value = target;
+        input.value = text;
     };
     //서버에 회원가입 요청
     const signupHandler = () => {
+        console.log(isValidId, isValidPassword, isValidsub);
         if (isValidId && isValidPassword && isValidsub) {
             signupRequest();
         } else {
             //donothing
-
-            console.log("안되냐?");
+            console.log(isValidId, isValidPassword, isValidsub);
         }
     };
     const signupRequest = async () => {
@@ -80,7 +87,6 @@ export default function SignUp(props) {
             )
             .catch((e) => console.log(e))
             .then((res) => {
-                props.signIn(res.data.userInfo, res.data.groupInfo);
                 closeModal();
                 setModalHeader("로그인");
                 openModal();
@@ -124,7 +130,7 @@ export default function SignUp(props) {
                     placeholder="비밀번호"
                     onChange={(e) => {
                         setPassword(e.target.value);
-                        isValidationPassword(password);
+                        isValidationPassword(e.target.value);
                     }}
                 />
                 <div className="errMsg">
@@ -196,12 +202,12 @@ export default function SignUp(props) {
                             isValidationSubinput();
                         }}
                     >
-                        <option value="none" disabled>
+                        <option value="" disabled>
                             성별
                         </option>
                         <option
                             value="male"
-                            onClick={() => {
+                            onChange={() => {
                                 setGender(e.target.value);
                                 isValidationSubinput();
                             }}
@@ -210,7 +216,7 @@ export default function SignUp(props) {
                         </option>
                         <option
                             value="female"
-                            onClick={() => {
+                            onChange={() => {
                                 setGender(e.target.value);
                                 isValidationSubinput();
                             }}
@@ -227,14 +233,15 @@ export default function SignUp(props) {
                     <span>검색된 목록입니다.</span>
                     <ul>
                         {searchArr.map((el, idx) => (
-                            <li
-                                key={idx}
-                                onClick={() => {
-                                    searchOpen(false);
-                                    setupAddress();
-                                }}
-                            >
-                                <span>{el.place_name}</span>
+                            <li key={idx}>
+                                <span
+                                    onClick={(e) => {
+                                        searchOpen(false);
+                                        setupAddress(e);
+                                    }}
+                                >
+                                    {el.place_name}
+                                </span>
                             </li>
                         ))}
                     </ul>
@@ -263,7 +270,7 @@ export default function SignUp(props) {
                             isValidationSubinput();
                         }}
                     >
-                        <option value="none" disabled>
+                        <option value="" disabled>
                             선호 운동
                         </option>
                         <option
