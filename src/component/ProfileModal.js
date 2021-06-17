@@ -36,6 +36,8 @@ export default function ProfileModal(props) {
         );
     } else if (header === "로그아웃") {
         modalContent = "로그아웃되었습니다.";
+    } else if (header === "유효하지않음") {
+        modalContent = "유효하지 않은 아이디 혹은 비밀번호입니다!";
     }
 
     return (

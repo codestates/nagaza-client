@@ -1,12 +1,27 @@
 .searchModal {
-    position: fixed;
-    top: 28.5rem;
-    width: 10rem;
+    position: relative;
+    width: 50%;
     z-index: 1150;
     background-color: white;
     border: 1px solid grey;
 }
-.searchModal > .
+li,
+ul {
+    list-style-type: none;
+}
+.searchModal > ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.searchModal > ul > li:hover {
+    background-color: rgb(214, 214, 214);
+    cursor: pointer;
+}
 .searchModal.hidden {
     display: none;
+}
+.username {
+    display: flex;
+    justify-content: center;
 }
