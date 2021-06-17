@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./SignUp.css";
 require("dotenv").config();
 
 const KAKAO_CLIENT_ID = process.env.KAKAO_CLIENT_ID;
@@ -7,7 +8,7 @@ const KAKAO_CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET;
 const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
 const NAGAZA_SERVER_API = process.env.NAGAZA_SERVER_API;
 
-export default function SignUp() {
+export default function SignUp(props) {
     //local state
     const [userId, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
@@ -19,6 +20,7 @@ export default function SignUp() {
     const [gender, setGender] = useState("");
     const [age, setAge] = useState("");
     const [preference, setPreference] = useState("");
+    const [searchArr, setArr] = useState([]);
 
     const { signIn, closeModal, setModalHeader, openModal } = props;
 
@@ -91,7 +93,7 @@ export default function SignUp() {
                     placeholder="이메일"
                     onChange={(e) => {
                         setEmail(e.target.value);
-                        isValidationId(e.target.value);
+                        isValidationId(userId);
                     }}
                 />
                 <div className="errMsg">
@@ -114,7 +116,7 @@ export default function SignUp() {
                     placeholder="비밀번호"
                     onChange={(e) => {
                         setPassword(e.target.value);
-                        isValidationPassword(e.target.value);
+                        isValidationPassword(password);
                     }}
                 />
                 <div className="errMsg">
@@ -142,8 +144,21 @@ export default function SignUp() {
                         placeholder="위치"
                         onChange={(e) => {
                             setLocation(e.target.value);
+                            isValidationSubinput();
                         }}
                     />
+                    <button
+                        onClick={() => {
+                            props.findAddress(location, (data) => {
+                                console.log(data, "콜백찍힌다");
+                                const arr = new Array(0);
+                                data.forEach((el, idx) => arr.push(el));
+                                setArr(arr);
+                            });
+                        }}
+                    >
+                        <span>검색</span>
+                    </button>
                     <span>성별</span>
                     <select
                         name="성별"
@@ -152,6 +167,7 @@ export default function SignUp() {
                         placeholder="성별"
                         onChange={(e) => {
                             setGender(e.target.value);
+                            isValidationSubinput();
                         }}
                     >
                         <option value="none" disabled>
@@ -161,7 +177,14 @@ export default function SignUp() {
                         <option value="female">여자</option>
                     </select>
                 </div>
-
+                <div className="searchModal">
+                    검색목록입니다.
+                    <ul>
+                        {searchArr.map((el, idx) => (
+                            <li key={idx}>{el.address_name}</li>
+                        ))}
+                    </ul>
+                </div>
                 <div className="loginMid">
                     <span>나이</span>
                     <input
@@ -171,6 +194,7 @@ export default function SignUp() {
                         placeholder="나이"
                         onChange={(e) => {
                             setAge(e.target.value);
+                            isValidationSubinput();
                         }}
                     />
 
@@ -182,6 +206,7 @@ export default function SignUp() {
                         placeholder="선호하는 운동"
                         onChange={(e) => {
                             setPreference(e.target.value);
+                            isValidationSubinput();
                         }}
                     >
                         <option value="none" disabled>
@@ -197,11 +222,11 @@ export default function SignUp() {
                     </select>
                 </div>
                 <div className="errMsg">
-                    <div className={isValidSub ? "ok" : "ok hidden"}>
+                    <div className={isValidsub ? "ok" : "ok hidden"}>
                         <span>모든 항목을 입력해주세요.</span>
                     </div>
                 </div>
-                <button className="loginBtn"> 로그인 </button>
+                <button className="loginBtn"> 회원가입 </button>
                 <div className="socialBox">
                     <div className="kakao">
                         <img className="kakaoLogo" src="img/kakao-logo.png" />

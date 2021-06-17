@@ -22,6 +22,7 @@ export default function ProfileModal(props) {
                 closeModal={closeModal}
                 setModalHeader={setModalHeader}
                 openModal={openModal}
+                findAddress={props.findAddress}
             ></SignUp>
         );
     } else if (header === "로그인") {

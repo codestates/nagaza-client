@@ -64,6 +64,7 @@ class landingPage extends Component {
                             signOut={this.props.signOut}
                             searchGroup={this.props.searchGroup}
                             isSignIn={this.props.isSignIn}
+                            findAddress={this.props.findAddress}
                         ></Header>
                     </div>
                     <section className="lp first-page">

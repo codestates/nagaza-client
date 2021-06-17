@@ -1,0 +1,12 @@
+.searchModal {
+    position: fixed;
+    top: 28.5rem;
+    width: 10rem;
+    z-index: 1150;
+    background-color: white;
+    border: 1px solid grey;
+}
+.searchModal > .
+.searchModal.hidden {
+    display: none;
+}

@@ -6,6 +6,7 @@ import MyPage from "./pages/MyPage";
 // import logo from "./logo.svg";
 import data from "./mockdata/groupData.json";
 import axios from "axios";
+const qs = require("querystring");
 require("dotenv").config();
 
 const NAGAZA_SERVER_API = process.env.REACT_APP_NAGAZA_SERVER_API;
@@ -49,6 +50,7 @@ class App extends Component {
         this.deleteGroup = this.deleteGroup.bind(this);
         this.exitGroup = this.exitGroup.bind(this);
         this.createGroupHandle = this.createGroupHandle.bind(this);
+        this.findAddress = this.findAddress.bind(this);
     }
 
     signIn = (userInfo, groupData) => {
@@ -217,7 +219,28 @@ class App extends Component {
             groupInfo: [],
         });
     };
+    findAddress = async (query, callback) => {
+        await axios({
+            method: "GET",
+            url: `https://dapi.kakao.com/v2/local/search/keyword.json?query=${query}&analyze_type=similar&page=1&size=10`,
+            headers: {
+                Authorization: "KakaoAK cb855df8892be53bdaf2507eeeac3138",
+            },
+            data: {
+                analyze_type: "similar",
+                page: 1,
+                size: 5,
+            },
+        }).then(
+            (res) => {
+                callback(res.data.documents);
+            }
 
+            // res.data.document.forEach((el) => {
+            //     console.log(el);
+            // });
+        );
+    };
     createGroupHandle = async (createInfo) => {
         const categoryText = createInfo.categoryId;
         console.log(createInfo);
@@ -227,7 +250,7 @@ class App extends Component {
                 withCredentials: true,
             })
             .catch((e) => console.log(e))
-            .then((res) => console.log(res));
+            .then((res) => callback);
     };
 
     //유저정보변경, 그룹삭제. 그룹탈퇴ㅏ. 그룹참가 등의 메소드는 업데이트 엔드포인트로 ㅗpost요청한번
@@ -253,6 +276,7 @@ class App extends Component {
                                     signOut={this.signOut}
                                     searchGroup={this.searchGroup}
                                     isSignIn={this.state.isSignIn}
+                                    findAddress={this.findAddress}
                                 />
                             )}
                         />
