@@ -52,37 +52,33 @@ class App extends Component {
     }
 
     signIn = (userInfo, groupInfo) => {
-        // console.log("signIn");
-        let isAdmin = userInfo.id === groupInfo.admin ? true : false
-        const categoryNumb = Number(groupInfo.category_id) - 1
-        // console.log(categoryNumb)
-        groupInfo.category_id = this.state.transCategoryId[categoryNumb]
-        this.setState({
-            isSignIn: true,
-            userInfo: userInfo,
-            groupInfo: groupInfo,
-            isAdmin: isAdmin
-        });
+        // console.log(userInfo, groupInfo)
+        if (groupInfo !== null) {
+            const categoryNumb = Number(groupInfo.category_id) - 1
+            groupInfo.category_id = this.state.transCategoryId[categoryNumb]
+            let isAdmin = userInfo.id === groupInfo.admin ? true : false
+            this.setState({
+                isSignIn: true,
+                userInfo: userInfo,
+                groupInfo: groupInfo,
+                isAdmin: isAdmin
+            });
+        }
+        else {
+            this.setState({
+                isSignIn: true,
+                userInfo: userInfo,
+                groupInfo: [],
+                isAdmin: false
 
-
+            })
+            // console.log(this.state.groupInfo)
+        }
     };
 
     componentDidMount() {
-        // axios
-        //     .get(
-        //         "http://ec2-52-79-253-209.ap-northeast-2.compute.amazonaws.com",
-        //         {
-        //             withCredentials: true,
-        //         }
-        //     )
-        //     .then((res) => {
-        //         // console.log(res);
-        //         this.setState({
-        //             isConnected: true,
-        //             data: res.data,
-        //         });
-        //     })
-        //     .catch((err) => console.log(err));
+
+        console.log(this.state.groupInfo)
     }
 
     signOut = () => {
@@ -104,7 +100,7 @@ class App extends Component {
             alert("운동을 골라주세요");
         } else {
             await axios
-                .get(`${NAGAZA_SERVER_API}/group/groupinfo`, searchInfo, {
+                .get(`https://127.0.0.1:4000/group/groupinfo`, searchInfo, {
                     "Content-Type": "application/json",
                     withCredentials: true,
                 })
@@ -122,105 +118,93 @@ class App extends Component {
     };
 
     changeUserInfo = async (changeUserInfo) => {
+        console.log(changeUserInfo)
+        console.log(this.state.transCategoryId.indexOf(changeUserInfo.category) + 1)
+        console.log(this.state.userInfo)
         await axios.post(
-            `${NAGAZA_SERVER_API}/user/updateuserinfo`,
+            `https://127.0.0.1:4000/user/updateuserinfo`,
             {
                 userId: this.state.userInfo.id,
                 newUserName: changeUserInfo.username,
-                newEmail: changeUserInfo.email,
                 newAge: changeUserInfo.age,
-                newPreference:
-                    this.state.transCategoryId.indexOf(
-                        changeUserInfo.category
-                    ) + 1,
+                newPreference: this.state.transCategoryId.indexOf(changeUserInfo.category) + 1
             },
             {
                 "Content-Type": "application/json",
                 withCredentials: true,
             }
-        );
-
-        await axios
-            .get(
-                `${NAGAZA_SERVER_API}/user/userinfo`,
-                {
-                    userId: this.state.userInfo.id,
-                },
-                {
-                    "Content-Type": "application/json",
-                    withCredentials: true,
-                }
-            )
-            .catch((e) => console.log(e))
-            .then((res) => console.log(res));
-
-        // await this.setState({
-        //     userInfo: changeUserInfo,
-        // });
-        console.log(this.state.userInfo);
+        )
+        .then(res => {
+            if(res.status === 200){
+                this.setState({
+                    userInfo : {
+                        ...this.state.userInfo,
+                        age : changeUserInfo.age,
+                        username : changeUserInfo.username,
+                        category : changeUserInfo.category
+                    }
+                })
+            }
+        });
     };
 
     deleteGroup = async () => {
-        // await axios.post(`${NAGAZA_SERVER_API}/group/deletegroup`, {
-        //     groupId: this.state.groupInfo.groupId,
-        //     userId: this.state.userInfo.userId
-        // }, {
-        //     'Content-Type': 'application/json',
-        //     withCredentials: true
-        // })
-        //     .catch(e => console.log(e))
-        //     .then(res => console.log(res))
-        //     .then(res => {
-        //         this.setState({
-        //             isAdmin: false,
-        //             groupInfo: res
-        //         })
-        //     })
-        this.setState({
-            isAdmin: false,
-            groupInfo: [],
-        });
+        await axios.post(`https://127.0.0.1:4000/group/deletegroup`, {
+            groupId: this.state.groupInfo.id,
+            userId: this.state.userInfo.id
+        }, {
+            'Content-Type': 'application/json',
+            withCredentials: true
+        })
+            .then(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    this.setState({
+                        isAdmin: false,
+                        groupInfo: [],
+                    });
+                }
+            })
+
+
     };
 
     exitGroup = async () => {
-        // await axios.post(`${NAGAZA_SERVER_API}/group/unjoingroup`, {
-        //     groupId: this.state.groupInfo.groupId,
-        //     userId: this.state.userInfo.userId
-        // }, {
-        //     'Content-Type': 'application/json',
-        //     withCredentials: true
-        // })
-        //     .catch(e => console.log(e))
-        //     .then(res => console.log(res))
-        //     .then(res => {
-        //         this.setState({
-        //             groupInfo: res
-        //         })
-        //     })
-        this.setState({
-            groupInfo: [],
-        });
+        await axios.post(`https://127.0.0.1:4000/group/unjoingroup`, {
+            groupId: this.state.groupInfo.id,
+            userId: this.state.userInfo.id
+        }, {
+            'Content-Type': 'application/json',
+            withCredentials: true
+        })
+            .catch(e => console.log(e))
+            .then(res => {
+                console.log(res)
+                if (res.status === 200) {
+                    this.setState({
+                        groupInfo: [],
+                        isAdmin: false
+                    })
+                }
+            })
     };
 
     joinGroup = async (groupId) => {
-        // await axios.post(`${NAGAZA_SERVER_API}/group/joingroup`, {
-        //     groupId: groupId,
-        //     userId: 'this.state.userInfo.userId'
-        // }, {
-        //     'Content-Type': 'application/json',
-        //     withCredentials: true
-        // })
-        //     .catch(e => console.log(e))
-        //     .then(res => console.log(res))
-        //     .then(res => {
-        //         this.setState({
-        //             groupInfo : res.groupInfo
-        //         })
-        //     })
-        // console.log(1);
-        this.setState({
-            groupInfo: [],
-        });
+        await axios.post(`https://127.0.0.1:4000/group/joingroup`, {
+            groupId: groupId,
+            userId: this.state.userInfo.id
+        }, {
+            'Content-Type': 'application/json',
+            withCredentials: true
+        })
+            .then(res => {
+                let newGroupInfo = res.data.groupInfo
+                newGroupInfo.id = res.data.groupId.group_id 
+                this.setState({
+                    groupInfo : newGroupInfo,
+                    isAdmin : false
+                })
+            })
     };
 
     createGroupHandle = async (info) => {
@@ -231,9 +215,6 @@ class App extends Component {
             alert('모든 칸을 채워주세요')
         }
         else {
-
-
-            // console.log(info);
             let createInfo = {};
             createInfo.categoryId = Number(this.state.transCategoryId.indexOf(info.categoryId)) + 1;
             createInfo.date = info.date;
@@ -254,6 +235,16 @@ class App extends Component {
                         withCredentials: true,
                     }
                 )
+                .then(res => {
+                    let newGroupInfo = res.data.groupInfo
+                    newGroupInfo.id = res.data.groupId.group_id 
+                    // console.log(res)
+                    this.setState({
+                        groupInfo : newGroupInfo,
+                        isAdmin : true
+                    })
+
+                })
         }
     };
 

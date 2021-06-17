@@ -4,11 +4,12 @@ import axios from "axios";
 export default function CreateGroup(props) {
 
   const today = new Date()
-
   let month = new String(today.getMonth() + 1);
   month = month >= 10 ? month : '0' + month;
   let day = new String(today.getDate());
   day = day >= 10 ? day : '0' + day;
+
+  let isGroup = props.groupInfo === null ? false : true
 
   let [createInfo, setInfo] = useState({
     groupName: "",
@@ -57,7 +58,7 @@ export default function CreateGroup(props) {
               <input type="text" name="description" onChange={onChange}></input>
               <button className={'contents-button'}
                 onClick={() => {
-                  props.createGroupHandle(createInfo);
+                  !isGroup ? props.createGroupHandle(createInfo) : alert('그룹이 있습니다');
                 }}
               >
                 그룹 생성하기

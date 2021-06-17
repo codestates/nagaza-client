@@ -7,7 +7,7 @@ const KAKAO_CLIENT_SECRET = process.env.KAKAO_CLIENT_SECRET;
 const KAKAO_REDIRECT_URI = process.env.KAKAO_REDIRECT_URI;
 const NAGAZA_SERVER_API = process.env.NAGAZA_SERVER_API;
 
-export default function SignUp() {
+export default function SignUp(props) {
     //local state
     const [userId, setEmail] = useState(null);
     const [password, setPassword] = useState(null);
@@ -197,7 +197,7 @@ export default function SignUp() {
                     </select>
                 </div>
                 <div className="errMsg">
-                    <div className={isValidSub ? "ok" : "ok hidden"}>
+                    <div className={isValidsub ? "ok" : "ok hidden"}>
                         <span>모든 항목을 입력해주세요.</span>
                     </div>
                 </div>

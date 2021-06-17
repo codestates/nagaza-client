@@ -32,7 +32,7 @@ const Map = (props) => {
         };
         let map = new kakao.maps.Map(container, options);
 
-        console.log(props.positions)
+        // console.log(props.positions)
 
 
         var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
@@ -116,6 +116,7 @@ const Map = (props) => {
         <div className={"map-info"}>
             {props.createGroupState ? (
                 <CreateGroup
+                    groupInfo={props.groupInfo}
                     close={props.close}
                     isOpen={props.isOpen}
                     createGroupHandle={props.createGroupHandle}

@@ -15,7 +15,7 @@ export default function DisplayUserInfo(props) {
       [name]: value,
     });
   }
-  console.log(props)
+  // console.log(props)
   const reverseChange = () => {
     // console.log(changeuserInfo)
     props.changeUserInfo(changeuserInfo)

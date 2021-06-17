@@ -36,13 +36,13 @@ export default function SignIn(props) {
         let regExp =
             /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
         setValidId(regExp.test(email));
-        console.log(isValidId);
+        // console.log(isValidId);
     };
 
     const isValidationPassword = (password) => {
         var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{12}$/; //  8 ~ 10자 영문, 숫자 조합
         setValidPassword(regExp.test(password));
-        console.log(isValidPassword);
+        // console.log(isValidPassword);
     };
 
     //카카오 Oauth 인증 신청
@@ -54,18 +54,19 @@ export default function SignIn(props) {
     };
 
     const signinHandler = () => {
-        if (isValidId && isValidPassword) {
-            signinRequest();
-        } else {
-            //do nothing
-        }
+        // if (isValidId && isValidPassword) {
+        //     signinRequest();
+        // } else {
+        //     //do nothing
+        // }
+        signinRequest()
     };
 
     //서버에 로그인 요청
     const signinRequest = async () => {
         await axios
             .post(
-                `${NAGAZA_SERVER_API}/user/signin`,
+                `https://127.0.0.1:4000/user/signin`,
                 {
                     email: userId,
                     password: password,
@@ -78,7 +79,7 @@ export default function SignIn(props) {
             .catch((e) => console.log(e))
             .then((res) => {
                 console.log("userInfo :", res.data.userInfo);
-                console.log("userInfo :", res.data.groupInfo);
+                console.log("groupInfo :", res.data);
                 props.signIn(res.data.userInfo, res.data.groupInfo);
                 closeModal();
             });
