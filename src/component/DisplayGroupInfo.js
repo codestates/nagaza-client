@@ -1,9 +1,9 @@
 import React from 'react'
 
 export default function DisplayGroupInfo(props) {
-  // const isGroup = props.groupInfo.length === 0 ? false : true
-  const isGroup = true
-  console.log(props)
+  const isGroup = props.groupInfo === null ? false : true
+  // const isGroup = true
+  // console.log(props)
   return (
     <div className={'group-state'}>
       {isGroup ? (
