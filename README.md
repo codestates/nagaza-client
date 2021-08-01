@@ -1,6 +1,6 @@
 # NAGAZA 프로젝트
 
-![title](https://user-images.githubusercontent.com/74225210/121467685-7e1d8880-c9f4-11eb-8c22-dce4d97c56a5.png){: width="300" height="300"}
+![title](https://user-images.githubusercontent.com/74225210/121467685-7e1d8880-c9f4-11eb-8c22-dce4d97c56a5.png)
 
 ' 어디 간편하게 모일 수 있는 운동모임이 없을까? '
 
