@@ -22,5 +22,6 @@
 
 # 나가자!
 
+server 👉 [github.com/codestates/nagaza-server](github.com/codestates/nagaza-server)
 
 
